@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@yield('title', 'Syams Manufacturing')</title>
+    <link rel="icon" href="@yield('pavicon', asset('assets/image/logo-syams.jpg'))" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="TemplatesJungle">
+    <meta name="keywords" content="ecommerce,fashion,store">
+    <meta name="description" content="ecommerce,fashion,store manufacturing">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/css/vendor.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    @yield('styles')
+</head>
+
+<body class="homepage">
+  @php
+      $company_profile = App\Models\CompanyProfile::first();
+  @endphp
+
+  @section('title', ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacture'))
+  @section('pavicon', asset($company_profile && $company_profile->pavicon ? 'assets/image/'.$company_profile->pavicon : 'assets/image/logo-syams.jpg'))
+  
+  <div class="preloader text-white fs-6 text-uppercase overflow-hidden" style="z-index: 9999;"></div>
+
+  {{-- <div class="search-popup">
+    <div class="search-popup-container">
+
+      <form role="search" method="get" class="form-group" action="">
+        <input type="search" id="search-form" class="form-control border-0 border-bottom"
+          placeholder="Type and press enter" value="" name="s" />
+        <button type="submit" class="search-submit border-0 position-absolute bg-white"
+          style="top: 15px;right: 15px;"><svg class="search" width="24" height="24">
+            <use xlink:href="#search"></use>
+          </svg></button>
+      </form>
+
+      <h5 class="cat-list-title">Browse Categories</h5>
+
+      <ul class="cat-list">
+        <li class="cat-list-item">
+          <a href="#" title="Jackets">Jackets</a>
+        </li>
+        <li class="cat-list-item">
+          <a href="#" title="T-shirts">T-shirts</a>
+        </li>
+        <li class="cat-list-item">
+          <a href="#" title="Handbags">Handbags</a>
+        </li>
+        <li class="cat-list-item">
+          <a href="#" title="Accessories">Accessories</a>
+        </li>
+        <li class="cat-list-item">
+          <a href="#" title="Cosmetics">Cosmetics</a>
+        </li>
+        <li class="cat-list-item">
+          <a href="#" title="Dresses">Dresses</a>
+        </li>
+        <li class="cat-list-item">
+          <a href="#" title="Jumpsuits">Jumpsuits</a>
+        </li>
+      </ul>
+
+    </div>
+  </div> --}}
+
+  @if (
+    // Auth::guard('customer')->user() &&
+    (
+      request()->segment(1) == 'dashboard' ||
+      request()->segment(1) == 'my-sample' ||
+      request()->segment(1) == 'my-order' ||
+      request()->segment(1) == 'profile'
+    )
+  )
+    @include('frontend.layouts.navbar-panel')
+    @include('frontend.layouts.breadcrumb')
+  @else
+    @include('frontend.layouts.navbar')
+  @endif
+
+  @yield('content')
+
+  @include('frontend.layouts.footer')
+
+  <script src="{{ asset('assets/frontend') }}/js/jquery.min.js"></script>
+  <script src="{{ asset('assets/frontend') }}/js/plugins.js"></script>
+  <script src="{{ asset('assets/frontend') }}/js/SmoothScroll.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="{{ asset('assets/frontend') }}/js/script.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    function showToastr(position, type, message){
+      toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": position,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+      }
+      toastr[type](message)
+    }
+  </script>
+
+  @yield('scripts')
+</body>
+
+</html>
