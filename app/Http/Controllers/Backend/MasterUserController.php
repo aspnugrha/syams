@@ -162,7 +162,7 @@ class MasterUserController extends Controller
                 'image' => $image,
                 'updated_by' => Auth::guard('web')->user()->id,
                 'updated_at' => date('Y-m-d H:i:s'),
-                'activation_code' => ($user->email == $request->email)? $user->activation_code : $activation_code,
+                'activation_code' => (($user->email == $request->email)? $user->activation_code : $activation_code),
             ]);
 
             Cache::flush();
