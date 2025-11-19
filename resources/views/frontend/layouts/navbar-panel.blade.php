@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg text-uppercase fs-6 p-3 border-bottom align-items-center">
+<nav class="navbar navbar-expand-lg fs-6 p-3 align-items-center">
     <div class="container-fluid">
         <div class="row justify-content-between align-items-center w-100">
 
@@ -26,13 +26,13 @@
                     </div>
 
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-2 gap-lg-5 pe-3">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-2 gap-lg-4 pe-3" style="font-weight: 500;">
                             <li class="nav-item {{ (request()->segment(1) == 'dashboard' || request()->segment(1) == null) ? 'active' : '' }}">
                                 <a class="nav-link {{ (request()->segment(1) == 'dashboard' || request()->segment(1) == null) ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
-                            <li class="nav-item {{ request()->segment(1) == 'my-sample' ? 'active' : '' }}">
+                            {{-- <li class="nav-item {{ request()->segment(1) == 'my-sample' ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->segment(1) == 'my-sample' ? 'active' : '' }}" href="{{ route('my-sample') }}">My Sample</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item {{ request()->segment(1) == 'my-order' ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->segment(1) == 'my-order' ? 'active' : '' }}" href="{{ route('my-order') }}">My Order</a>
                             </li>

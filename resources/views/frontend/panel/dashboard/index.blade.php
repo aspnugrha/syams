@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<section class="collection bg-light position-relative">
+<section class="collection bg-light position-relative pt-5">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-6">
@@ -13,7 +13,7 @@
                                 <p>
                                     {{ $sample_pending }} Requested, {{ $sample_approved }} Accepted, {{ $sample_canceled }} Cancel
                                 </p>
-                                <a href="{{ route('my-sample') }}" class="btn btn-dark text-uppercase mt-3">Show More</a>
+                                <a href="{{ route('my-order') }}" class="btn btn-dark text-uppercase mt-3">Show More</a>
                             </div>
                         </div>
                     </div>

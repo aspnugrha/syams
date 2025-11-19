@@ -4,7 +4,7 @@
 <section class="newsletter bg-light border-bottom" style="background: url(images/pattern-bg.png) no-repeat;">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8 py-5 my-5">
+        <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
             <h3 class="section-title text-uppercase">Forgot Password Form</h3>
             <span class="text-muted">Don't worry, it only takes a few moments for your account to be back.</span>
@@ -14,7 +14,7 @@
             <input type="email" name="email" id="email" placeholder="Your Email Addresss" class="form-control form-control-lg" required value="{{ request()->email ? request()->email : old('email') }}" onkeydown="if(event.key === 'Enter') event.preventDefault();">
             <span class="text-muted my-2">Don't have an account? <a href="{{ route('register').(request()->email? '?email='.request()->email : '') }}">Register</a></span>
             <button type="button" id="btn-forgot" onclick="forgot()" class="btn btn-dark btn-lg text-uppercase w-100">Send Me An Email</button>
-            <p class="w-100 my-2 text-muted text-center">Your account isn't active yet? <a href="">Activate it here</a>.</p>
+            <p class="w-100 my-2 text-muted text-center">Your account isn't active yet? <a href="{{ route('activation') }}">Activate it here</a>.</p>
           </form>
         </div>
       </div>

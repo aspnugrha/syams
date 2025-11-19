@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
     {
         $admin = [
             [
+                'id' => 'USR2000000000001SrkcfS',
                 'name' => 'superadmin',
                 'email' => 'superadmin@admin.com',
             ],
@@ -25,9 +26,9 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        foreach($admin as $item){
+        foreach($admin as $index => $item){
             DB::table('users')->insert([
-                'id' => IdGenerator::generate('USR', 'users'),
+                'id' => ($index == 0) ? $item['id'] : IdGenerator::generate('USR', 'users'),
                 'name' => $item['name'],
                 'email' => $item['email'],
                 'password' => password_hash('password', PASSWORD_DEFAULT),

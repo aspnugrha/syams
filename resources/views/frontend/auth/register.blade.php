@@ -4,7 +4,7 @@
 <section class="newsletter bg-light border-bottom" style="background: url(images/pattern-bg.png) no-repeat;">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8 py-5 my-5">
+        <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
             <h3 class="section-title text-uppercase">Register Form</h3>
             <span class="text-muted">One more step, to get full access</span>
@@ -14,13 +14,13 @@
             <input type="text" name="name" id="name" placeholder="Your Fullname" class="form-control form-control-lg" required onkeydown="if(event.key === 'Enter') register()">
             <input type="email" name="email" id="email" placeholder="Your Email Addresss" class="form-control form-control-lg" required value="{{ request()->email }}" onkeydown="if(event.key === 'Enter') register()">
             <div class="invalid-feedback" id="email-feedback"></div>
-            <input type="number" name="phone_number" id="phone_number" placeholder="628xxxxxxxxxx" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeydown="if(event.key === 'Enter') register()">
+            <input type="text" name="phone_number" id="phone_number" placeholder="628xxxxxxxxxx" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeydown="if(event.key === 'Enter') register()">
             <div class="invalid-feedback" id="phone_number-feedback"></div>
             <input type="password" name="password" id="password" placeholder="********" class="form-control form-control-lg" required onkeydown="if(event.key === 'Enter') register()">
             <div class="invalid-feedback" id="password-feedback"></div>
             <span class="text-muted my-2">Already have an account? <a href="{{ route('login') }}">Login</a></span>
             <button type="button" onclick="register()" id="btn-register" class="btn btn-dark btn-lg text-uppercase w-100">Register</button>
-            <p class="w-100 my-2 text-muted text-center">Your account isn't active yet? <a href="">Activate it here</a>.</p>
+            <p class="w-100 my-2 text-muted text-center">Your account isn't active yet? <a href="{{ route('activation') }}">Activate it here</a>.</p>
           </form>
         </div>
       </div>
@@ -76,8 +76,21 @@
               showToastr('toast-top-right', 'error', res.message)
             }
         },
-        error:function(res){
-            console.log('error', res);
+        error:function(xhr){
+            // console.log('error', xhr);
+            var res = xhr.responseJSON;
+            if ($.isEmptyObject(res) == false) {
+                console.log(res.errors);
+                
+                $.each(res.errors, function(key, value) {
+                    $('#' + key)
+                        // .closest('#error')
+                        .addClass('is-invalid');
+                    $('#' + key + '-feedback').text(value.join(', '))
+                });
+            }
+                
+            showToastr('toast-top-right', 'error', "Please check the form for errors")
         },
         complete: function(){
           $('#btn-register').text('Register').prop('disabled', false)

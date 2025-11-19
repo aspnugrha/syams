@@ -1,4 +1,4 @@
-<div class="modal-custom-wrapper" id="modal-custom">
+<div class="modal-custom-wrapper" id="modal-custom" style="z-index: 9999;">
 	<div class="modal-custom-body card rounded-0">
 		{{-- <div class="modal-custom-header">
 			<h2 class="heading">Modal Header</h2>

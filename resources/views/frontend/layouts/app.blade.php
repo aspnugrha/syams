@@ -32,6 +32,43 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <style>
+        /* Gaya default (mobile) */
+      .responsive-img {
+        width: 100%;
+        height: 100vh; /* 100% tinggi layar di mobile */
+        object-fit: cover;
+      }
+
+      /* Untuk layar besar (desktop, mulai dari breakpoint lg = 992px) */
+      @media (min-width: 992px) {
+        .responsive-img {
+          height: 100vh; /* 50% tinggi layar */
+        }
+      }
+      .size-badge {
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        background: rgba(255, 255, 255, 0.0);
+      }
+      .size-badge-dark {
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(53, 53, 53, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        background: rgba(255, 255, 255, 0.0);
+      }
+    </style>
     @yield('styles')
 </head>
 
@@ -45,7 +82,7 @@
   
   <div class="preloader text-white fs-6 text-uppercase overflow-hidden" style="z-index: 9999;"></div>
 
-  {{-- <div class="search-popup">
+  <div class="search-popup">
     <div class="search-popup-container">
 
       <form role="search" method="get" class="form-group" action="">
@@ -84,7 +121,7 @@
       </ul>
 
     </div>
-  </div> --}}
+  </div>
 
   @if (
     // Auth::guard('customer')->user() &&
@@ -96,7 +133,7 @@
     )
   )
     @include('frontend.layouts.navbar-panel')
-    @include('frontend.layouts.breadcrumb')
+    {{-- @include('frontend.layouts.breadcrumb') --}}
   @else
     @include('frontend.layouts.navbar')
   @endif

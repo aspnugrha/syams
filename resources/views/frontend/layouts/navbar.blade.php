@@ -66,7 +66,7 @@ body {
                     </div>
 
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-2 gap-lg-4 pe-3" style="font-weight: 500;">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-2 gap-lg-3 pe-3" style="font-weight: 400;">
                             {{-- <li class="nav-item {{ (request()->segment(1) == 'home' || request()->segment(1) == null) ? 'active' : '' }}">
                                 <a class="nav-link {{ (request()->segment(1) == 'home' || request()->segment(1) == null) ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                             </li> --}}
@@ -114,9 +114,10 @@ body {
                             </li>
                             <li class="nav-item col-lg-auto d-block d-lg-none mt-4">
                                 @if (Auth::guard('customer')->user())
-                                    <a href="index.html" class=" text-uppercase btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                                    aria-controls="offcanvasCart">
-                                        <i class="ti ti-user"></i> Udin
+                                    <a href="{{ route('dashboard') }}" class=" text-uppercase btn btn-dark"
+                                        {{-- data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" --}}
+                                    >
+                                        <i class="ti ti-user"></i> {{ Auth::guard('customer')->user()->name }}
                                     </a>
                                 @else
                                     <a href="{{ route('login') }}" class=" text-uppercase btn btn-dark" >
@@ -166,9 +167,10 @@ body {
                     </li> --}}
                     <li class="d-none d-lg-block">
                         @if (Auth::guard('customer')->user())
-                        <a href="index.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                            aria-controls="offcanvasCart">
-                            <i class="ti ti-user"></i> Udin
+                        <a href="{{ route('dashboard') }}" class="text-uppercase mx-3"
+                            {{-- data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" --}}
+                        >
+                            <i class="ti ti-user"></i> {{ Auth::guard('customer')->user()->name }}
                         </a>
                         @else
                         <a href="{{ route('login') }}" class="text-uppercase mx-3 btn btn-dark" >

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class Products extends Model
 {
@@ -13,6 +15,7 @@ class Products extends Model
 
     protected $primaryKey = 'id';
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'id',
@@ -26,4 +29,37 @@ class Products extends Model
         'created_by',
         'updated_by',
     ];
+
+    public static function loadData($request){
+        $data = NULL;
+        DB::beginTransaction();
+        try {
+            $get_data = Products::orderBy('created_at', 'DESC')
+                ->when(request()->search['value'], function ($query) {
+                    $query->where('name', 'like', '%' . request()->search['value'] . '%');
+                    $query->orWhere('description', 'like', '%' . request()->search['value'] . '%');
+                })
+                ->when(request()->active != null, function ($query) {
+                    $query->where('active', request()->active);
+                })
+                ->when(request()->created_at != null, function ($query) {
+                    $created_ranges = explode(' - ', request()->created_at);
+                    $query->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($created_ranges[0].' 00:00:00')));
+                    $query->where('created_at', '<=', date('Y-m-d H:i:s', strtotime($created_ranges[1].' 23:59:59')));
+                });
+
+            $data = [
+                'recordsTotal' => $get_data->count(),
+                'recordsFiltered' => $get_data->count(),
+                'data' => $get_data->skip($request->input('start'))->take($request->input('length'))->get()
+            ];
+
+            Cache::flush();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $data = $th;
+        }
+        return $data;
+    }
 }

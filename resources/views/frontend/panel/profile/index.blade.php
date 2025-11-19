@@ -8,7 +8,7 @@
 </style>
 @endsection
 @section('content')
-<div class="collection bg-light position-relative">
+<div class="collection bg-light position-relative pt-5">
     <div class="container">
         <div class="collection-item d-flex flex-wrap pb-5">
             <div class="column-container bg-white w-100">

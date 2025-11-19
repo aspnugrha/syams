@@ -2,21 +2,6 @@
 
 @section('content')
 <style>
-  /* Gaya default (mobile) */
-.responsive-img {
-  width: 100%;
-  height: 100vh; /* 100% tinggi layar di mobile */
-  object-fit: cover;
-}
-
-/* Untuk layar besar (desktop, mulai dari breakpoint lg = 992px) */
-@media (min-width: 992px) {
-  .responsive-img {
-    height: 100vh; /* 50% tinggi layar */
-  }
-}
-
-
 .carousel-item img {
     border: none !important;
     border-radius: 0 !important;
@@ -63,7 +48,7 @@
   <source src="{{ asset('assets/video') }}/Syams-Manufacturing-Profile.mp4" type="video/mp4">
   Browser kamu tidak mendukung video.
 </video> --}}
-<img class="responsive-img" src="https://picsum.photos/1000" alt="Banner">
+<img class="responsive-img" src="https://picsum.photos/1000" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
 
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
     <div class="w-100 container">
@@ -829,7 +814,7 @@
   <section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8 py-5 my-5">
+        <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
             <h3 class="section-title text-uppercase">I would like to request a sample</h3>
           </div>

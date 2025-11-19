@@ -16,11 +16,12 @@ class ActivationRegisterEmail extends Mailable
      *
      * @return void
      */
-    public $url,$company_profile,$customer;
+    public $url,$subject,$company_profile,$customer;
 
-    public function __construct($customer, $url, $company_profile)
+    public function __construct($customer, $url, $subject, $company_profile)
     {
         $this->url = $url;
+        $this->subject = $subject;
         $this->company_profile = $company_profile;
         $this->customer = $customer;
     }
@@ -33,7 +34,7 @@ class ActivationRegisterEmail extends Mailable
     public function build()
     {
         return $this->view('frontend.email.register')
-        ->subject('Your account registration was successful')
+        ->subject($this->subject)
         ->with([
             'url' => $this->url,
             'company_profile' => $this->company_profile,

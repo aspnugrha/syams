@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\CodeHelper;
 use App\Helpers\IdGenerator;
+use App\Helpers\PhoneHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRegisterRequest;
 use App\Mail\ActivationRegisterEmail;
 use App\Mail\ChangePasswordEmail;
 use App\Mail\ForgotPasswordEmail;
@@ -75,48 +77,48 @@ class AuthController extends Controller
         ]);
     }
 
-    public function registerProcess(Request $request){
+    public function registerProcess(AuthRegisterRequest $request){
         DB::beginTransaction();
         try {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required|email|unique:customers,email',
-                'phone_number' => 'unique:customers,phone_number',
-                'password'          => 'required|min:6',
-            ]
-            ,[
-                'name.required'     => 'Nama is required.',
-                'email.required'    => 'Email is required.',
-                'email.email'       => 'Email not valid.',
-                'email.unique'      => 'Email already used.',
-                'phone_number.unique'  => 'Phone Number already used.',
-                'password.required'    => 'Password is required.',
-                'password.min'      => 'Password must contain at least 6 characters.',
-            ]
-        );
-        // dd($validator->getMessageBag());
+            // $request->phone_number = PhoneHelper::normalize_phone($request->phone_number);
+            // $validator = Validator::make($request->all(), [
+            //         'name' => 'required',
+            //         'email' => 'required|email|unique:customers,email',
+            //         'phone_number' => 'unique:customers,phone_number',
+            //         'password'          => 'required|min:6',
+            //     ]
+            //     ,[
+            //         'name.required'     => 'Nama is required.',
+            //         'email.required'    => 'Email is required.',
+            //         'email.email'       => 'Email not valid.',
+            //         'email.unique'      => 'Email already used.',
+            //         'phone_number.unique'  => 'Phone Number already used.',
+            //         'password.required'    => 'Password is required.',
+            //         'password.min'      => 'Password must contain at least 6 characters.',
+            //     ]
+            // );
     
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => 'validation',
-                    'success' => false,
-                    'message' => 'Sorry something went wrong.',
-                    'errors' => $validator->errors(),
-                ]);
-            }
+            // if ($validator->fails()) {
+            //     return response()->json([
+            //         'status' => 'validation',
+            //         'success' => false,
+            //         'message' => 'Sorry something went wrong.',
+            //         'errors' => $validator->errors(),
+            //     ]);
+            // }
 
             $activation_code = CodeHelper::generateRandomCode(8);
             $activation_code_encode = CodeHelper::encodeCode($activation_code);
 
             $email_encode = CodeHelper::encodeCode($request->email);
 
-            $phone_number = $request->phone_number;
+            // $phone_number = $request->phone_number;
 
-            if($phone_number){
-                $get_2_phone = substr($phone_number, 0, 2);
+            // if($phone_number){
+            //     $get_2_phone = substr($phone_number, 0, 2);
 
-                if ($get_2_phone == '08') $phone_number = '628'.substr($phone_number, 2, strlen($phone_number));
-            }
+            //     if ($get_2_phone == '08') $phone_number = '628'.substr($phone_number, 2, strlen($phone_number));
+            // }
             // dd($phone_number);
 
             $id = IdGenerator::generate('CTMR', 'customers');
@@ -124,7 +126,7 @@ class AuthController extends Controller
                 'id' => $id,
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone_number' => $phone_number,
+                'phone_number' => $request->phone_number,
                 'password' => password_hash($request->password, PASSWORD_DEFAULT),
                 'active' => 0,
                 'activation_code' => $activation_code,
@@ -135,7 +137,7 @@ class AuthController extends Controller
             $url_activation = route('register.activation', ['email' => $email_encode, 'code' => $activation_code_encode]);
 
             $company_profile = CompanyProfile::first();
-            Mail::to($request->email)->send(new ActivationRegisterEmail($customer, $url_activation, $company_profile));
+            Mail::to($request->email)->send(new ActivationRegisterEmail($customer, $url_activation, 'Your account registration was successful', $company_profile));
 
             DB::commit();
     
@@ -178,7 +180,7 @@ class AuthController extends Controller
             $url_activation = route('register.activation', ['email' => $email_encode, 'code' => $activation_code_encode]);
 
             $company_profile = CompanyProfile::first();
-            Mail::to($request->email)->send(new ActivationRegisterEmail($customer, $url_activation, $company_profile));
+            Mail::to($request->email)->send(new ActivationRegisterEmail($customer, $url_activation, 'Your account registration was successful', $company_profile));
 
             DB::commit();
     

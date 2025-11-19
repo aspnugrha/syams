@@ -4,7 +4,7 @@
 <section class="newsletter bg-light border-bottom" style="background: url(images/pattern-bg.png) no-repeat;">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8 py-5 my-5">
+        <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
             <h3 class="section-title text-uppercase">Login Form</h3>
             <span class="text-muted">Login to get full access</span>
