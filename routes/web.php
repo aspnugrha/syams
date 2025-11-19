@@ -5,7 +5,7 @@ use App\Http\Controllers\Backend\DashboardAdminController;
 use App\Http\Controllers\Backend\MasterCustomerController;
 use App\Http\Controllers\Backend\MasterUserController;
 use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backoffice\SummernoteController;
+use App\Http\Controllers\SummernoteController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\OrderController;
