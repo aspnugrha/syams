@@ -13,8 +13,13 @@
     <!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @php
+        $company_profile = App\Models\CompanyProfile::first();
+        // dd($company_profile);
+    @endphp
+
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ asset('assets/image/logo-syams.jpg') }}" type="image/x-icon"> 
+    <link rel="icon" href="{{ asset($company_profile && $company_profile->pavicon ? 'assets/image/upload/pavicon/'.$company_profile->pavicon : 'assets/image/logo-syams.jpg') }}" type="image/x-icon"> 
     
     <!-- [Google Font] Family -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
@@ -52,10 +57,6 @@
 <!-- [Body] Start -->
 
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
-    @php
-        $company_profile = App\Models\CompanyProfile::first();
-        // dd($company_profile);
-    @endphp
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
         <div class="loader-track">

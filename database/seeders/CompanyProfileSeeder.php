@@ -15,7 +15,7 @@ class CompanyProfileSeeder extends Seeder
     public function run(): void
     {
         DB::table('company_profiles')->insert([
-            'id' => IdGenerator::generate('CPNPFL', 'company_profiles'),
+            'id' => 'CPNPFL20000000rtg8ly',
             'name' => 'Syams Manufacturing',
             'pavicon' => 'logo-syams.jpg',
             'logo' => 'logo-syams.png',

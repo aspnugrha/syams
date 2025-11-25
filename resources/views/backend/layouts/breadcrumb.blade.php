@@ -3,10 +3,24 @@
     $url = url('/');
 
     $lastSegment = request()->segment(count(request()->segments()));
+    $preLastSegment = request()->segment(count(request()->segments()) -1);
     $titlePage = $lastSegment;
-    if($lastSegment == 'create' || $lastSegment == 'update'){
-        $preLastSegment = request()->segment(count(request()->segments()) -1);
+    if($lastSegment == 'create' || $lastSegment == 'Edit'){
         $titlePage = $lastSegment.' '.$preLastSegment;
+    }
+
+    if(strlen($lastSegment) > 15 && $preLastSegment == 'company-profile'){
+        $titlePage = 'Edit Company Profile';
+    }
+
+    if(strlen($preLastSegment) > 15){
+        $segment2 = request()->segment(2);
+        $titlePage = $lastSegment.' '.$segment2;
+    }
+    
+    if(strlen($lastSegment) > 15){
+        $segment2 = request()->segment(2);
+        $titlePage = 'Detail '.$segment2;
     }
 @endphp
 
@@ -20,17 +34,29 @@
                 </div>
                 <ul class="breadcrumb">
                     @foreach ($segments as $key => $segment)
-                        @php
-                            $url .= '/' . $segment;
-                            $name = ucwords(str_replace(['-', '_'], ' ', $segment));
-                        @endphp
-            
-                        @if ($loop->last)
-                            <li class="breadcrumb-item active" aria-current="page">{{ $name }}</li>
+                        @if (strlen($segment) < 25)
+                            @php
+                                $url .= '/' . $segment;
+                                $name = ucwords(str_replace(['-', '_'], ' ', $segment));
+                            @endphp
+                
+                            @if ($loop->last)
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    @if ($preLastSegment == 'company-profile')
+                                        Edit
+                                    @else
+                                        {{ $name }}
+                                    @endif
+                                </li>
+                            @else
+                                <li class="breadcrumb-item">
+                                    <a href="{{ $url }}">{{ $name }}</a>
+                                </li>
+                            @endif
                         @else
-                            <li class="breadcrumb-item">
-                                <a href="{{ $url }}">{{ $name }}</a>
-                            </li>
+                            @if ($loop->last)
+                                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+                            @endif
                         @endif
                     @endforeach
                     {{-- <li class="breadcrumb-item"><a href="{{ asset('assets/backend') }}/dashboard/index.html">Home</a></li>

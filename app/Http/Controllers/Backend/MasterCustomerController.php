@@ -96,8 +96,8 @@ class MasterCustomerController extends Controller
         try{
             $show = Customers::where('id', $id)->first();
             if($show->image){
-                if (File::exists(public_path('assets/uploads/customer/' . $show->image))) {
-                    File::delete(public_path('assets/uploads/customer/' . $show->image));
+                if (File::exists(public_path('assets/image/upload/customer/' . $show->image))) {
+                    File::delete(public_path('assets/image/upload/customer/' . $show->image));
                 }
             }
             $delete = $show->delete();

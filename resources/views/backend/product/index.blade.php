@@ -308,9 +308,9 @@
                                 if(index <= 3){
                                     cover += `<div class="col-3">`
                                     
-                                    if(index == 3 && images.length > (index + 1)) cover += `<div class="" style="position: absolute;margin: auto;z-index:3;"><p class="fw-bold text-light text-center p-0 m-0">+${(images.length - (index + 1))}</p></div>`
+                                    if(index == 3 && images.length > (index + 1)) cover += `<div class="" style="position: absolute;margin: auto;z-index:3;"><p class="fw-bold custom-outline-white-black text-center p-0 m-0">+${(images.length - (index + 1))}</p></div>`
 
-                                    cover += `<img src="{{ asset('assets/image/upload/product') }}/${image}" style="width: 100%;height: 25px;object-fit: cover;filter: blur(.7px);">
+                                    cover += `<img src="{{ asset('assets/image/upload/product') }}/${image}" style="width: 100%;height: 25px;object-fit: cover;filter: blur(.7px);border: .5px solid #555;">
                                             </div>`
                                 }
                             });
@@ -320,7 +320,19 @@
                     }
                 },
                 {data: "name", name: "name"},
-                {data: "description", name: "description"},
+                {
+                    data: "id", 
+                    name: "id",
+                    render: function(data, type, row, meta) {
+                        let desc = ''
+                        if(row.description){
+                            desc = row.description.replace(/<[^>]+>/g, '')
+                            if(desc.length > 80) desc = desc.substring(0,80)+' ...'
+                        }
+
+                        return desc;
+                    }
+                },
                 {
                     data: "id", 
                     name: "id",
@@ -339,16 +351,16 @@
                     searchable: false,
                     render: function(data, type, row, meta) {
                         let url_detail = `{{ route('product.show', ':id') }}`;
-                            url_detail = url_detail.replace(':id', row.id);
+                            url_detail = url_detail.replace(':id', row.id_encode);
                         let url_edit = `{{ route('product.edit', ':id') }}`;
-                            url_edit = url_edit.replace(':id', row.id);
+                            url_edit = url_edit.replace(':id', row.id_encode);
                         let url_delete = `{{ route('product.destroy', ':id') }}`;
                             url_delete = url_delete.replace(':id', row.id);
 
                         var btn = `
                             <div class="btn-group">
-                                <a href="${url_detail}" class="btn btn-sm btn-default modal-show detail" title="Detail Product"><i class="mdi mdi-magnify"></i></a>
-                                <a href="${url_edit}" class="btn btn-sm btn-default modal-show edit" title="Edit Product"><i class="mdi mdi-pencil-outline"></i></a>
+                                <a href="${url_detail}" class="btn btn-sm btn-default detail" title="Detail Product"><i class="mdi mdi-magnify"></i></a>
+                                <a href="${url_edit}" class="btn btn-sm btn-default edit" title="Edit Product"><i class="mdi mdi-pencil-outline"></i></a>
                                 <a href="${url_delete}" class="btn btn-sm btn-default delete" title="Delete Product"><i class="mdi mdi-trash-can-outline"></i></a>
                             </div>`
 

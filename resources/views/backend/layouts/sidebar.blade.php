@@ -4,7 +4,7 @@
     <div class="m-header">
       <a href="{{ route('paneladmin.dashboard') }}" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
-        <img src="{{ asset('assets/image/logo-syams.jpg') }}" class="img-fluid logo-lg" alt="logo" style="height: 80px;">
+        <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/upload/logo/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" class="img-fluid logo-lg" alt="logo" style="height: 30px;">
       </a>
     </div>
     <div class="navbar-content">
@@ -55,7 +55,10 @@
           <i class="ti ti-news"></i>
         </li>
         <li class="pc-item">
-          <a href="{{ asset('assets/backend') }}/pages/login.html" class="pc-link">
+          @php
+            $encode = App\Helpers\CodeHelper::encodeCode('CPNPFL20000000rtg8ly');
+          @endphp
+          <a href="{{ route('company-profile.edit', $encode) }}" class="pc-link">
             <span class="pc-micon"><i class="mdi mdi-domain"></i></span>
             <span class="pc-mtext">Company Profile</span>
           </a>

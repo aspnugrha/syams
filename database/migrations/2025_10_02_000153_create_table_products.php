@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->text('description')->nullable();
             $table->string('cover', 50)->nullable();
-            $table->string('image', 50)->nullable();
+            $table->text('image')->nullable();
             $table->text('size_qty_options')->nullable();
             $table->tinyInteger('active')->default(0)->comment('1=active,0=nonactive');
             $table->string('created_by', 50)->nullable();

@@ -31,7 +31,7 @@
         <small id="imageHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
 
         @if (@$data && $data->image)
-            <img src="{{ asset('assets/uploads/user/'.$data->image) }}" alt="Profile" class="mt-2" style="width: 100px;">
+            <img src="{{ asset('assets/image/upload/user/'.$data->image) }}" alt="Profile" class="mt-2" style="width: 100px;">
         @endif
     </div>
     <div class="form-check">

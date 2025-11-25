@@ -4,9 +4,9 @@
             <div class="col-md-3 col-sm-6">
                 <div class="footer-menu footer-menu-001">
                     <div class="footer-intro mb-4">
-                        <a href="index.html">
+                        <a href="{{ route('home') }}">
                         {{-- <img src="{{ asset('assets/frontend') }}/images/main-logo.png" alt="logo"> --}}
-                        <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" alt="{{ ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing') }} Logo" style="width: 150px">
+                        <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/upload/logo/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" alt="{{ ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing') }} Logo" style="width: 60px">
                         </a>
                     </div>
                     {{-- <p>Gravida massa volutpat aenean odio. Amet, turpis erat nullam fringilla elementum diam in. Nisi, purus
@@ -64,7 +64,7 @@
                     <a href="{{ route('showcase') }}" class="item-anchor">Showcase</a>
                     </li>
                     <li class="menu-item" style="font-size: 15px;">
-                    <a href="{{ route('contact-us') }}" class="item-anchor">About Us</a>
+                    <a href="{{ route('about') }}" class="item-anchor">About Us</a>
                     </li>
                     <li class="menu-item" style="font-size: 15px;">
                     <a href="{{ route('contact-us') }}" class="item-anchor">Contact</a>
@@ -96,13 +96,13 @@
                 <h5 class="widget-title text-uppercase mb-4">Policy</h5>
                 <ul class="menu-list list-unstyled border-animation-left fs-6">
                     <li class="menu-item" style="font-size: 15px;">
-                    <a href="{{ route('order') }}" class="item-anchor">Privacy</a>
+                    <a href="{{ route('policies', 'privacy') }}" class="item-anchor">Privacy</a>
                     </li>
                     <li class="menu-item" style="font-size: 15px;">
-                    <a href="{{ route('order') }}" class="item-anchor">Refund</a>
+                    <a href="{{ route('policies', 'refund') }}" class="item-anchor">Refund</a>
                     </li>
                     <li class="menu-item mb-4" style="font-size: 15px;">
-                    <a href="{{ route('order') }}" class="item-anchor">Shipping</a>
+                    <a href="{{ route('policies', 'shipping') }}" class="item-anchor">Shipping</a>
                     </li>
                 </ul>
                 </div>

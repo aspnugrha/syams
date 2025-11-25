@@ -7,6 +7,7 @@ use App\Models\Customers;
 use App\Models\Orders;
 use App\Models\Products;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class DashboardAdminController extends Controller
 {
@@ -23,5 +24,9 @@ class DashboardAdminController extends Controller
         ];
 
         return view('backend.dashboard.index', compact('total_data'));
+    }
+
+    public function loadData(Request $request){
+        return response()->json([]);
     }
 }

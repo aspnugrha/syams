@@ -21,6 +21,7 @@ class CompanyProfile extends Model
         'name',
         'pavicon',
         'logo',
+        'alamat',
         'description',
         'email',
         'phone_number',
@@ -31,6 +32,10 @@ class CompanyProfile extends Model
         'twitter',
         'youtube',
         'tiktok',
+        'privacy',
+        'refund',
+        'shipping',
+        'maps',
         'created_by',
         'updated_by',
     ];

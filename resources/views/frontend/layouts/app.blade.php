@@ -3,7 +3,6 @@
 
 <head>
     <title>@yield('title', 'Syams Manufacturing')</title>
-    <link rel="icon" href="@yield('pavicon', asset('assets/image/logo-syams.jpg'))" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +11,11 @@
     <meta name="author" content="TemplatesJungle">
     <meta name="keywords" content="ecommerce,fashion,store">
     <meta name="description" content="ecommerce,fashion,store manufacturing">
+    
+    @php
+      $company_profile = App\Models\CompanyProfile::first();
+    @endphp
+    <link rel="icon" href="{{ asset($company_profile && $company_profile->pavicon ? 'assets/image/upload/pavicon/'.$company_profile->pavicon : 'assets/image/logo-syams.jpg') }}" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -73,12 +77,7 @@
 </head>
 
 <body class="homepage">
-  @php
-      $company_profile = App\Models\CompanyProfile::first();
-  @endphp
-
   @section('title', ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacture'))
-  @section('pavicon', asset($company_profile && $company_profile->pavicon ? 'assets/image/'.$company_profile->pavicon : 'assets/image/logo-syams.jpg'))
   
   <div class="preloader text-white fs-6 text-uppercase overflow-hidden" style="z-index: 9999;"></div>
 

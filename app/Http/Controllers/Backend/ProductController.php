@@ -7,6 +7,8 @@ use App\Helpers\CodeHelper;
 use App\Helpers\IdGenerator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MasterUserRequest;
+use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Mail\ActivationRegisterEmail;
 use App\Models\CompanyProfile;
 use App\Models\Products;
@@ -29,7 +31,7 @@ class ProductController extends Controller
             'success' => true,
             'recordsTotal' => $data['recordsTotal'],
             'recordsFiltered' => $data['recordsFiltered'],
-            'data' => $data['data'],
+            'data' => ProductResource::collection($data['data']),
         ];
         
         return response()->json($response, Response::HTTP_OK);
@@ -58,41 +60,51 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MasterUserRequest $request)
+    public function store(ProductRequest $request)
     {
         DB::beginTransaction();
         try{
-            $image = null;
-            if (!empty($request->file('image'))) {
-                $image = time() .'-'. rand(1000, 9999) . '.' . $request->file('image')->getClientOriginalExtension();
-                $destinationPath = public_path('/assets/uploads/user');
-                $request->file('image')->move($destinationPath, $image);
+            // dd($request->all());
+            $cover = null;
+            if (!empty($request->file('cover'))) {
+                $cover = time() .'-'. rand(1000, 9999) . '.' . $request->file('cover')->getClientOriginalExtension();
+                $destinationPath = public_path('/assets/image/upload/product');
+                $request->file('cover')->move($destinationPath, $cover);
+            }
+            
+            $images = [];
+            if (!empty($request->file('images'))) {
+                foreach($request->file('images') as $image){
+                    $image_name = time() .'-'. rand(1000, 9999) . '.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('/assets/image/upload/product');
+                    $image->move($destinationPath, $image_name);
+                    $images[] = $image_name;
+                }
             }
 
-            $activation_code = CodeHelper::generateRandomCode(8);
-            $activation_code_encode = CodeHelper::encodeCode($activation_code);
-            $email_encode = CodeHelper::encodeCode($request->email);
+            $size_qty_options = [];
+            if(count($request->size_options)){
+                for ($i=0; $i < count($request->size_options); $i++) { 
+                    $size_qty_options[] = [
+                        'size' => $request->size_options[$i],
+                        'qty' => explode(',', $request->qty_options[$i]),
+                    ];
+                }
+            }
 
-            $id = IdGenerator::generate('USR', 'users');
+            $id = IdGenerator::generate('PRDCT', 'products');
             $save = Products::insert([
                 'id' => $id,
+                'slug' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name), '-')),
                 'name' => $request->name,
-                'email' => $request->email,
-                'phone_number' => $request->phone_number,
+                'description' => $request->description,
+                'cover' => $cover,
+                'image' => ($images ? implode(',', $images) : null),
+                'size_qty_options' => ($size_qty_options ? json_encode($size_qty_options) : null),
                 'active' => ($request->active ? 1 : 0),
-                'email_verified_at' => ($request->active ? date('Y-m-d H:i:s') : null),
-                'image' => $image,
-                'password' => password_hash('password', PASSWORD_DEFAULT),
-                'activation_code' => $activation_code,
                 'created_by' => Auth::user()->id,
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
-
-            $user = Products::where('id', $id)->first();
-
-            $company_profile = CompanyProfile::first();
-            $url_activation = route('paneladmin.register.activation', ['email' => $email_encode, 'code' => $activation_code_encode]);
-            Mail::to($request->email)->send(new ActivationRegisterEmail($user, $url_activation, 'Your account is ready to be activated!', $company_profile));
 
             Cache::flush();
             DB::commit();
@@ -113,8 +125,12 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $data = Products::where('id', $id)->first();
-        return view('backend.product.detail', compact('data'));
+        $id = CodeHelper::decodeCode($id);
+        $product = Products::where('id', $id)->first();
+        $product['images'] = ($product->image ? explode(',', $product->image) : null);
+        $product['size_qty_option_decode'] = ($product->size_qty_options ? json_decode($product->size_qty_options) : null);
+
+        return view('backend.product.detail', compact('product'));
     }
 
     /**
@@ -122,55 +138,81 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $id = CodeHelper::decodeCode($id);
         $data = Products::where('id', $id)->first();
+        $data['images'] = ($data->image ? explode(',', $data->image) : null);
+        $data['size_qty_option_decode'] = ($data->size_qty_options ? json_decode($data->size_qty_options) : null);
+
         return view('backend.product.form', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(MasterUserRequest $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
         DB::beginTransaction();
         try{
-            $user = Products::where('id', $id)->first();
-        
-            $image = $user->image;
-            if (!empty($request->file('image'))) {
-                if (File::exists(public_path('assets/uploads/user/' . $user->image))) {
-                    File::delete(public_path('assets/uploads/user/' . $user->image));
+            $product = Products::where('id', $id)->first();
+
+            $image_old = ($product->image ? explode(',', $product->image) : []);
+            $image_new = ($request->old_images ? explode(',', $request->old_images) : []);
+            $deleted_image = array_diff($image_old, $image_new);
+            
+            if($image_old != null && $deleted_image != null){
+                foreach($deleted_image as $di){
+                    if (File::exists(public_path('assets/image/upload/product/' . $di))) {
+                        File::delete(public_path('assets/image/upload/product/' . $di));
+                    }
                 }
-                $image = time() .'-'. rand(1000, 9999) . '.' . $request->file('image')->getClientOriginalExtension();
-                $destinationPath = public_path('/assets/uploads/user');
-                $request->file('image')->move($destinationPath, $image);
             }
 
-            $activation_code = CodeHelper::generateRandomCode(8);
-            $activation_code_encode = CodeHelper::encodeCode($activation_code);
-            $email_encode = CodeHelper::encodeCode($request->email);
-
-            if($user->email != $request->email){
-                $company_profile = CompanyProfile::first();
-                $url_activation = route('paneladmin.register.activation', ['email' => $email_encode, 'code' => $activation_code_encode]);
-                Mail::to($request->email)->send(new ActivationRegisterEmail($user, $url_activation, 'Your account is ready to be activated!', $company_profile));
+            $cover = $product->cover;
+            if (!empty($request->file('cover'))) {
+                $cover = time() .'-'. rand(1000, 9999) . '.' . $request->file('cover')->getClientOriginalExtension();
+                $destinationPath = public_path('/assets/image/upload/product');
+                $request->file('cover')->move($destinationPath, $cover);
+            }
+            
+            $images = $image_new;
+            if (!empty($request->file('images'))) {
+                foreach($request->file('images') as $image){
+                    $image_name = time() .'-'. rand(1000, 9999) . '.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('/assets/image/upload/product');
+                    $image->move($destinationPath, $image_name);
+                    $images[] = $image_name;
+                }
             }
 
-            $save = $user->update([
+            $size_qty_options = [];
+            if(count($request->size_options)){
+                for ($i=0; $i < count($request->size_options); $i++) { 
+                    $size_qty_options[] = [
+                        'size' => $request->size_options[$i],
+                        'qty' => explode(',', $request->qty_options[$i]),
+                    ];
+                }
+            }
+
+            $id = IdGenerator::generate('PRDCT', 'products');
+            $product->update([
                 'name' => $request->name,
-                'email' => $request->email,
-                'active' => ($user->email != $request->email) ? 0 : ($request->active ? 1 : 0),
-                'email_verified_at' => ($request->active ? date('Y-m-d H:i:s') : null),
-                'image' => $image,
+                'description' => $request->description,
+                'cover' => $cover,
+                'image' => ($images ? implode(',', $images) : null),
+                'size_qty_options' => ($size_qty_options ? json_encode($size_qty_options) : null),
+                'active' => ($request->active ? 1 : 0),
                 'updated_by' => Auth::guard('web')->user()->id,
                 'updated_at' => date('Y-m-d H:i:s'),
-                'activation_code' => ($user->email == $request->email)? $user->activation_code : $activation_code,
             ]);
 
             Cache::flush();
             DB::commit();
 
+            $product = Products::where('id', $id)->first();
+
             return response()->json([
-                'response' => $save,
+                'response' => $product,
                 'success' => true,
                 'status' => 'success',
             ]);
@@ -188,9 +230,16 @@ class ProductController extends Controller
         DB::beginTransaction();
         try{
             $show = Products::where('id', $id)->first();
+            if($show->cover){
+                if (File::exists(public_path('assets/image/upload/product/' . $show->cover))) {
+                    File::delete(public_path('assets/image/upload/product/' . $show->cover));
+                }
+            }
             if($show->image){
-                if (File::exists(public_path('assets/uploads/user/' . $show->image))) {
-                    File::delete(public_path('assets/uploads/user/' . $show->image));
+                foreach(explode(',', $show->image) as $image){
+                    if (File::exists(public_path('assets/image/upload/product/' . $image))) {
+                        File::delete(public_path('assets/image/upload/product/' . $image));
+                    }
                 }
             }
             $delete = $show->delete();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AuthAdminController;
+use App\Http\Controllers\Backend\CompanyProfileController;
 use App\Http\Controllers\Backend\DashboardAdminController;
 use App\Http\Controllers\Backend\MasterCustomerController;
 use App\Http\Controllers\Backend\MasterUserController;
@@ -46,7 +47,9 @@ Route::get('/showcase/{slug}', [PortofolioController::class, 'detail'])->name('s
 Route::get('/sample', [SampleController::class, 'index'])->name('sample');
 Route::get('/order', [OrderController::class, 'index'])->name('order');
 Route::post('/order', [OrderController::class, 'store'])->name('order.process');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
+Route::get('/policies/{code}', [HomeController::class, 'policies'])->name('policies');
 
 Route::group(['middleware' => ['auth.customer']], function(){
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
@@ -74,6 +77,7 @@ Route::group(['prefix' => 'paneladmin'], function(){
         });
         Route::post('logout', [AuthAdminController::class, 'logout'])->name('paneladmin.logout');
         Route::get('dashboard', [DashboardAdminController::class, 'index'])->name('paneladmin.dashboard');
+        Route::post('dashboard/load-data', [DashboardAdminController::class, 'loadData'])->name('api.dashboard.load-data');
         
         // Master Data
         // master user
@@ -94,6 +98,10 @@ Route::group(['prefix' => 'paneladmin'], function(){
         Route::resource('product', ProductController::class);
         Route::post('product/load-data', [ProductController::class, 'loadData'])->name('api.product.load-data');
         Route::post('product/export', [ProductController::class, 'export'])->name('api.product.export');
+        
+        // company-profile
+        Route::get('company-profile/{code}', [CompanyProfileController::class, 'edit'])->name('company-profile.edit');
+        Route::put('company-profile/{code}', [CompanyProfileController::class, 'update'])->name('company-profile.update');
     });
 });
 

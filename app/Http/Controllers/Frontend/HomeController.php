@@ -15,9 +15,21 @@ class HomeController extends Controller
         return view('frontend.home.index', compact('products'));
     }
 
+    public function about(){
+        $company = CompanyProfile::first();
+        
+        return view('frontend.about.index', compact('company'));
+    }
+
     public function contactUs(){
         $company = CompanyProfile::first();
         
         return view('frontend.contact.index', compact('company'));
+    }
+    
+    public function policies($code){
+        $company = CompanyProfile::first();
+        
+        return view('frontend.policies.index', compact('code', 'company'));
     }
 }

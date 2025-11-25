@@ -74,3 +74,35 @@
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
   color: white !important;
 }
+
+.custom-outline-white-black{
+  color: white;
+  text-shadow:
+    -1px -1px 0 black,
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+}
+
+.size-badge {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.0);
+}
+.size-badge-dark {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(53, 53, 53, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.0);
+}

@@ -199,3 +199,39 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script>
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });	
+    loadData();
+})
+
+function loadData(){
+    $('.custom-loader-overlay').css('display', 'flex')
+
+    $.ajax({
+        url: "{{ route('api.dashboard.load-data') }}",
+        method: 'POST',
+        // data: new FormData(document.getElementById("formData")),
+        // processData: false,
+        // contentType: false,
+        // cache: false,
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr) {
+            console.log(xhr);
+            
+        },
+        complete:function(){
+            $('.custom-loader-overlay').css('display', 'none')
+        }
+    });
+}
+</script>
+@endsection

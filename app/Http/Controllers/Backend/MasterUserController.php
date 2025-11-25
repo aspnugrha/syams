@@ -64,7 +64,7 @@ class MasterUserController extends Controller
             $image = null;
             if (!empty($request->file('image'))) {
                 $image = time() .'-'. rand(1000, 9999) . '.' . $request->file('image')->getClientOriginalExtension();
-                $destinationPath = public_path('/assets/uploads/user');
+                $destinationPath = public_path('/assets/image/upload/user');
                 $request->file('image')->move($destinationPath, $image);
             }
 
@@ -136,11 +136,11 @@ class MasterUserController extends Controller
         
             $image = $user->image;
             if (!empty($request->file('image'))) {
-                if (File::exists(public_path('assets/uploads/user/' . $user->image))) {
-                    File::delete(public_path('assets/uploads/user/' . $user->image));
+                if (File::exists(public_path('assets/image/upload/user/' . $user->image))) {
+                    File::delete(public_path('assets/image/upload/user/' . $user->image));
                 }
                 $image = time() .'-'. rand(1000, 9999) . '.' . $request->file('image')->getClientOriginalExtension();
-                $destinationPath = public_path('/assets/uploads/user');
+                $destinationPath = public_path('/assets/image/upload/user');
                 $request->file('image')->move($destinationPath, $image);
             }
 
@@ -188,8 +188,8 @@ class MasterUserController extends Controller
         try{
             $show = User::where('id', $id)->first();
             if($show->image){
-                if (File::exists(public_path('assets/uploads/user/' . $show->image))) {
-                    File::delete(public_path('assets/uploads/user/' . $show->image));
+                if (File::exists(public_path('assets/image/upload/user/' . $show->image))) {
+                    File::delete(public_path('assets/image/upload/user/' . $show->image));
                 }
             }
             $delete = $show->delete();

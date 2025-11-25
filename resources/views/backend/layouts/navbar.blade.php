@@ -131,14 +131,14 @@
                         data-bs-auto-close="outside"
                         aria-expanded="false"
                     >
-                        <img src="{{ Auth::user()->image ? asset('asset/image/upload/user/'.Auth::user()->image) : asset('assets/backend/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar">
+                        <img src="{{ Auth::user()->image ? asset('assets/image/upload/user/'.Auth::user()->image) : asset('assets/backend/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar">
                         <span>{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
                         <div class="dropdown-header">
                             <div class="d-flex mb-1">
                                 <div class="flex-shrink-0">
-                                <img src="{{ Auth::user()->image ? asset('asset/image/upload/user/'.Auth::user()->image) : asset('assets/backend/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar wid-35">
+                                <img src="{{ Auth::user()->image ? asset('assets/image/upload/user/'.Auth::user()->image) : asset('assets/backend/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar wid-35">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-1">{{ Auth::user()->name }}</h6>

@@ -34,7 +34,7 @@
                         <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <img src="{{ $customer->image ? asset('asset/image/upload/customer/'.Auth::guard('customer')->user()->image) : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png' }}" alt="Image Profile" style="width: 100%;">
+                                    <img src="{{ $customer->image ? asset('assets/image/upload/customer/'.Auth::guard('customer')->user()->image) : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png' }}" alt="Image Profile" style="width: 100%;">
                                     <h4 class="mt-3">{{ $customer->name }}</h4>
                                 </div>
                                 <div class="col-12 col-md-8">

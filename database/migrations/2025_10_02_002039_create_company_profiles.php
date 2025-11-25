@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('company_profiles', function (Blueprint $table) {
             $table->string('id', 50)->primary();
             $table->string('name', 100);
-            $table->string('lokasi', 100)->nullable();
+            $table->string('alamat', 100)->nullable();
             $table->string('pavicon', 100)->nullable();
             $table->string('logo', 100)->nullable();
             $table->text('description')->nullable();
@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('youtube')->nullable();
             $table->string('tiktok')->nullable();
             $table->text('maps')->nullable();
+            $table->text('privacy')->nullable();
+            $table->text('refund')->nullable();
+            $table->text('shipping')->nullable();
             $table->string('created_by', 50)->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->string('updated_by', 50)->nullable();
