@@ -454,7 +454,7 @@
                         var btn = `
                             <div class="btn-group">
                                 <a href="${url_detail}" class="btn btn-sm btn-default detail" title="Detail Product"><i class="mdi mdi-magnify"></i></a>
-                                <a href="${url_main_product}" class="btn btn-sm btn-default main-product" title="${(parseInt(row.main_product) == 1 ? `Restore Main Product` : `Main Product`)}"><i class="mdi mdi-${(row.main_product ? `sync` : `star-outline`)}"></i></a>
+                                <a href="${url_main_product}" class="btn btn-sm btn-default main-product" title="${(parseInt(row.main_product) == 1 ? `Restore Main Product` : `Main Product`)}"><i class="mdi mdi-${(parseInt(row.main_product) == 1 ? `sync` : `star-outline`)}"></i></a>
                                 <a href="${url_edit}" class="btn btn-sm btn-default edit" title="Edit Product"><i class="mdi mdi-pencil-outline"></i></a>
                                 <a href="${url_delete}" class="btn btn-sm btn-default delete" title="Delete Product"><i class="mdi mdi-trash-can-outline"></i></a>
                             </div>`
