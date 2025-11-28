@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Exports\MasterUserExport;
+use App\Exports\ProductExport;
 use App\Helpers\CodeHelper;
 use App\Helpers\IdGenerator;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MasterUserRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
-use App\Mail\ActivationRegisterEmail;
-use App\Models\CompanyProfile;
+use App\Models\Categories;
 use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,7 +36,7 @@ class ProductController extends Controller
     }
 
     public function export(Request $request){
-        return Excel::download(new MasterUserExport($request), 'master-user.xlsx');
+        return Excel::download(new ProductExport($request), 'product.xlsx');
     }
     
     /**
@@ -46,7 +44,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('backend.product.index');
+        $categories = Categories::get();
+        return view('backend.product.index', compact('categories'));
     }
 
     /**
@@ -54,7 +53,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.form');
+        $categories = Categories::get();
+        return view('backend.product.form', compact('categories'));
     }
 
     /**
@@ -126,7 +126,7 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $id = CodeHelper::decodeCode($id);
-        $product = Products::where('id', $id)->first();
+        $product = Products::with(['hasCategory'])->where('id', $id)->first();
         $product['images'] = ($product->image ? explode(',', $product->image) : null);
         $product['size_qty_option_decode'] = ($product->size_qty_options ? json_decode($product->size_qty_options) : null);
 
@@ -138,12 +138,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $categories = Categories::get();
         $id = CodeHelper::decodeCode($id);
         $data = Products::where('id', $id)->first();
         $data['images'] = ($data->image ? explode(',', $data->image) : null);
         $data['size_qty_option_decode'] = ($data->size_qty_options ? json_decode($data->size_qty_options) : null);
 
-        return view('backend.product.form', compact('data'));
+        return view('backend.product.form', compact('data', 'categories'));
     }
 
     /**
@@ -173,6 +174,8 @@ class ProductController extends Controller
                 $destinationPath = public_path('/assets/image/upload/product');
                 $request->file('cover')->move($destinationPath, $cover);
             }
+
+            // dd($image_old, $image_new, $request->images, $request->list_images);
             
             $images = $image_new;
             if (!empty($request->file('images'))) {
@@ -249,6 +252,33 @@ class ProductController extends Controller
 
             return response()->json([
                 'response' => $delete,
+                'success' => true,
+                'status' => 'success',
+            ]);
+        } catch (\Exception $exc) {
+            DB::rollBack();
+            return $exc;
+        }
+    }
+    
+    public function mainProduct(string $id, $status)
+    {
+        DB::beginTransaction();
+        try{
+            $id = CodeHelper::decodeCode($id);
+            $show = Products::where('id', $id)->first();
+
+            $show->update([
+                'main_product' => ($status ? 0 : 1),
+                'updated_by' => Auth::guard('web')->user()->id,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            Cache::flush();
+            DB::commit();
+
+            return response()->json([
+                'response' => $show,
                 'success' => true,
                 'status' => 'success',
             ]);

@@ -45,6 +45,15 @@
         <form action="{{ route('api.product.export') }}" method="POST" id="form-filter">
             @csrf
             <div class="form-group">
+                <label>Category</label>
+                <select name="filter_category_id" id="filter_category_id" class="form-control">
+                    <option value="">Pilih Category</option>
+                    @foreach ($categories as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label>Dibuat tanggal</label>
                 <input type="text" class="form-control" name="filter_created_at" id="filter_created_at">
             </div>
@@ -169,6 +178,70 @@
         });
     });
 
+    $('.card').on('click', '.main-product', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var title = $(this).attr('title');
+        
+        // Confirm dialog based on action type
+        var confirmText = title.includes('Main Product') ? 
+            'Are you sure you want to make this data main product?' : 
+            'Are you sure you want to restore this data?';
+        
+        
+        var confirmButtonText = title.includes('Main Product') ? 'Yes, make it!' : 'Yes, restore it!';
+        var confirmButtonColor = title.includes('Main Product') ? '#13c2c2' : '#ffc107';
+
+        console.log(url, title);
+        
+        Swal.fire({
+            title: 'Confirmation',
+            text: confirmText,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: confirmButtonColor,
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        console.log('delete', response);
+                        
+                        if(response.success) {
+                            // Show success toast notification
+                            toastr.success(
+                                title.includes('Main Product') ? 
+                                'Data has been main program successfully!' : 
+                                'Data has been restored successfully!',
+                                'Success!'
+                            );
+                            
+                            // Reload only the current page data
+                            table.ajax.reload(null, false);
+                        } else {
+                            toastr.error(
+                                'Failed to process your request',
+                                'Error!'
+                            );
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log('error', xhr);
+                        
+                        toastr.error(
+                            'An error occurred while processing your request',
+                            'Error!'
+                        );
+                    }
+                });
+            }
+        });
+    });
+
     $('.card').on('click', '.delete', function(e) {
         e.preventDefault();
         var url = $(this).attr('href');
@@ -252,6 +325,7 @@
                     d.search= d.search;
                     d.created_at=$('#filter_created_at').val();
                     d.active=$('#filter_active').val();
+                    d.category_id=$('#filter_category_id').val();
                     // d.search= $('#searchValue').val();
                 },
                 statusCode: {
@@ -319,7 +393,17 @@
 						return cover;
                     }
                 },
-                {data: "name", name: "name"},
+                // {data: "name", name: "name"},
+                {
+                    data: "id", 
+                    name: "id",
+                    render: function(data, type, row, meta) {
+                        let name = `<span class="badge bg-dark rounded-pill">${row.category_name}</span><br>`
+                        name += row.name
+
+                        return name;
+                    }
+                },
                 {
                     data: "id", 
                     name: "id",
@@ -337,13 +421,19 @@
                     data: "id", 
                     name: "id",
                     render: function(data, type, row, meta) {
+                        let active = ``
                         if (row.active == 1){
-                            var btn = `<span class="badge bg-success rounded-pill">Active</span>`;
+                            btn = `<span class="badge bg-success rounded-pill">Active</span>`;
                         }else{
-                            var btn = `<span class="badge bg-danger rounded-pill">Not Active</span>`;
+                            btn = `<span class="badge bg-danger rounded-pill">Not Active</span>`;
+                        }
+
+                        if(row.main_product){
+                            btn += `<span class="badge bg-info rounded-pill">Main</span>`
                         }
 						return btn;
-                    }
+                    },
+                    className: 'text-center',
                 },
                 {
                     data: null,
@@ -352,14 +442,19 @@
                     render: function(data, type, row, meta) {
                         let url_detail = `{{ route('product.show', ':id') }}`;
                             url_detail = url_detail.replace(':id', row.id_encode);
+                        let url_main_product = `{{ route('api.product.main-product', [':id', ':sts']) }}`;
+                            url_main_product = url_main_product.replace(':id', row.id_encode);
+                            url_main_product = url_main_product.replace(':sts', row.main_product);
                         let url_edit = `{{ route('product.edit', ':id') }}`;
                             url_edit = url_edit.replace(':id', row.id_encode);
                         let url_delete = `{{ route('product.destroy', ':id') }}`;
                             url_delete = url_delete.replace(':id', row.id);
+                    
 
                         var btn = `
                             <div class="btn-group">
                                 <a href="${url_detail}" class="btn btn-sm btn-default detail" title="Detail Product"><i class="mdi mdi-magnify"></i></a>
+                                <a href="${url_main_product}" class="btn btn-sm btn-default main-product" title="${row.main_product ? `Restore Main Product` : `Main Product`}"><i class="mdi mdi-${(row.main_product ? `sync` : `star-outline`)}"></i></a>
                                 <a href="${url_edit}" class="btn btn-sm btn-default edit" title="Edit Product"><i class="mdi mdi-pencil-outline"></i></a>
                                 <a href="${url_delete}" class="btn btn-sm btn-default delete" title="Delete Product"><i class="mdi mdi-trash-can-outline"></i></a>
                             </div>`

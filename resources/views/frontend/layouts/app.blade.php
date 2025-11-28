@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <style>
         /* Gaya default (mobile) */
       .responsive-img {
@@ -72,6 +74,63 @@
         font-size: 0.8rem;
         background: rgba(255, 255, 255, 0.0);
       }
+
+      /* Fullscreen overlay */
+      .custom-loader-overlay{
+          position:fixed;
+          inset:0;
+          display:none;
+          align-items:center;
+          justify-content:center;
+          background:rgba(0,0,0,0.45);
+          backdrop-filter:blur(1px);
+          z-index:9999;
+      }
+
+      /* Simple smoke blob */
+      .custom-smoke{
+          position:absolute;
+          width:180px;
+          height:180px;
+          border-radius:50%;
+          background:radial-gradient(circle, rgba(255,255,255,0.25), rgba(255,255,255,0.05), transparent);
+          filter:blur(18px);
+          animation:float 3.5s ease-in-out infinite;
+          opacity:0.55;
+      }
+
+      @keyframes float{
+          0%,100%{transform:translateY(0)}
+          50%{transform:translateY(-18px)}
+      }
+
+      /* Spinner */
+      .custom-spinner{
+          width:60px;
+          height:60px;
+          border:6px solid rgba(255,255,255,0.2);
+          border-top-color:#fff;
+          border-radius:50%;
+          animation:spin 0.9s linear infinite;
+          z-index:10;
+      }
+
+      @keyframes spin{to{transform:rotate(360deg)}}
+
+      .custom-loader-text{
+          margin-top:15px;
+          font-size:14px;
+          color:#fff;
+          opacity:0.9;
+          text-align:center;
+      }
+
+      .daterangepicker table tr td{
+        border: 1px solid transparent !important;
+      }
+      .daterangepicker .drp-buttons .applyBtn{
+        background-color: #212529;
+      }
     </style>
     @yield('styles')
 </head>
@@ -80,6 +139,14 @@
   @section('title', ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacture'))
   
   <div class="preloader text-white fs-6 text-uppercase overflow-hidden" style="z-index: 9999;"></div>
+
+  <div id="page-loader" class="custom-loader-overlay">
+    <div class="custom-smoke"></div>
+    <div style="text-align:center; z-index:10;">
+      <div class="custom-spinner"></div>
+      <div class="custom-loader-text">Loading...</div>
+    </div>
+  </div>
 
   <div class="search-popup">
     <div class="search-popup-container">
@@ -154,6 +221,9 @@
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
   <script>
     function showToastr(position, type, message){

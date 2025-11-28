@@ -48,10 +48,10 @@
   <source src="{{ asset('assets/video') }}/Syams-Manufacturing-Profile.mp4" type="video/mp4">
   Browser kamu tidak mendukung video.
 </video> --}}
-<img class="responsive-img" src="https://picsum.photos/1000" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-img" src="{{ asset('assets/image/upload/landing_page/bg-5.jpg') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
 
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
-    <div class="w-100 container">
+    <div class="w-100 container p-0">
       <div class="row justify-content-center">
         <h2 class="section-title text-center mt-4" data-aos="fade-up">New Collections</h2>
         <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
@@ -60,39 +60,18 @@
             quibusdam ex repellat eaque!</p>
         </div>
       </div>
+      @if ($products)
       <div class="p-2 mt-5">
         <div id="imageCarousel" class="carousel slide">
             <div class="carousel-inner">
                 <!-- SEMUA GAMBAR DALAM 1 DIV -->
                 <div class="carousel-item active">
                     <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=1&f=png" class="d-block w-100" alt="Gambar 1" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=d1d5db&text=2&f=png" class="d-block w-100" alt="Gambar 2" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=9ca3af&text=3&f=png" class="d-block w-100" alt="Gambar 3" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=6b7280&text=4&f=png" class="d-block w-100" alt="Gambar 4" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=4b5563&text=5&f=png" class="d-block w-100" alt="Gambar 5" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=374151&text=6&f=png" class="d-block w-100" alt="Gambar 6" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=1f2937&text=7&f=png" class="d-block w-100" alt="Gambar 7" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=111827&text=8&f=png" class="d-block w-100" alt="Gambar 8" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://via.assets.so/img.jpg?w=400&h=300&bg=000000&text=9&f=png" class="d-block w-100" alt="Gambar 9" style="width: 100%;height: 400px;object-fit: cover">
-                        </div>
+                      @foreach ($products as $item)
+                      <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-4">
+                          <img src="{{ asset('assets/image/upload/product/'.$item->cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 400px;object-fit: cover">
+                      </a>
+                      @endforeach
                     </div>
                 </div>
             </div>
@@ -107,7 +86,8 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </div>
+      </div>
+      @endif
 
       <!--
       @if ($products)

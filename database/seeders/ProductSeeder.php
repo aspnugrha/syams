@@ -17,10 +17,11 @@ class ProductSeeder extends Seeder
         $data = [
             // upper
             [
-                'name' => 'Hoddie A',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe? Voluptatum porro, repellat doloremque tenetur iste, doloribus veniam, explicabo qui blanditiis sint dolores commodi nam recusandae laudantium illo fugiat tempore.',
-                'cover' => 'banner1.png',
-                'image' => 'up1.png',
+                'name' => 'T-Shirt Urban Drift Tee',
+                'category_id' => 'CTGRY2025112600001aaZNlw',
+                'description' => 'A lightweight, breathable cotton tee designed for everyday comfort. Featuring a minimalist chest print, this shirt pairs effortlessly with any casual outfit.',
+                'cover' => 'bg-2.jpg',
+                'image' => 'up1.png,up2.png',
                 'size_qty_options' => json_encode([
                     [
                         'size' => 'S',
@@ -41,17 +42,19 @@ class ProductSeeder extends Seeder
                 ]),
             ],
             [
-                'name' => 'Hoddie B',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe? Voluptatum porro, repellat doloremque tenetur iste, doloribus veniam, explicabo qui blanditiis sint dolores commodi nam recusandae',
-                'cover' => 'banner1.png',
-                'image' => 'up2.png',
+                'name' => 'Jeans Stonewash Flex Denim',
+                'category_id' => 'CTGRY2025112600005bv7Ghe',
+                'description' => 'Classic straight-fit jeans crafted with stretchable denim for easy movement. The stonewashed finish adds a timeless rugged look suitable for daily wear.',
+                'cover' => 'bg-3.jpg',
+                'image' => 'up3.png',
                 'size_qty_options' => null
             ],
             [
-                'name' => 'Hoddie C',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe? Voluptatum porro, repellat doloremque tenetur iste, doloribus veniam, explicabo qui blanditiis sint',
-                'cover' => 'banner1.png',
-                'image' => 'up3.png',
+                'name' => 'Hoodie CozyTrail Pullover Hoodie',
+                'category_id' => 'CTGRY2025112600002kl3qw8',
+                'description' => 'A warm fleece hoodie made for comfort in chilly weather. Includes a roomy kangaroo pocket and adjustable drawstring hood with a modern casual silhouette.',
+                'cover' => 'bg-4.jpg',
+                'image' => 'up4.png',
                 'size_qty_options' => json_encode([
                     [
                         'size' => 'S',
@@ -72,10 +75,11 @@ class ProductSeeder extends Seeder
                 ]),
             ],
             [
-                'name' => 'Hoddie D',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe?',
-                'cover' => 'banner1.png',
-                'image' => 'up4.png',
+                'name' => 'Sweater Nordic Knit Essential Sweater',
+                'category_id' => 'CTGRY2025112600003we6v6m',
+                'description' => 'A soft knitted sweater with subtle ribbed details. Designed to deliver warmth without being bulky—perfect for layering during colder seasons.',
+                'cover' => 'bg-5.jpg',
+                'image' => 'u1.png',
                 'size_qty_options' => json_encode([
                     [
                         'size' => 'S',
@@ -101,10 +105,11 @@ class ProductSeeder extends Seeder
             ],
             // under
             [
-                'name' => 'Pants A',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe? Voluptatum porro, repellat doloremque tenetur iste, doloribus veniam, explicabo qui blanditiis sint dolores commodi nam recusandae laudantium illo fugiat tempore.',
-                'cover' => 'banner2.png',
-                'image' => 'u1.png',
+                'name' => 'Pants AeroLite Tapered Pants',
+                'category_id' => 'CTGRY2025112600004kn0u9q',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                'cover' => 'bg-6.jpg',
+                'image' => 'u2.png,u3.png',
                 'size_qty_options' => json_encode([
                     [
                         'size' => '28',
@@ -123,43 +128,13 @@ class ProductSeeder extends Seeder
                         'qty' => ['25', '50', '100']
                     ]
                 ]),
-            ],
-            [
-                'name' => 'Pants B',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe? Voluptatum porro, repellat doloremque tenetur iste, doloribus veniam, explicabo qui blanditiis sint dolores commodi nam recusandae',
-                'cover' => 'banner2.png',
-                'image' => 'u2.png',
-                'size_qty_options' => json_encode([
-                    [
-                        'size' => '28',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => '29',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => '30',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => '31',
-                        'qty' => ['25', '50', '100']
-                    ]
-                ]),
-            ],
-            [
-                'name' => 'Pants C',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, saepe? Voluptatum porro, repellat doloremque tenetur iste, doloribus veniam, explicabo qui blanditiis sint',
-                'cover' => 'banner2.png',
-                'image' => 'u3.png',
-                'size_qty_options' => null,
             ],
         ];
 
-        foreach($data as $item){
+        foreach($data as $index => $item){
             DB::table('products')->insert([
                 'id' => IdGenerator::generate('PRDCT', 'products'),
+                'category_id' => $item['category_id'],
                 'name' => $item['name'],
                 'slug' => str_replace(' ', '-', strtolower($item['name'])),
                 'description' => $item['description'],
@@ -167,6 +142,7 @@ class ProductSeeder extends Seeder
                 'image' => $item['image'],
                 'size_qty_options' => $item['size_qty_options'],
                 'active' => 1,
+                'main_product' => (($index == 0 || $index == 3) ? 1 : 0),
             ]);
         }
     }

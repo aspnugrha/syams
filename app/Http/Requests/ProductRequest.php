@@ -30,11 +30,13 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
+			'category_id' => 'required',
 			'name' => 'required',
             // 'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'cover' => 'nullable|image',
             // 'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'images.*' => 'nullable|image',
+			'size_options' => 'required',
         ];
     }
 
@@ -68,11 +70,13 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
+            'category_id.required'     => ':attribute harus diisi.',
             'name.required'     => ':attribute harus diisi.',
             'cover.image'       => ':attribute harus berupa gambar.',
             'cover.mimes'       => 'Format :attribute harus jpeg, png, jpg.',
             'cover.max'         => 'Ukuran :attribute maksimal gambar 2MB.',
             'images.image'      => ':attribute harus berupa gambar.',
+            'size_options.required'     => ':attribute harus diisi.',
             // 'images.mimes'      => 'Format :attribute harus jpeg, png, jpg.',
             // 'images.max'        => 'Ukuran :attribute maksimal gambar 2MB.',
         ];

@@ -13,7 +13,7 @@
                                 <p>
                                     {{ $sample_pending }} Requested, {{ $sample_approved }} Accepted, {{ $sample_canceled }} Cancel
                                 </p>
-                                <a href="{{ route('my-order') }}" class="btn btn-dark text-uppercase mt-3">Show More</a>
+                                <a href="{{ route('my-order') }}?order_type=SAMPLE" class="btn btn-dark text-uppercase mt-3">Show More</a>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                                 <p>
                                     {{ $order_pending }} Requested, {{ $order_approved }} Accepted, {{ $order_canceled }} Cancel
                                 </p>
-                                <a href="{{ route('my-order') }}" class="btn btn-dark text-uppercase mt-3">Show More</a>
+                                <a href="{{ route('my-order') }}?order_type=ORDER" class="btn btn-dark text-uppercase mt-3">Show More</a>
                             </div>
                         </div>
                     </div>

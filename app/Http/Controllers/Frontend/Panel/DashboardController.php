@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Frontend\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
-use App\Models\OrderSamples;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
-        $samples = OrderSamples::where('customer_id', Auth::guard('customer')->user()->id)->get();
-        $orders = Orders::where('customer_id', Auth::guard('customer')->user()->id)->get();
+        $samples = Orders::where('order_type', 'SAMPLE')->where('customer_id', Auth::guard('customer')->user()->id)->get();
+        $orders = Orders::where('order_type', 'ORDER')->where('customer_id', Auth::guard('customer')->user()->id)->get();
 
         $sample_pending = $samples;
         $sample_approved = $samples;

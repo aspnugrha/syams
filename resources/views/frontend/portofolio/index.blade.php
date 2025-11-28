@@ -2,7 +2,7 @@
 
 @section('content')
 
-<img class="responsive-img" src="https://picsum.photos/1000" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-img" src="{{ asset('assets/image/upload/landing_page/bg-7.jpg') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
 
 <div class="container mt-4">
     <div class="row g-2">
@@ -15,19 +15,22 @@
                 <div class="position-absolute bottom-0 start-0 w-100 p-3"
                     style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
 
-                    <h5 class=" mb-1" style="font-size: 1.4rem;">{{ $item->name }}</h5>
-                    <p class="mb-2" style="font-size: 0.9rem; opacity: 0.9;">Casual shirt</p>
+                    <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
+                    <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
 
+                    <!--
                     <div class="d-flex gap-2">
                         @php
                             $size_qty = json_decode($item->size_qty_options);
                         @endphp
                         @if ($size_qty)
                             @foreach ($size_qty as $item2)
-                            <span class="size-badge">{{ $item2->size }}</span>
+                            {{-- <span class="size-badge" style="font-size: 10px;padding: 2px !important;">{{ $item2->size }}</span> --}}
+                            <span style="font-size: 8px;">{{ $item2->size }}</span>
                             @endforeach
                         @endif
                     </div>
+                    -->
 
                 </div>
             </div>

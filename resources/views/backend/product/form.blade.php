@@ -123,6 +123,16 @@
                         <input type="hidden" name="old_images" id="old_images">
                     </div>
                     <div class="form-group">
+                        <label>Category <span class="text-danger">*</span></label>
+                        <select name="category_id" id="category_id" class="form-control">
+                            <option value="">Pilih Category</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}" {{ $item->id == @$data->category_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        <small id="category_idHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                    </div>
+                    <div class="form-group">
                         <label>Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{ @$data ? $data->name : old('name') }}">
                         <small id="nameHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
@@ -159,7 +169,7 @@
                             </div>
                         </div>
 
-                        <small id="coverHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                        <small id="size_optionsHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
 
                         <div class="row mt-4" id="size_quantity_options"></div>
                     </div>
@@ -299,21 +309,29 @@ function showPreview(file, index) {
 function removeImage(btn, removeIndex, imageEdit = null) {
     let item = btn.parentElement;
     let index = Array.from(previewContainer.children).indexOf(item);
-
+    
     // kurangi index karena uploadBox ada di akhir
     if (index > -1) {
-        selectedFiles.splice(index, 1); 
+        console.log('index > -1', index);
+        
+        // if(imageEdit == null){
+            selectedFiles.splice(index, 1); 
+        // }
     }
-
+    
     // hapus image dalam input
     const dt = new DataTransfer();
-
+    
     [...images.files].forEach((file, index) => {
-        if (index !== removeIndex) {
+        if(imageEdit == null){
+            if (index !== removeIndex) {
+                dt.items.add(file);
+            }
+        }else{
             dt.items.add(file);
         }
     });
-
+    
     images.files = dt.files;
 
     item.remove();
@@ -344,9 +362,6 @@ function addSizeQtyOptions(condition, size = null, qty = null){
         qty = $('#qty').val()
     }
     const code = randomCode(10);
-
-    console.log(condition, size, qty);
-    
 
     if(!size || !qty){
         showToastr('toast-top-right', 'error', "Masukan size dan quantity option dengan benar!")
@@ -459,10 +474,22 @@ function simpan(){
     $('#coverHelp').removeClass('d-block').addClass('d-none')
     $('#imagesHelp').removeClass('d-block').addClass('d-none')
 
+    let formData = new FormData(document.getElementById("formData"))
+    if(selectedFiles){
+        selectedFiles.forEach(file => {
+            formData.append('list_images[]', file);
+        });
+    }else{
+        formData.append('list_images[]', '')
+    }
+
+    console.log(selectedFiles, formData);
+    
+
     $.ajax({
         url: url,
         method: 'POST',
-        data: new FormData(document.getElementById("formData")),
+        data: formData,
         processData: false,
         contentType: false,
         cache: false,
@@ -482,7 +509,7 @@ function simpan(){
                 
                 $.each(res.errors, function(key, value) {
                     let key_name = key
-                    if(key.includes('.') || key == 'cover'){
+                    if(key.includes('.') || key == 'cover' || key == 'size_options'){
                         key_name = key.split('.')[0];
                         $('#' + key_name)
                             // .closest('#error')

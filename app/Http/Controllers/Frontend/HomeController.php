@@ -10,7 +10,7 @@ use App\Models\Products;
 class HomeController extends Controller
 {
     public function index(){
-        $products = Products::where('active', 1)->inRandomOrder()->get();
+        $products = Products::where('active', 1)->where('main_product', 1)->inRandomOrder()->get();
 
         return view('frontend.home.index', compact('products'));
     }

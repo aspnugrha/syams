@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="col-7 col-md-7">
-      <small class="text-muted">Casual Shirt</small>
+      <small class="text-muted">{{ ($product->hasCategory ? $product->hasCategory->name : '') }}</small>
       <h4>{{ $product->name }}</h4>
 
       <button class="btn btn-default" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="border: 1px solid #ddd;">

@@ -157,6 +157,7 @@ class MasterUserController extends Controller
             $save = $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'phone_number' => $request->phone_number,
                 'active' => ($user->email != $request->email) ? 0 : ($request->active ? 1 : 0),
                 'email_verified_at' => ($request->active ? date('Y-m-d H:i:s') : null),
                 'image' => $image,

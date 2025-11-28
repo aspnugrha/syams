@@ -47,6 +47,7 @@ Route::get('/showcase/{slug}', [PortofolioController::class, 'detail'])->name('s
 Route::get('/sample', [SampleController::class, 'index'])->name('sample');
 Route::get('/order', [OrderController::class, 'index'])->name('order');
 Route::post('/order', [OrderController::class, 'store'])->name('order.process');
+Route::get('/order/{order_number}', [OrderController::class, 'show'])->name('order.show');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
 Route::get('/policies/{code}', [HomeController::class, 'policies'])->name('policies');
@@ -54,8 +55,15 @@ Route::get('/policies/{code}', [HomeController::class, 'policies'])->name('polic
 Route::group(['middleware' => ['auth.customer']], function(){
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     Route::get('/my-order', [PanelOrderController::class, 'index'])->name('my-order');
+    Route::get('/my-order/{order_number}', [PanelOrderController::class, 'show'])->name('my-order.show');
+    Route::get('/my-order/{order_number}/cancel-order', [PanelOrderController::class, 'cancelOrder'])->name('my-order.cancel-order');
+    Route::post('/my-order/load-data', [PanelOrderController::class, 'loadData'])->name('my-order.load-data');
+    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update-profile', [ProfileController::class, 'updateProfile'])->name('profile.update-profile');
+    Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 });
 
 
@@ -98,6 +106,7 @@ Route::group(['prefix' => 'paneladmin'], function(){
         Route::resource('product', ProductController::class);
         Route::post('product/load-data', [ProductController::class, 'loadData'])->name('api.product.load-data');
         Route::post('product/export', [ProductController::class, 'export'])->name('api.product.export');
+        Route::get('product/main-product/{id}/{status}', [ProductController::class, 'mainProduct'])->name('api.product.main-product');
         
         // company-profile
         Route::get('company-profile/{code}', [CompanyProfileController::class, 'edit'])->name('company-profile.edit');

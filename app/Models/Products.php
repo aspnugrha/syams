@@ -19,6 +19,7 @@ class Products extends Model
 
     protected $fillable = [
         'id',
+        'category_id',
         'slug',
         'name',
         'description',
@@ -26,18 +27,28 @@ class Products extends Model
         'image',
         'size_qty_options',
         'active',
+        'main_product',
         'created_by',
         'updated_by',
+        'created_at',
+        'updated_at',
     ];
+
+    public function hasCategory(){
+        return $this->belongsTo(Categories::class, 'category_id', 'id');
+    }
 
     public static function loadData($request){
         $data = NULL;
         DB::beginTransaction();
         try {
-            $get_data = Products::orderBy('created_at', 'DESC')
+            $get_data = Products::orderBy('main_product', 'desc')->orderBy('created_at', 'DESC')
                 ->when(request()->search['value'], function ($query) {
                     $query->where('name', 'like', '%' . request()->search['value'] . '%');
                     $query->orWhere('description', 'like', '%' . request()->search['value'] . '%');
+                })
+                ->when(request()->category_id != null, function ($query) {
+                    $query->where('category_id', request()->category_id);
                 })
                 ->when(request()->active != null, function ($query) {
                     $query->where('active', request()->active);

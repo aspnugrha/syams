@@ -6,7 +6,7 @@
                     <div class="footer-intro mb-4">
                         <a href="{{ route('home') }}">
                         {{-- <img src="{{ asset('assets/frontend') }}/images/main-logo.png" alt="logo"> --}}
-                        <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/upload/logo/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" alt="{{ ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing') }} Logo" style="width: 60px">
+                        <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/upload/logo/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" alt="{{ ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing') }} Logo" style="max-width: 80px;max-height: 40px;">
                         </a>
                     </div>
                     {{-- <p>Gravida massa volutpat aenean odio. Amet, turpis erat nullam fringilla elementum diam in. Nisi, purus

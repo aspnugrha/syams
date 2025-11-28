@@ -9,11 +9,11 @@
 			</a>
 		</div> --}}
 		<div class="">
-            <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
+            <div class="p-3 d-flex justify-content-between align-items-center bg-light">
                 <h5 class="p-0 m-0">@yield('modal_header_text', 'Modal Header Text')</h5>
                 <a href="#"><i class="mdi mdi-close"></i></a>
             </div>
-            <div class="px-4" style="padding: 30px 10px 45px 10px;">
+            <div class="p-3">
                 @yield('modal_body')
             </div>
         </div>

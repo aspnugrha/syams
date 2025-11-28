@@ -133,6 +133,19 @@
         .text-decoration-none{
             text-decoration: none;
         }
+
+        table.simple-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table.simple-table th,
+        table.simple-table td {
+            border: 1px solid #000;
+            padding: 6px 10px;
+            font-size: 14px;
+            text-align: left;
+        }
     </style>
     
     @yield('styles')

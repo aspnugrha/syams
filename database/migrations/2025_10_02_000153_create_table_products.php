@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->string('id', 50)->primary();
+            $table->string('category_id', 50)->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->string('slug', 150)->unique();
             $table->string('name', 100);
             $table->text('description')->nullable();
@@ -20,6 +22,7 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->text('size_qty_options')->nullable();
             $table->tinyInteger('active')->default(0)->comment('1=active,0=nonactive');
+            $table->tinyInteger('main_product')->default(0);
             $table->string('created_by', 50)->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->string('updated_by', 50)->nullable();

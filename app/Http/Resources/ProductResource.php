@@ -18,6 +18,8 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'id_encode' => CodeHelper::encodeCode($this->id),
+            'category_id' => $this->category_id,
+            'category_name' => ($this->hasCategory ? $this->hasCategory->name : null),
             'slug' => $this->slug,
             'name' => $this->name,
             'description' => $this->description,
@@ -25,6 +27,7 @@ class ProductResource extends JsonResource
             'image' => $this->image,
             'size_qty_options' => $this->size_qty_options,
             'active' => $this->active,
+            'main_product' => $this->main_product,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
         ];
