@@ -428,7 +428,7 @@
                             btn = `<span class="badge bg-danger rounded-pill">Not Active</span>`;
                         }
 
-                        if(row.main_product){
+                        if(parseInt(row.main_product) == 1){
                             btn += `<span class="badge bg-info rounded-pill">Main</span>`
                         }
 						return btn;
