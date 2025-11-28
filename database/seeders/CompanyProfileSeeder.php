@@ -17,7 +17,7 @@ class CompanyProfileSeeder extends Seeder
         DB::table('company_profiles')->insert([
             'id' => 'CPNPFL20000000rtg8ly',
             'name' => 'Syams Manufacturing',
-            'pavicon' => 'syams-pavicon.jpg',
+            'pavicon' => 'syams-pavicon.png',
             'logo' => 'syams-logo.png',
             'email' => 'syamsmakmurnglobalindo@gmail.com',
             'phone_number' => '628',
