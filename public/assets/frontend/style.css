@@ -25,7 +25,8 @@ CSS STRUCTURE:
 body {
   /* --heading-font: "Marcellus", Roboto, sans-serif; */
   /* --heading-font: "Open Sans", sans-serif; */
-  --heading-font: "Jost", Roboto, sans-serif;
+  /* --heading-font: "Jost", Roboto, sans-serif; */
+  --heading-font: "Red Hat Display", sans-serif;
   --heading-font-weight: 400;
   --heading-color: #111;
   --heading-line-height: 1.24;
@@ -33,7 +34,8 @@ body {
   --swiper-theme-color: #8C907E;
 
   /* bootstrap */
-  --bs-body-font-family: "Jost", Roboto, sans-serif;
+  /* --bs-body-font-family: "Jost", Roboto, sans-serif; */
+  --bs-body-font-family: "Red Hat Display", sans-serif;
   /* --bs-body-font-family: "Open Sans", sans-serif; */
   --bs-body-font-size: 15px;
   --bs-body-font-weight: 400;

@@ -12,13 +12,17 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
         rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
     <style>
         .header-text{
-            font-family: "Marcellus", Roboto, sans-serif;
+            /* font-family: "Marcellus", Roboto, sans-serif; */
+            font-family: "Red Hat Display", sans-serif;
         }
 
         body{
-            font-family: "Jost", Roboto, sans-serif;
+            /* font-family: "Jost", Roboto, sans-serif; */
+            font-family: "Red Hat Display", sans-serif;
             background-color: rgba(241, 241, 240) !important;
         }
 
