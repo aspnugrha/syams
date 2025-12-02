@@ -39,10 +39,10 @@
                             <li class="nav-item {{ request()->segment(1) == 'profile' ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->segment(1) == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
                             </li>
-                            <li class="nav-item col-lg-auto d-block d-lg-none mt-4">
-                                <span class=" text-uppercase text-dark cursor-pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
+                            <li class="nav-item col-lg-auto d-block d-lg-none mt-3">
+                                <span class=" text-dark cursor-pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
                                 aria-controls="offcanvasAccount">
-                                    <i class="ti ti-user"></i> {{ Auth::guard('customer')->user()->name }}
+                                    <i class="ti ti-user"></i> &nbsp;{{ Auth::guard('customer')->user()->name }}
                             </span>
                             </li>
                             </ul>
@@ -57,9 +57,9 @@
                         </a>
                     </li> --}}
                     <li class="d-none d-lg-block">
-                        <span class="text-uppercase text-dark cursor-pointer mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
+                        <span class="text-dark cursor-pointer mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
                             aria-controls="offcanvasAccount">
-                            <i class="ti ti-user"></i> {{ Auth::guard('customer')->user()->name }}
+                            <i class="ti ti-user"></i> &nbsp;{{ Auth::guard('customer')->user()->name }}
                         </span>
                     </li>
                     {{-- <li class="d-lg-none">

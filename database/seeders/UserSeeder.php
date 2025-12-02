@@ -34,6 +34,7 @@ class UserSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'active' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
             ]);
         }
         
@@ -52,6 +53,7 @@ class UserSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'active' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

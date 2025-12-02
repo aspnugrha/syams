@@ -112,15 +112,18 @@ body {
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item col-lg-auto d-block d-lg-none mt-4">
+                            <li class="nav-item col-lg-auto d-block d-lg-none mt-3">
                                 @if (Auth::guard('customer')->user())
-                                    <a href="{{ route('dashboard') }}" class=" text-uppercase btn btn-dark"
+                                    {{-- <a href="{{ route('dashboard') }}" class=" text-uppercase btn btn-dark" --}}
+                                    <a href="{{ route('dashboard') }}" class=""
                                         {{-- data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" --}}
                                     >
                                         <i class="ti ti-user"></i> {{ Auth::guard('customer')->user()->name }}
                                     </a>
                                 @else
-                                    <a href="{{ route('login') }}" class=" text-uppercase btn btn-dark" >
+                                    {{-- <a href="{{ route('login') }}" class=" text-uppercase btn btn-dark" > --}}
+                                    <a href="{{ route('login') }}" class="" >
+                                        <i class="mdi mdi-login"></i>
                                         Login
                                     </a>
                                 @endif
@@ -173,7 +176,9 @@ body {
                             <i class="ti ti-user"></i> {{ Auth::guard('customer')->user()->name }}
                         </a>
                         @else
-                        <a href="{{ route('login') }}" class="text-uppercase mx-3 btn btn-dark" >
+                        {{-- <a href="{{ route('login') }}" class="text-uppercase mx-3 btn btn-dark" > --}}
+                        <a href="{{ route('login') }}" class="mx-3" >
+                            <i class="mdi mdi-login"></i>
                             Login
                         </a>
                         @endif

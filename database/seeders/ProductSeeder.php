@@ -143,6 +143,7 @@ class ProductSeeder extends Seeder
                 'size_qty_options' => $item['size_qty_options'],
                 'active' => 1,
                 'main_product' => (($index == 0 || $index == 3) ? 1 : 0),
+                'created_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

@@ -30,14 +30,14 @@
                         <div class="col-12 col-md-2">
                             <input type="text" name="created_at" id="created_at" class="form-control mb-2 w-100" placeholder="Filter date" onchange="loadData()">
                         </div>
-                        <div class="col-6 col-md-2">
+                        <div class="col-12 col-md-2">
                             <select name="order_type" id="order_type" class="form-control mb-2" onchange="loadData()">
                                 <option value="">Select order type</option>
                                 <option value="SAMPLE" {{ request()->order_type == 'SAMPLE' ? 'selected' : '' }}>Sample</option>
                                 <option value="ORDER" {{ request()->order_type == 'ORDER' ? 'selected' : '' }}>Order</option>
                             </select>
                         </div>
-                        <div class="col-6 col-md-2">
+                        <div class="col-12 col-md-2">
                             <select name="status" id="status" class="form-control mb-2" onchange="loadData()">
                                 <option value="">Select status</option>
                                 <option value="PENDING">Pending</option>
@@ -45,7 +45,7 @@
                                 <option value="CANCELED">Canceled</option>
                             </select>
                         </div>
-                        <div class="col-6 col-md-2">
+                        <div class="col-12 col-md-2">
                             <select name="order_by" id="order_by" class="form-control mb-2" onchange="loadData()">
                                 <option value="desc" selected>Newest</option>
                                 <option value="asc">Oldest</option>
@@ -126,7 +126,18 @@ function loadData(condition){
                 $('#btn-load-more').addClass('d-none');
             }
 
-            showData(data.data, condition)
+            if(data.data.length){
+                showData(data.data, condition)
+            }else{
+                var html = `
+                    <div class="d-flex justify-content-center flex-column align-items-center">
+                        <img class="my-3" src="{{ asset('assets/frontend/images/not-found.svg') }}" alt="No Data" style="width: 50vh;">
+                        <span class="my-3 text-muted">You don't have any order requests yet. Click the button below to place your first order!</span>
+                        <a href="{{ route('order') }}" class="btn btn-dark text-uppercase">Make Order</a>
+                    </div>
+                `
+                $('#list-orders').html(html)
+            }
         },
         error:function(xhr){
             console.log('error', xhr);
