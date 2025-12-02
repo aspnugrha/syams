@@ -162,7 +162,9 @@ $(document).ready(function(){
         }
     });	
 
-    setImageProfile()
+    if("{{ $customer->image }}"){
+        setImageProfile()
+    }
 });
 
 // image
@@ -210,7 +212,7 @@ function setImageProfile(){
     preview.className = "custom-preview-item";
     preview.innerHTML = `
         <button type="button" class="btn-remove" onclick="customRemoveImage()">×</button>
-        <img src="{{ asset('assets/image/upload/customer') }}/{{ $customer->image }}">
+        <img src="{{ ($customer->image ? asset('assets/image/upload/customer/'.$customer->image) : asset('assets/frontend/images/businesswoman-avatar.svg')) }}">
     `;
 
     // Ganti upload box dengan preview
