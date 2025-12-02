@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<section class="newsletter bg-light border-bottom" style="background: url(images/pattern-bg.png) no-repeat;">
+<section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-7 py-5 my-5">
