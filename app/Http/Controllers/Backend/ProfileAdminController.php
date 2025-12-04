@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Panel;
+namespace App\Http\Controllers\Backend;
 
 use App\Helpers\CodeHelper;
-use App\Helpers\IdGenerator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompanyProfileRequest;
 use App\Http\Requests\PasswordCustomerRequest;
-use App\Http\Requests\ProfileCustomerRequest;
+use App\Http\Requests\ProfileAdminRequest;
 use App\Mail\ActivationRegisterEmail;
 use App\Mail\CustomerNewPasswordEmail;
 use App\Models\CompanyProfile;
-use App\Models\Customers;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -20,57 +18,64 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
-class ProfileController extends Controller
+class ProfileAdminController extends Controller
 {
-    public function index(){
-        $customer = Customers::where('id', Auth::guard('customer')->user()->id)->first();
-        return view('frontend.panel.profile.index', compact('customer'));
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function index()
+    {
+        $data = User::where('id', Auth::user()->id)->first();
+        return view('backend.profile.form', compact('data'));
     }
 
-    public function updateProfile(ProfileCustomerRequest $request){
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateProfile(ProfileAdminRequest $request){
         DB::beginTransaction();
         try{
-            $customer = Customers::where('id', $request->id)->first();
+            $user = User::where('id', $request->id)->first();
         
-            $image = $customer->image;
+            $image = $user->image;
             if (!empty($request->file('image'))) {
-                if (File::exists(public_path('assets/image/upload/customer/' . $customer->image))) {
-                    File::delete(public_path('assets/image/upload/customer/' . $customer->image));
+                if (File::exists(public_path('assets/image/upload/user/' . $user->image))) {
+                    File::delete(public_path('assets/image/upload/user/' . $user->image));
                 }
                 $image = time() .'-'. rand(1000, 9999) . '.' . $request->file('image')->getClientOriginalExtension();
-                $destinationPath = public_path('/assets/image/upload/customer');
+                $destinationPath = public_path('/assets/image/upload/user');
                 $request->file('image')->move($destinationPath, $image);
             }
 
             $activation_code = CodeHelper::generateRandomCode(8);
             
             $send_email = false;
-            if($customer->email != $request->email){
+            if($user->email != $request->email){
                 $send_email = true;
             }
 
-            $save = $customer->update([
-                'name' => $request->fullname,
+            $save = $user->update([
+                'name' => $request->name,
                 'email' => $request->email,
-                'phone_number' => $request->phone_number,
+                'phone_number' => ($request->phone_number ? $request->phone_number : $user->phone_number),
                 'image' => $image,
-                'activation_code' => ($customer->email != $request->email ? $activation_code : $customer->activation_code),
-                'email_verified_at' => ($customer->email != $request->email ? null : $customer->email_verified_at),
-                'active' => ($customer->email != $request->email ? 0 : $customer->active),
-                'updated_by' => Auth::guard('customer')->user()->id,
+                'activation_code' => ($user->email != $request->email ? $activation_code : $user->activation_code),
+                'email_verified_at' => ($user->email != $request->email ? null : $user->email_verified_at),
+                'active' => ($user->email != $request->email ? 0 : $user->active),
+                'updated_by' => Auth::user()->id,
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
 
             if($send_email){
-                $customer = Customers::where('id', $request->id)->first();
+                $user = User::where('id', $request->id)->first();
                 $activation_code_encode = CodeHelper::encodeCode($activation_code);
                 $email_encode = CodeHelper::encodeCode($request->email);
                 
                 $company_profile = CompanyProfile::first();
-                $url_activation = route('register.activation', ['email' => $email_encode, 'code' => $activation_code_encode]);
-                Mail::to($request->email)->send(new ActivationRegisterEmail($customer, $url_activation, 'Your account is ready to be activated!', $company_profile));
+                $url_activation = route('paneladmin.register.activation', ['email' => $email_encode, 'code' => $activation_code_encode]);
+                Mail::to($request->email)->send(new ActivationRegisterEmail($user, $url_activation, 'Your account is ready to be activated!', $company_profile));
 
-                Auth::guard('customer')->logout();
+                Auth::logout();
             }
 
             Cache::flush();
@@ -87,21 +92,21 @@ class ProfileController extends Controller
         }
     }
     
-    public function updatePassword(PasswordCustomerRequest $request){
+    public function setNewPassword(PasswordCustomerRequest $request){
         DB::beginTransaction();
         try{
-            $customer = Customers::where('id', $request->id)->first();
+            $user = User::where('id', $request->id)->first();
 
-            if($customer){
-                if(Hash::check($request->old_password, $customer->password)){
-                    $save = $customer->update([
+            if($user){
+                if(Hash::check($request->old_password, $user->password)){
+                    $save = $user->update([
                         'password' => password_hash($request->new_password, PASSWORD_DEFAULT),
-                        'updated_by' => Auth::guard('customer')->user()->id,
+                        'updated_by' => Auth::user()->id,
                         'updated_at' => date('Y-m-d H:i:s'),
                     ]);
 
                     $company_profile = CompanyProfile::first();
-                    Mail::to($customer->email)->send(new CustomerNewPasswordEmail($customer, $company_profile));
+                    Mail::to($user->email)->send(new CustomerNewPasswordEmail($user, $company_profile));
 
                     Cache::flush();
                     DB::commit();
@@ -132,6 +137,7 @@ class ProfileController extends Controller
                 ]);
             }
         } catch (\Exception $exc) {
+            dd($exc);
             DB::rollBack();
             return $exc;
         }

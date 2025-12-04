@@ -97,7 +97,7 @@
                         @endif
                     </div>
                     @if ($count_recent_orders)
-                        <a href="{{ route('my-order') }}" type="button" class="btn btn-dark w-100 mt-4">See More</a>
+                        <a href="{{ route('my-order') }}" type="button" class="btn btn-dark w-100 mt-4 text-uppercase">See More</a>
                     @endif
                 </div>
             </div>

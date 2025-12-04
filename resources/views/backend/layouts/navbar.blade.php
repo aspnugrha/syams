@@ -148,7 +148,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade show active" tabindex="0">
-                            <a href="#!" class="dropdown-item">
+                            <a href="{{ route('paneladmin.profile') }}" class="dropdown-item">
                                 <i class="ti ti-user"></i>
                                 <span>Setting Profile</span>
                             </a>

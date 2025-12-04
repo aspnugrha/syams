@@ -220,6 +220,34 @@ function setImageProfile(){
 }
 
 function saveProfile(){
+    const email_request = $('#email').val();
+
+    if('{{ $customer->email }}' != email_request){
+        var confirmText = 'Changes to your email will deactivate your account, and you will be asked to reactivate your account.';
+    
+        var confirmButtonText = 'Yes, update my email!';
+        var confirmButtonColor = '#13c2c2';
+        
+        Swal.fire({
+            title: 'Are you sure you want to set new email?',
+            text: confirmText,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: confirmButtonColor,
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                saveProfileAct();
+            }
+        });
+    }else{
+        saveProfileAct()
+    }
+}
+
+function saveProfileAct(){
     $('input.is-invalid').removeClass('is-invalid');
     $('#imageHelp').removeClass('d-block').addClass('d-none');
 
@@ -236,6 +264,13 @@ function saveProfile(){
             console.log(response);
             if (response.success == true) {
                 showToastr('toast-top-right', 'success', "Data berhasil disimpan")
+
+                const email_request = $('#email').val();
+                if('{{ $customer->email }}' != email_request){
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
             } else {
                 showToastr('toast-top-right', 'error', "Terjadi kesalahan, silahkan ulangi kembali")
             }

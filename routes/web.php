@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\DashboardAdminController;
 use App\Http\Controllers\Backend\MasterCustomerController;
 use App\Http\Controllers\Backend\MasterUserController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProfileAdminController;
 use App\Http\Controllers\SummernoteController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -111,6 +112,11 @@ Route::group(['prefix' => 'paneladmin'], function(){
         // company-profile
         Route::get('company-profile/{code}', [CompanyProfileController::class, 'edit'])->name('company-profile.edit');
         Route::put('company-profile/{code}', [CompanyProfileController::class, 'update'])->name('company-profile.update');
+        
+        // profile
+        Route::get('profile', [ProfileAdminController::class, 'index'])->name('paneladmin.profile');
+        Route::post('profile/update-profile', [ProfileAdminController::class, 'updateProfile'])->name('paneladmin.profile.update-profile');
+        Route::post('profile/set-new-password', [ProfileAdminController::class, 'setNewPassword'])->name('paneladmin.profile.set-new-password');
     });
 });
 
