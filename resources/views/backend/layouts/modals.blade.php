@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body" id="modal-default-body">
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="modal-footer-default">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-dark btn-sm modal-btn-save" id="modal-default-btn-save">Save changes</button>
       </div>
@@ -23,7 +23,7 @@
       </div>
       <div class="modal-body" id="modal-sm-body">
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="modal-footer-sm">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-dark btn-sm modal-btn-save" id="modal-sm-btn-save">Save changes</button>
       </div>
@@ -39,7 +39,7 @@
       </div>
       <div class="modal-body" id="modal-lg-body">
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="modal-footer-lg">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-dark btn-sm modal-btn-save" id="modal-lg-btn-save">Save changes</button>
       </div>
@@ -55,7 +55,7 @@
       </div>
       <div class="modal-body" id="modal-xl-body">
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="modal-footer-xl">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-dark btn-sm modal-btn-save" id="modal-xl-btn-save">Save changes</button>
       </div>

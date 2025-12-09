@@ -8,7 +8,14 @@
     <div class="border-bottom" style="padding: 0 25px 80px 25px;">
 
         <h2 class="header-text" style="margin: 0 0 25px 0;">Hallo, {{ $customer->name }}!</h2>
-        <p style="margin: 0 0 10px 0;font-size: 15px;">Thank you for submitting your {{ strtolower($orders->order_type) }} request at {{ $company_profile->name ? $company_profile->name : 'Syams Manufacture' }}. Here are the details of your {{ strtolower($orders->order_type) }} :</p>
+        <p style="margin: 0 0 10px 0;font-size: 15px;">
+            @if ($orders->status == 'APPROVED')
+                Congratulations! Your {{ strtolower($orders->order_type) }} request dated <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong>, has been approved.
+            @else
+                Regarding your {{ strtolower($orders->order_type) }} request dated <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong>, we apologize, your request has been cancelled at this time. Please rest assured that you may still resubmit your {{ strtolower($orders->order_type) }} request.
+            @endif    
+            <br>Here are the details of your {{ strtolower($orders->order_type) }} :
+        </p>
 
         <table style="width: 100%;margin: 10px 0;">
             <tr>

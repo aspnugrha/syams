@@ -33,6 +33,7 @@ class MasterCustomerExport implements FromArray, WithHeadings, WithStyles, WithC
 
         // $rows[] = ['No', 'Name', 'Email', 'Phone Number', 'Active']; // header
 
+        $rows = [];
         foreach ($data as $index => $item) {
             $rows[] = [
                 ($index + 1),

@@ -79,8 +79,8 @@
 
       <article class="my-3">{!! $product->description !!}</article>
 
-      <a href="#" class="btn btn-dark text-uppercase mt-3"><i class="ti ti-hand-open"></i> Sample</a>
-      <a href="#" class="btn btn-dark text-uppercase mt-3"><i class="ti ti-shopping-cart"></i> Order</a>
+      <a href="{{ route('order').'?order_type=SAMPLE&product='.\App\Helpers\CodeHelper::encodeCode($product->id) }}" class="btn btn-dark text-uppercase mt-3"><i class="ti ti-hand-open"></i> Sample</a>
+      <a href="{{ route('order').'?order_type=ORDER&product='.\App\Helpers\CodeHelper::encodeCode($product->id) }}" class="btn btn-dark text-uppercase mt-3"><i class="ti ti-shopping-cart"></i> Order</a>
 
     </div>
   </div>

@@ -38,13 +38,14 @@ class ProductExport implements FromArray, WithHeadings, WithStyles, WithColumnWi
                 ->with(['hasCategory'])
                 ->get();
 
+        $rows = [];
         foreach ($data as $index => $item) {
             $size_qty = [];
             if($item->size_qty_options){
                 $get_size_qty = json_decode($item->size_qty_options);
                 
                 foreach($get_size_qty as $sq){
-                    $size_qty[] = $sq->size.' : '.($sq->qty ? implode(',',$sq->qty) : '');
+                    $size_qty[] = $sq->size.' ('.($sq->qty ? implode(',',$sq->qty) : '').')';
                 }
             }
 
@@ -53,7 +54,8 @@ class ProductExport implements FromArray, WithHeadings, WithStyles, WithColumnWi
                 ($item->hasCategory ? $item->hasCategory->name : ''),
                 $item->name,
                 $item->description ? strip_tags($item->description) : '',
-                $item->size_qty_options ? implode("\r\n", $size_qty) : '',
+                // $item->size_qty_options ? implode("\r\n", $size_qty) : '',
+                $item->size_qty_options ? implode("  ", $size_qty) : '',
                 ($item->active) ? 'Active' : 'Not Active',
                 ($item->main_product) ? 'Main Product' : '',
             ];
@@ -88,6 +90,8 @@ class ProductExport implements FromArray, WithHeadings, WithStyles, WithColumnWi
             ->getAlignment()->setHorizontal('center');
         $sheet->getStyle("F2:F{$lastRow}")
             ->getAlignment()->setHorizontal('center');
+        $sheet->getStyle("G2:G{$lastRow}")
+            ->getAlignment()->setHorizontal('center');
 
         // Border all cells
         $sheet->getStyle("A1:G{$lastRow}")
@@ -105,7 +109,7 @@ class ProductExport implements FromArray, WithHeadings, WithStyles, WithColumnWi
             'B' => 15,
             'C' => 30,
             'D' => 70,
-            'E' => 50,
+            'E' => 100,
             'F' => 20,
             'G' => 20,
         ];

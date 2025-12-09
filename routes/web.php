@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\CompanyProfileController;
 use App\Http\Controllers\Backend\DashboardAdminController;
 use App\Http\Controllers\Backend\MasterCustomerController;
 use App\Http\Controllers\Backend\MasterUserController;
+use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProfileAdminController;
 use App\Http\Controllers\SummernoteController;
@@ -45,7 +46,7 @@ Route::post('/set-new-password', [AuthController::class, 'setNewPasswordProcess'
 
 Route::get('/showcase', [PortofolioController::class, 'index'])->name('showcase');
 Route::get('/showcase/{slug}', [PortofolioController::class, 'detail'])->name('showcase.detail');
-Route::get('/sample', [SampleController::class, 'index'])->name('sample');
+// Route::get('/sample', [SampleController::class, 'index'])->name('sample');
 Route::get('/order', [OrderController::class, 'index'])->name('order');
 Route::post('/order', [OrderController::class, 'store'])->name('order.process');
 Route::get('/order/{order_number}', [OrderController::class, 'show'])->name('order.show');
@@ -109,6 +110,13 @@ Route::group(['prefix' => 'paneladmin'], function(){
         Route::post('product/export', [ProductController::class, 'export'])->name('api.product.export');
         Route::get('product/main-product/{id}/{status}', [ProductController::class, 'mainProduct'])->name('api.product.main-product');
         
+        // order
+        Route::get('order', [BackendOrderController::class, 'index'])->name('paneladmin.order.index');
+        Route::get('order/{id}', [BackendOrderController::class, 'show'])->name('paneladmin.order.show');
+        Route::post('order/load-data', [BackendOrderController::class, 'loadData'])->name('api.order.load-data');
+        Route::post('order/export', [BackendOrderController::class, 'export'])->name('api.order.export');
+        Route::post('order/set-status', [BackendOrderController::class, 'setStatus'])->name('api.order.set-status');
+
         // company-profile
         Route::get('company-profile/{code}', [CompanyProfileController::class, 'edit'])->name('company-profile.edit');
         Route::put('company-profile/{code}', [CompanyProfileController::class, 'update'])->name('company-profile.update');

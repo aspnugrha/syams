@@ -148,10 +148,21 @@
 
 @section('scripts')
 <script>
+$(document).ready(function(){
+    if("{{ $order_type }}"){
+        $('input[name="order_type"][value="{{ $order_type }}"]').prop('checked', true);
+    }
+    if("{{ $request_product }}"){
+        setTimeout(() => {
+            setProduct(@json($request_product), '{{ $request_product->id }}');
+        }, 1500);
+    }
+});
+
 function setProduct(product, id){
     const order_type = $('[name="order_type"]:checked').val()
 
-    console.log(product);
+    console.log('set product', product, order_type);
     const products_id = $('#products_id').val() ? $('#products_id').val() : [];
 
     setSelectedProductId(product.id, 'add')
@@ -209,7 +220,7 @@ function setProduct(product, id){
                                         item.qty.forEach(qty => {
                                             html += `
                                             <input type="radio" class="btn-check qty-size-${product.id}-${item.size}" name="qty_options[${product.id}][${item.size}]" id="${product.id+'-'+item.size+'-'+qty}" value="${qty}" autocomplete="off" disabled>
-                                            <label class="btn btn-outline-primary mb-1 qty-size-${item.size}" for="${product.id+'-'+item.size+'-'+qty}" disabled style="font-size: 13px;padding: 2px 3px;">${qty}</label>
+                                            <label class="btn btn-outline-primary rounded-pill mb-1 qty-size-${item.size}" for="${product.id+'-'+item.size+'-'+qty}" disabled style="font-size: 13px;padding: 2px 3px;">${qty}</label>
                                             `
                                         });
                                     }

@@ -33,6 +33,7 @@ class MasterUserExport implements FromArray, WithHeadings, WithStyles, WithColum
 
         // $rows[] = ['No', 'Name', 'Email', 'Phone Number', 'Active']; // header
 
+        $rows = [];
         foreach ($data as $index => $item) {
             $rows[] = [
                 ($index + 1),

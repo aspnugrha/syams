@@ -41,6 +41,19 @@ class Orders extends Model
         'updated_by',
     ];
 
+    public function hasCustomer(){
+        return $this->belongsTo(Customers::class, 'customer_id', 'id');
+    }
+    public function hasApprovedBy(){
+        return $this->belongsTo(User::class, 'approved_by', 'id');
+    }
+    public function hasCanceledBy(){
+        return $this->belongsTo(User::class, 'canceled_by', 'id');
+    }
+    public function hasCanceledByCustomer(){
+        return $this->belongsTo(Customers::class, 'canceled_by_customer', 'id');
+    }
+
     public function details(){
         return $this->hasMany(OrderDetails::class, 'order_id', 'id');
     }
@@ -87,14 +100,26 @@ class Orders extends Model
         try {
             $get_data = Orders::orderBy('created_at', 'DESC')
                 ->when(request()->search['value'], function ($query) {
-                    $query->where('name', 'like', '%' . request()->search['value'] . '%');
-                    $query->orWhere('description', 'like', '%' . request()->search['value'] . '%');
+                    $query->where('order_number', 'like', '%' . request()->search['value'] . '%');
+                    $query->orWhere('order_type', 'like', '%' . request()->search['value'] . '%');
+                    $query->orWhere('customer_name', 'like', '%' . request()->search['value'] . '%');
+                    $query->orWhere('customer_email', 'like', '%' . request()->search['value'] . '%');
+                    $query->orWhere('customer_phone_number', 'like', '%' . request()->search['value'] . '%');
+                    $query->orWhere('status', 'like', '%' . request()->search['value'] . '%');
                 })
-                ->when(request()->category_id != null, function ($query) {
-                    $query->where('category_id', request()->category_id);
+                ->when(request()->order_type != null, function ($query) {
+                    $query->where('order_type', request()->order_type);
                 })
-                ->when(request()->active != null, function ($query) {
-                    $query->where('active', request()->active);
+                ->when(request()->customer_id != null, function ($query) {
+                    $query->where('customer_id', request()->customer_id);
+                })
+                ->when(request()->status != null, function ($query) {
+                    $query->where('status', request()->status);
+                })
+                ->when(request()->order_date != null, function ($query) {
+                    $ranges = explode(' - ', request()->order_date);
+                    $query->where('order_date', '>=', date('Y-m-d H:i:s', strtotime($ranges[0].' 00:00:00')));
+                    $query->where('order_date', '<=', date('Y-m-d H:i:s', strtotime($ranges[1].' 23:59:59')));
                 })
                 ->when(request()->created_at != null, function ($query) {
                     $created_ranges = explode(' - ', request()->created_at);

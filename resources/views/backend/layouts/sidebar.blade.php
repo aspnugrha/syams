@@ -44,7 +44,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="{{ asset('assets/backend') }}/pages/register.html" class="pc-link">
+          <a href="{{ route('paneladmin.order.index') }}" class="pc-link">
             <span class="pc-micon"><i class="mdi mdi-cart-arrow-down"></i></span>
             <span class="pc-mtext">Order</span>
           </a>

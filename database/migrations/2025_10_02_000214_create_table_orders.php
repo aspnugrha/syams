@@ -48,8 +48,8 @@ return new class extends Migration
             $table->string('product_name', 50);
             $table->string('product_category', 50)->nullable();
             $table->string('product_image', 50)->nullable();
-            $table->string('size_selected', 50);
-            $table->string('qty_selected', 50);
+            $table->text('size_selected');
+            $table->text('qty_selected');
             $table->text('notes')->nullable();
             $table->string('status', 100)->default('PENDING')->comment('PENDING,APPROVED,CANCELED');
             $table->string('created_by_customer', 50)->nullable();

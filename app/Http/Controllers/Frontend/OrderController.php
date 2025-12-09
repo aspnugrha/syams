@@ -19,13 +19,23 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        $order_type = ($request->order_type == 'SAMPLE' || $request->order_type == 'ORDER') ? $request->order_type : null;
+
         $products = Products::with(['hasCategory'])->where('active', 1)->inRandomOrder()->get()->map(function ($item) {
             $item->size_qty = ($item->size_qty_options ? json_decode($item->size_qty_options) : null);
             return $item;
         });
 
-        return view('frontend.order.index', compact('products'));
+        $request_product = null;
+        if($request->product) {
+            $request_product = Products::with(['hasCategory'])->where('id', CodeHelper::decodeCode($request->product))->first();
+            if($request_product){
+                $request_product->size_qty = ($request_product->size_qty_options ? json_decode($request_product->size_qty_options) : null);
+            }
+        }
+        
+        return view('frontend.order.index', compact('products', 'request_product', 'order_type'));
     }
 
     public function store(OrderRequest $request){
