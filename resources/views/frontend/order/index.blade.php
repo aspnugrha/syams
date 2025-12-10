@@ -207,7 +207,7 @@ function setProduct(product, id){
                         product.size_qty.forEach((item, index_options) => {
                             html += `
                             <tr>
-                                <td>
+                                <td width="100px;">
                                     <div class="d-flex justify-content-start">
                                         <div class="form-check me-2">
                                             <input class="form-check-input ms-0" type="checkbox" name="size_options[${product.id}][]" value="${item.size}" id="${product.id+'-'+item.size}" onchange="disabledQty('${product.id}', '${item.size}', this)">
