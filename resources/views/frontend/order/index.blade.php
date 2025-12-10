@@ -201,18 +201,20 @@ function setProduct(product, id){
                         `;
     
                 if(order_type == 'ORDER'){
+                    html += `<table class="w-100">`
                     if(product.size_qty){
                         // let index_options = 1;
                         product.size_qty.forEach((item, index_options) => {
                             html += `
-                            <table class="w-100">
                             <tr>
-                                <td class="d-flex justify-content-start" width="20">
-                                    <div class="form-check me-2">
-                                        <input class="form-check-input ms-0" type="checkbox" name="size_options[${product.id}][]" value="${item.size}" id="${product.id+'-'+item.size}" onchange="disabledQty('${product.id}', '${item.size}', this)">
-                                        <label class="form-check-label text-dark" for="${product.id+'-'+item.size}" style="padding-left: 25px;font-size: 16px;">
-                                        ${item.size}
-                                        </label>
+                                <td>
+                                    <div class="d-flex justify-content-start">
+                                        <div class="form-check me-2">
+                                            <input class="form-check-input ms-0" type="checkbox" name="size_options[${product.id}][]" value="${item.size}" id="${product.id+'-'+item.size}" onchange="disabledQty('${product.id}', '${item.size}', this)">
+                                            <label class="form-check-label text-dark" for="${product.id+'-'+item.size}" style="padding-left: 25px;font-size: 16px;">
+                                            ${item.size}
+                                            </label>
+                                        </div>
                                     </div>
                                 </td>
                                 <td>`
@@ -235,7 +237,7 @@ function setProduct(product, id){
                     html += `</table>`
                 }else{
                     if(product.size_qty){
-                        html += `<div class="w-100 d-flex">`
+                        html += `<div class="w-100 d-flex justify-content-start">`
                         product.size_qty.forEach((item, index_options) => {
                             html += `
                             <span class="d-flex justify-content-start">
