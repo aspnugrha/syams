@@ -2,7 +2,7 @@
 @section('content')
     <div class="header">
         <a class="text-decoration-none" href="{{ route('home') }}">
-            <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/logo/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" alt="{{ ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing') }} Logo" style="width: 140px;">
+            <img src="{{ asset($company_profile && $company_profile->logo ? 'assets/image/upload/logo/'.$company_profile->logo : 'assets/image/logo-syams.png') }}" alt="{{ ($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing') }} Logo" style="width: 140px;">
         </a>
     </div>
     <div class="border-bottom" style="padding: 0 25px 80px 25px;">
@@ -11,7 +11,7 @@
         <p style="margin: 0 0 10px 0;font-size: 15px;">Thank you for joining {{ $company_profile->name ? $company_profile->name : 'Syams Manufacture' }}. You're one step closer to enjoying full access to our website.</p>
         <p style="margin: 0 0 10px 0;font-size: 15px;">Please activate your account by clicking the link below.</p>
         <div style="width: 100%;display: flex;justify-content: center;margin-top: 50px;">
-            <a href="{{ $url }}" target="_blank" class="btn">ACTIVATE NOW</a>
+            <a href="{{ $url }}" target="_blank" class="btn" style="background-color: #212529;color: white;padding: 10px 20px;text-decoration: none;">ACTIVATE NOW</a>
         </div>
     </div>
 
