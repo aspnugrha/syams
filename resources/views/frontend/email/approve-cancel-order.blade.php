@@ -9,11 +9,15 @@
 
         <h2 class="header-text" style="margin: 0 0 25px 0;">Hallo, {{ $customer->name }}!</h2>
         <p style="margin: 0 0 10px 0;font-size: 15px;">
-            @if ($orders->status == 'APPROVED')
-                Congratulations! Your {{ strtolower($orders->order_type) }} request dated <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong>, has been approved.
+            @if ($access_from == 'backend')
+                @if ($orders->status == 'APPROVED')
+                    Congratulations! Your {{ strtolower($orders->order_type) }} request dated <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong>, has been approved.
+                @else
+                    Regarding your {{ strtolower($orders->order_type) }} request dated <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong>, we apologize, your request has been cancelled at this time. Please rest assured that you may still resubmit your {{ strtolower($orders->order_type) }} request.
+                @endif    
             @else
-                Regarding your {{ strtolower($orders->order_type) }} request dated <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong>, we apologize, your request has been cancelled at this time. Please rest assured that you may still resubmit your {{ strtolower($orders->order_type) }} request.
-            @endif    
+                Your {{ strtolower($orders->order_type) }} request on <strong>{{ date('d F Y H:i', strtotime($orders->order_date)) }}</strong> has been successfully cancelled.
+            @endif
             <br>Here are the details of your {{ strtolower($orders->order_type) }} :
         </p>
 

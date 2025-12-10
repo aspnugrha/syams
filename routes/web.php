@@ -50,6 +50,7 @@ Route::get('/showcase/{slug}', [PortofolioController::class, 'detail'])->name('s
 Route::get('/order', [OrderController::class, 'index'])->name('order');
 Route::post('/order', [OrderController::class, 'store'])->name('order.process');
 Route::get('/order/{order_number}', [OrderController::class, 'show'])->name('order.show');
+Route::get('/order/{order_number}/cancel-order', [OrderController::class, 'cancelOrder'])->name('order.cancel-order');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
 Route::get('/policies/{code}', [HomeController::class, 'policies'])->name('policies');

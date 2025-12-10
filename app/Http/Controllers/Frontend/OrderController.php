@@ -6,6 +6,7 @@ use App\Helpers\CodeHelper;
 use App\Helpers\IdGenerator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Mail\ApproveCancelOrderEmail;
 use App\Mail\OrderEmail;
 use App\Models\CompanyProfile;
 use App\Models\OrderDetails;
@@ -160,7 +161,78 @@ class OrderController extends Controller
     public function show($order_number_decode){
         $order_number = CodeHelper::decodeCode($order_number_decode);
         $orders = Orders::with(['details'])->where('order_number', $order_number)->first();
+        if($orders){
+            $orders->id_encode = CodeHelper::encodeCode($orders->id);
+            $orders->order_number_encode = CodeHelper::encodeCode($orders->order_number);
+        }
         
         return view('frontend.order.show', compact('orders'));
+    }
+
+    public function cancelOrder($order_number_encode){
+        DB::beginTransaction();
+        try{
+            $order_number = CodeHelper::decodeCode($order_number_encode);
+            $order = Orders::where('order_number', $order_number)->first();
+            $order_detail = OrderDetails::where('order_id', ($order ? $order->id : null))->get();
+
+            if(!$order){
+                return response()->json([
+                    'response' => $order,
+                    'success' => false,
+                    'status' => 'error',
+                ]);
+            }
+
+            $order->update([
+                // 'canceled_by_customer' => Auth::guard('customer')->user()->id,
+                // 'updated_by_customer' => Auth::guard('customer')->user()->id,
+                'canceled_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'status' => 'CANCELED',
+            ]);
+            
+            if($order_detail){
+                foreach($order_detail as $od){
+                    $od->update([
+                        // 'canceled_by_customer' => Auth::guard('customer')->user()->id,
+                        // 'updated_by_customer' => Auth::guard('customer')->user()->id,
+                        'canceled_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                        'status' => 'CANCELED',
+                    ]);
+                }
+            }
+
+            $orders = Orders::with(['details'])->where('order_number', $order_number)->first();
+            
+            if($order->customer_id){
+                $url = route('my-order.show', CodeHelper::encodeCode($order->order_number));
+            }else{
+                $url = route('order.show', CodeHelper::encodeCode($order->order_number));
+            }
+            
+            $customer = (object)[
+                'name' => $orders->customer_name,
+                'email' => $orders->customer_email,
+                'phone_number' => $orders->customer_phone_number,
+            ];
+
+            
+            $company_profile = CompanyProfile::first();
+            Mail::to($orders->customer_email)->send(new ApproveCancelOrderEmail($customer, $orders, $url, 'frontend', $company_profile));
+
+            Cache::flush();
+            DB::commit();
+
+            return response()->json([
+                'response' => $order,
+                'success' => true,
+                'status' => 'success',
+            ]);
+        } catch (\Exception $exc) {
+            DB::rollBack();
+            return $exc;
+        }
     }
 }

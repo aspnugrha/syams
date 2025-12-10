@@ -10,6 +10,7 @@ use App\Http\Resources\OrderCustomerResource;
 use App\Mail\ApproveCancelOrderEmail;
 use App\Models\CompanyProfile;
 use App\Models\Customers;
+use App\Models\OrderDetails;
 use App\Models\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -60,6 +61,7 @@ class OrderController extends Controller
         DB::beginTransaction();
         try{
             $order = Orders::where('id', $request->id)->first();
+            $order_detail = OrderDetails::where('order_id', $request->id)->get();
             
             $data_update = ['status' => $request->status];
             
@@ -75,6 +77,12 @@ class OrderController extends Controller
                 $data_update['canceled_at'] = date('Y-m-d H:i:s');
             }
             $save = $order->update($data_update);
+
+            if($order_detail){
+                foreach($order_detail as $detail){
+                    $detail->update($data_update);
+                }
+            }
             
             $orders = Orders::with(['details'])->where('id', $request->id)->first();
             
@@ -91,7 +99,7 @@ class OrderController extends Controller
             ];
             
             $company_profile = CompanyProfile::first();
-            Mail::to($order->customer_email)->send(new ApproveCancelOrderEmail($customer, $orders, $url, $company_profile));
+            Mail::to($order->customer_email)->send(new ApproveCancelOrderEmail($customer, $orders, $url, 'backend', $company_profile));
 
             Cache::flush();
             DB::commit();

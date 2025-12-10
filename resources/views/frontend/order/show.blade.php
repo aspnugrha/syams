@@ -101,7 +101,7 @@
                     @endif
                 </div>
                 @if ($orders->status == 'PENDING')
-                    <a href="javascript:void(0)" onclick="cancelOrder('{{ $orders->id }}')" class="btn btn-dark btn-lg w-100 text-uppercase">CANCEL THIS ORDER</a>
+                    <a href="javascript:void(0)" onclick="cancelOrder('{{ $orders->id }}', '{{ $orders->order_number_encode }}')" class="btn btn-dark btn-lg w-100 text-uppercase">CANCEL THIS ORDER</a>
                 @elseif($orders->status == 'APPROVED')
                     <button type="button" class="btn btn-success btn-lg w-100" disabled>
                         This order was Approved on {{ date('d F Y H:i', strtotime($orders->approved_at)) }}
@@ -150,9 +150,15 @@ $(document).ready(function(){
     });
 });
 
-function cancelOrder(id){
-    var url = "{{ route('my-order.cancel-order', ':id') }}";
-        url = url.replace(':id', id);
+function cancelOrder(id, order_number_encode = null){
+    if("{{ Auth::guard('customer')->check() }}"){
+        var url = "{{ route('my-order.cancel-order', ':id') }}";
+            url = url.replace(':id', id);
+    }else{
+        var url = "{{ route('order.cancel-order', ':order_number') }}";
+            url = url.replace(':order_number', order_number_encode);
+    }
+
     var confirmText = 'Are you sure you want to cancel this order?';
     
     var confirmButtonText = 'Yes, cancel it!';
@@ -169,6 +175,7 @@ function cancelOrder(id){
         cancelButtonText: 'Cancel'
     }).then((result) => {
         if (result.isConfirmed) {
+            $('.custom-loader-overlay').css('display', 'flex')
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -195,7 +202,10 @@ function cancelOrder(id){
                         'An error occurred while processing your request',
                         'Error!'
                     );
-                }
+                },
+                complete:function(){
+                    $('.custom-loader-overlay').css('display', 'none')
+                },
             });
         }
     });

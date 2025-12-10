@@ -52,6 +52,14 @@ return new class extends Migration
             $table->text('qty_selected');
             $table->text('notes')->nullable();
             $table->string('status', 100)->default('PENDING')->comment('PENDING,APPROVED,CANCELED');
+            $table->dateTime('approved_at')->nullable();
+            $table->dateTime('canceled_at')->nullable();
+            $table->string('approved_by', 50)->nullable();
+            $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
+            $table->string('canceled_by_customer', 50)->nullable();
+            $table->foreign('canceled_by_customer')->references('id')->on('customers')->onDelete('set null');
+            $table->string('canceled_by', 50)->nullable();
+            $table->foreign('canceled_by')->references('id')->on('users')->onDelete('set null');
             $table->string('created_by_customer', 50)->nullable();
             $table->foreign('created_by_customer')->references('id')->on('customers')->onDelete('set null');
             $table->string('updated_by_customer', 50)->nullable();
