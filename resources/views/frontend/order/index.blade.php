@@ -154,7 +154,7 @@ $(document).ready(function(){
     }
     if("{{ $request_product }}"){
         setTimeout(() => {
-            setProduct(@json($request_product), '{{ $request_product->id }}');
+            setProduct(@json($request_product), '{{ ($request_product ? $request_product->id : "") }}');
         }, 1500);
     }
 });
