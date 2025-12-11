@@ -52,8 +52,8 @@
 
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
     <div class="w-100 container p-0">
-      <div class="row justify-content-center">
-        <h2 class="section-title text-center mt-4" data-aos="fade-up">New Collections</h2>
+      <div class="w-100 row justify-content-center">
+        <h2 class="section-title text-center mt-4" style="font-size: 10vh;" data-aos="fade-up">New Collections</h2>
         <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci
             repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum,
@@ -807,25 +807,32 @@
     </div>
   </section>
 
-  <section class="logo-bar py-5 my-5">
+  {{-- <section class="logo-bar py-5 my-5">
     <div class="container">
       <div class="row">
-        <div class="logo-content d-flex flex-wrap justify-content-between">
-          <img src="{{ asset('assets/frontend') }}/images/logo1.png" alt="logo" class="logo-image img-fluid">
-          <img src="{{ asset('assets/frontend') }}/images/logo2.png" alt="logo" class="logo-image img-fluid">
-          <img src="{{ asset('assets/frontend') }}/images/logo3.png" alt="logo" class="logo-image img-fluid">
-          <img src="{{ asset('assets/frontend') }}/images/logo4.png" alt="logo" class="logo-image img-fluid">
-          <img src="{{ asset('assets/frontend') }}/images/logo5.png" alt="logo" class="logo-image img-fluid">
+        <div class="logo-content d-flex flex-wrap justify-content-start gap-0">
+          <img src="{{ asset('assets/image/upload/collaboration/1.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/2.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/3.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/4.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/5.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/6.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/7.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/8.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/9.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/10.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
+          <img src="{{ asset('assets/image/upload/collaboration/11.jpg') }}" alt="logo" class="logo-image img-fluid" style="max-width: 200px;">
         </div>
       </div>
     </div>
-  </section>
+  </section> --}}
 
   <section class="instagram position-relative">
     <div class="d-flex justify-content-center w-100 position-absolute bottom-0 z-1">
-      <a href="https://www.instagram.com/templatesjungle/" class="btn btn-dark px-5">Follow us on Social Media</a>
+      {{-- <a href="https://www.instagram.com/templatesjungle/" class="btn btn-dark px-5">Follow us on Social Media</a> --}}
+      <span class="btn btn-dark px-5">Collaboration With</span>
     </div>
-    @if ($products)
+    {{-- @if ($products)
     <div class="row g-0">
       @php
           $no_slider_sosmed = 1;
@@ -839,7 +846,7 @@
         @endphp
         @foreach ($image_slider_sosmed as $image)
         @if ($no_slider_sosmed <= 6)
-        <div class="col-6 col-sm-4 col-md-2">
+        <div class="col-6 col-sm-4 col-6 col-md-2">
           <div class="insta-item">
             <a href="https://www.instagram.com/templatesjungle/" target="_blank">
               <img src="{{ asset('assets/image/upload/product/'.$image) }}" alt="{{ 'Image '.$item->name }}" class="insta-image img-fluid">
@@ -853,11 +860,47 @@
         @endforeach
       @endforeach
     </div>
-    @endif
+    @endif --}}
+
+    <div class="row g-0 justify-content-center">
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/1.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/2.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/3.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/4.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/5.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/6.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/7.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/8.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/9.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/10.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+        <div class="col-6 col-md-2">
+          <img src="{{ asset('assets/image/upload/collaboration/11.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        </div>
+      </div>
   </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     const carouselInner = document.querySelector('.carousel-inner .row');
     let isDragging = false;
     let startX;

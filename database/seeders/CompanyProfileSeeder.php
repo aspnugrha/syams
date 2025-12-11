@@ -19,8 +19,9 @@ class CompanyProfileSeeder extends Seeder
             'name' => 'Syams Manufacturing',
             'pavicon' => 'syams-pavicon.png',
             'logo' => 'syams-logo.png',
-            'email' => 'syamsmakmurnglobalindo@gmail.com',
-            'phone_number' => '628',
+            'email' => 'syamsmakmurglobalindo@gmail.com',
+            'phone_number' => '6285765887344',
+            'instagram' => 'syamsmanufacturing',
         ]);
     }
 }

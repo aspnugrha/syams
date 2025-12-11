@@ -43,9 +43,11 @@
 @endsection
 
 @section('content')
-<section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
+{{-- <section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;"> --}}
+<section class="newsletter bg-light" style="background: url({{ asset('assets/image/upload/banner/banner-order.png') }}) no-repeat;">
+    <div class="w-100 h-100" style="background-color: rgba(255, 255, 255, 0.95);">
     <div class="container">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" style="">
         <div class="col-md-8 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
             <h3 class="section-title text-uppercase">Order Form</h3>
@@ -104,6 +106,7 @@
           </form>
         </div>
       </div>
+    </div>
     </div>
 </section>
 

@@ -117,8 +117,8 @@
                         </p>
                     <p>
                         Do you need support? Give us a call. 
-                        <a href="tel:+62{{ ($company_profile && $company_profile->phone_number ? $company_profile->phone_number : '0') }}" class="item-anchor">
-                        +62{{ ($company_profile && $company_profile->phone_number ? $company_profile->phone_number : '0') }}
+                        <a href="tel:+{{ ($company_profile && $company_profile->phone_number ? $company_profile->phone_number : '+62') }}" class="item-anchor">
+                        +{{ ($company_profile && $company_profile->phone_number ? $company_profile->phone_number : '+62') }}
                         </a>
                     </p>
                 </div>

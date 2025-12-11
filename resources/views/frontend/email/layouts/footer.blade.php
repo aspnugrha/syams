@@ -22,6 +22,14 @@
                             </a>
                         </div>
                         @endif
+                        @if ($company_profile->instagram)
+                        <div class="col-md-6 col-sm-12">
+                            <a href="https://www.instagram.com/{{ $company_profile->instagram ? $company_profile->instagram : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
+                                <img src="{{ asset('assets/svg/instagram.svg') }}" alt="" style="width: 20px;">
+                                Facebook
+                            </a>
+                        </div>
+                        @endif
                         @if ($company_profile->whatsapp)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://wa.me/628{{ $company_profile->whatsapp ? $company_profile->whatsapp : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">

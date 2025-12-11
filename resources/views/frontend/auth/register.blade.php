@@ -1,7 +1,8 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
+<section class="newsletter bg-light" style="background: url({{ asset('assets/image/upload/banner/banner-order.png') }}) no-repeat;">
+  <div class="w-100 h-100" style="background-color: rgba(255, 255, 255, 0.95);">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-7 py-5 my-5">
@@ -25,6 +26,7 @@
         </div>
       </div>
     </div>
+  </div>
 </section>
 @endsection
 @section('scripts')
