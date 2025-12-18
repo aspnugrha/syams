@@ -26,7 +26,7 @@
                         <div class="col-md-6 col-sm-12">
                             <a href="https://www.instagram.com/{{ $company_profile->instagram ? $company_profile->instagram : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
                                 <img src="{{ asset('assets/email-footer/instagram.png') }}" alt="" style="width: 20px;">
-                                Facebook
+                                Instagram
                             </a>
                         </div>
                         @endif
