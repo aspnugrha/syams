@@ -87,7 +87,7 @@
                     <input type="hidden" name="_method" value="{{ @$data->id ? 'PUT' : 'POST' }}">
                     <input type="hidden" name="id" value="{{ @$data->id ? $data->id : '' }}">
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Cover</label>
                         <div class="w-100 mb-2">
                             <div class="container">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <small id="coverHelp" class="d-none form-text text-danger">Please provide a valid informations.</small>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label>Images</label>
                         <div class="w-100 mb-2">
@@ -226,43 +226,43 @@ $(document).ready(function(){
 })
 
 // cover
-const customInput = document.getElementById("cover");
-const customUploadBox = document.getElementById("customUploadBox");
-const customWrapper = document.getElementById("customUploadWrapper");
+// const customInput = document.getElementById("cover");
+// const customUploadBox = document.getElementById("customUploadBox");
+// const customWrapper = document.getElementById("customUploadWrapper");
 
-customInput.addEventListener("change", function () {
-    const file = this.files[0];
-    if (!file) return;
+// customInput.addEventListener("change", function () {
+//     const file = this.files[0];
+//     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
+//     const reader = new FileReader();
+//     reader.onload = function (e) {
 
-        // Buat elemen preview
-        const preview = document.createElement("div");
-        preview.className = "custom-preview-item";
-        preview.innerHTML = `
-            <button type="button" class="btn-remove" onclick="customRemoveImage()">×</button>
-            <img src="${e.target.result}">
-        `;
+//         // Buat elemen preview
+//         const preview = document.createElement("div");
+//         preview.className = "custom-preview-item";
+//         preview.innerHTML = `
+//             <button type="button" class="btn-remove" onclick="customRemoveImage()">×</button>
+//             <img src="${e.target.result}">
+//         `;
 
-        // Ganti upload box dengan preview
-        customWrapper.replaceChild(preview, customUploadBox);
+//         // Ganti upload box dengan preview
+//         customWrapper.replaceChild(preview, customUploadBox);
         
-        // customInput.value = ''
-    };
+//         // customInput.value = ''
+//     };
     
-    reader.readAsDataURL(file);
-});
+//     reader.readAsDataURL(file);
+// });
 
-function customRemoveImage() {
-    // Hapus preview
-    const previewItem = document.querySelector(".custom-preview-item");
-    previewItem.remove();
+// function customRemoveImage() {
+//     // Hapus preview
+//     const previewItem = document.querySelector(".custom-preview-item");
+//     previewItem.remove();
     
-    // Tampilkan kembali upload box
-    customWrapper.appendChild(customUploadBox);
-    customInput.value = ''
-}
+//     // Tampilkan kembali upload box
+//     customWrapper.appendChild(customUploadBox);
+//     customInput.value = ''
+// }
 
 
 
@@ -422,18 +422,18 @@ function deleteSizeQtyOptions(code){
 function loadDataEdit(){
     $('.custom-loader-overlay').css('display', 'flex')
 
-    if(data.cover){
-        // Buat elemen preview
-        const preview = document.createElement("div");
-        preview.className = "custom-preview-item";
-        preview.innerHTML = `
-            <button type="button" class="btn-remove" onclick="customRemoveImage()">×</button>
-            <img src="{{ asset('assets/image/upload/product') }}/${data.cover}">
-        `;
+    // if(data.cover){
+    //     // Buat elemen preview
+    //     const preview = document.createElement("div");
+    //     preview.className = "custom-preview-item";
+    //     preview.innerHTML = `
+    //         <button type="button" class="btn-remove" onclick="customRemoveImage()">×</button>
+    //         <img src="{{ asset('assets/image/upload/product') }}/${data.cover}">
+    //     `;
 
-        // Ganti upload box dengan preview
-        customWrapper.replaceChild(preview, customUploadBox);
-    }
+    //     // Ganti upload box dengan preview
+    //     customWrapper.replaceChild(preview, customUploadBox);
+    // }
 
     if(data.images){
         data.images.forEach((image, index) => {

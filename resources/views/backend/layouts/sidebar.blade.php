@@ -63,6 +63,12 @@
             <span class="pc-mtext">Company Profile</span>
           </a>
         </li>
+        <li class="pc-item">
+          <a href="{{ route('paneladmin.documentation.index') }}" class="pc-link">
+            <span class="pc-micon"><i class="mdi mdi-book-open-page-variant-outline"></i></span>
+            <span class="pc-mtext">Documentation</span>
+          </a>
+        </li>
         {{-- <li class="pc-item">
           <a href="{{ asset('assets/backend') }}/pages/register.html" class="pc-link">
             <span class="pc-micon"><i class="mdi mdi-book-open-page-variant-outline"></i></span>

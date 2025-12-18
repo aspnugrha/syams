@@ -68,8 +68,12 @@
                 <div class="carousel-item active">
                     <div class="row g-0">
                       @foreach ($products as $item)
+                      @php
+                        $covers = explode(',', $item->image);
+                        $cover = count($covers) ? $covers[0] : '';
+                      @endphp
                       <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-4">
-                          <img src="{{ asset('assets/image/upload/product/'.$item->cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 400px;object-fit: cover">
+                          <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 400px;object-fit: cover">
                       </a>
                       @endforeach
                     </div>

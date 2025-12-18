@@ -92,10 +92,14 @@ class ProductController extends Controller
                 }
             }
 
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name), '-'));
+            $cek_slug = Products::where('slug', $slug)->first();
+
             $id = IdGenerator::generate('PRDCT', 'products');
             $save = Products::insert([
                 'id' => $id,
-                'slug' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name), '-')),
+                'category_id' => $request->category_id,
+                'slug' => ($cek_slug ? $slug.'-'.CodeHelper::generateRandomCode(4) : $slug),
                 'name' => $request->name,
                 'description' => $request->description,
                 'cover' => $cover,
@@ -199,6 +203,7 @@ class ProductController extends Controller
 
             $id = IdGenerator::generate('PRDCT', 'products');
             $product->update([
+                'category_id' => $request->category_id,
                 'name' => $request->name,
                 'description' => $request->description,
                 'cover' => $cover,

@@ -19,7 +19,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Cover</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Active</th>
@@ -371,21 +371,29 @@
                     data: "id", 
                     name: "id",
                     render: function(data, type, row, meta) {
+                        const images = row.image.split(',');
+
                         var cover = ``
-                        if(row.cover){
-                            cover += `<img src="{{ asset('assets/image/upload/product') }}/${row.cover}" style="width: 100px;height: 100px;object-fit: cover;">`
+                        // if(row.cover){
+                        //     cover += `<img src="{{ asset('assets/image/upload/product') }}/${row.cover}" style="width: 100px;height: 100px;object-fit: cover;">`
+                        // }
+                        
+                        if(images.length > 0){
+                            cover += `<img src="{{ asset('assets/image/upload/product') }}/${images[0]}" style="width: 100px;height: 100px;object-fit: cover;">`
                         }
+                        
                         if(row.image){
                             cover += `<div class="row g-1" style="margin-top: 1px;">`
-                            const images = row.image.split(',');
                             images.forEach((image, index) => {
-                                if(index <= 3){
-                                    cover += `<div class="col-3">`
-                                    
-                                    if(index == 3 && images.length > (index + 1)) cover += `<div class="" style="position: absolute;margin: auto;z-index:3;"><p class="fw-bold custom-outline-white-black text-center p-0 m-0">+${(images.length - (index + 1))}</p></div>`
-
-                                    cover += `<img src="{{ asset('assets/image/upload/product') }}/${image}" style="width: 100%;height: 25px;object-fit: cover;filter: blur(.7px);border: .5px solid #555;">
-                                            </div>`
+                                if(index > 0){
+                                    if(index <= 4){
+                                        cover += `<div class="col-3">`
+                                        
+                                        if(index == 4 && images.length > (index + 1)) cover += `<div class="" style="position: absolute;margin: auto;z-index:3;"><p class="fw-bold custom-outline-white-black text-center p-0 m-0">+${(images.length - (index + 1))}</p></div>`
+    
+                                        cover += `<img src="{{ asset('assets/image/upload/product') }}/${image}" style="width: 100%;height: 25px;object-fit: cover;filter: blur(.7px);border: .5px solid #555;">
+                                                </div>`
+                                    }
                                 }
                             });
                             cover += `</div>`

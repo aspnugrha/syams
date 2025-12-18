@@ -174,7 +174,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="{{ asset('assets/image/embed-maps.png') }}" alt="Contoh Embed Maps" style="width: 100%;height: 100%;">
+        <img src="{{ asset('assets/image/maps-embed.png') }}" alt="Contoh Embed Maps" style="width: 100%;height: 100%;">
         <h5 class="mt-4">Cara membuat link embed maps</h5>
         <ul>
             <li>Masuk ke <a href="https://www.google.com/maps" target="_blank">Google Maps</a> dan cari lokasi.</li>

@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 
 @section('content')
-<img class="responsive-img" src="{{ asset($product->cover ? 'assets/image/upload/product/'.$product->cover : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;">
+{{-- <img class="responsive-img" src="{{ asset($product->cover ? 'assets/image/upload/product/'.$product->cover : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;"> --}}
 
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 
@@ -79,8 +79,8 @@
 
       <article class="my-3">{!! $product->description !!}</article>
 
-      <button class="btn btn-dark text-uppercase mt-3"><i class="ti ti-hand-open"></i> Sample</button>
-      <button class="btn btn-dark text-uppercase mt-3"><i class="ti ti-shopping-cart"></i> Order</button>
+      {{-- <button class="btn btn-dark text-uppercase mt-3"><i class="ti ti-hand-open"></i> Sample</button>
+      <button class="btn btn-dark text-uppercase mt-3"><i class="ti ti-shopping-cart"></i> Order</button> --}}
 
     </div>
   </div>

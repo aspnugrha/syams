@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AuthAdminController;
 use App\Http\Controllers\Backend\CompanyProfileController;
 use App\Http\Controllers\Backend\DashboardAdminController;
+use App\Http\Controllers\Backend\DocumentationController;
 use App\Http\Controllers\Backend\MasterCustomerController;
 use App\Http\Controllers\Backend\MasterUserController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
@@ -121,6 +122,10 @@ Route::group(['prefix' => 'paneladmin'], function(){
         // company-profile
         Route::get('company-profile/{code}', [CompanyProfileController::class, 'edit'])->name('company-profile.edit');
         Route::put('company-profile/{code}', [CompanyProfileController::class, 'update'])->name('company-profile.update');
+        
+        // documentation
+        Route::get('documentation', [DocumentationController::class, 'index'])->name('paneladmin.documentation.index');
+        Route::get('documentation/{code}', [DocumentationController::class, 'show'])->name('paneladmin.documentation.show');
         
         // profile
         Route::get('profile', [ProfileAdminController::class, 'index'])->name('paneladmin.profile');
