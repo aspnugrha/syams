@@ -17,7 +17,7 @@
                         @if ($company_profile->facebook)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://www.facebook.com/{{ $company_profile->facebook ? $company_profile->facebook : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/facebook.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/facebook.png') }}" alt="" style="width: 20px;">
                                 Facebook
                             </a>
                         </div>
@@ -25,7 +25,7 @@
                         @if ($company_profile->instagram)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://www.instagram.com/{{ $company_profile->instagram ? $company_profile->instagram : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/instagram.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/instagram.png') }}" alt="" style="width: 20px;">
                                 Facebook
                             </a>
                         </div>
@@ -33,7 +33,7 @@
                         @if ($company_profile->whatsapp)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://wa.me/628{{ $company_profile->whatsapp ? $company_profile->whatsapp : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/whatsapp.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/whatsapp.png') }}" alt="" style="width: 20px;">
                                 Whatsapp
                             </a>
                         </div>
@@ -41,7 +41,7 @@
                         @if ($company_profile->telegram)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://t.me/{{ $company_profile->telegram ? $company_profile->telegram : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/telegram.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/telegram.png') }}" alt="" style="width: 20px;">
                                 Telegram
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                         @if ($company_profile->twitter)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://twitter.com/{{ $company_profile->twitter ? $company_profile->twitter : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/twitter-x.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/twitter-x.png') }}" alt="" style="width: 20px;">
                                 Twitter
                             </a>
                         </div>
@@ -57,7 +57,7 @@
                         @if ($company_profile->youtube)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://www.youtube.com/{{ $company_profile->youtube ? '@'.$company_profile->youtube : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/youtube.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/youtube.png') }}" alt="" style="width: 20px;">
                                 Youtube
                             </a>
                         </div>
@@ -65,7 +65,7 @@
                         @if ($company_profile->tiktok)
                         <div class="col-md-6 col-sm-12">
                             <a href="https://www.tiktok.com/{{ $company_profile->tiktok ? '@'.$company_profile->tiktok : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/svg/tiktok.svg') }}" alt="" style="width: 20px;">
+                                <img src="{{ asset('assets/email-footer/tiktok.png') }}" alt="" style="width: 20px;">
                                 Tiktok
                             </a>
                         </div>
