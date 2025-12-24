@@ -53,11 +53,11 @@
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
     <div class="w-100 container p-0">
       <div class="w-100 row justify-content-center">
-        <h2 class="section-title text-center mt-4" style="font-size: 10vh;" data-aos="fade-up">New Collections</h2>
-        <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci
-            repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum,
-            quibusdam ex repellat eaque!</p>
+        <h2 class="section-title text-center mt-4 text-uppercase" style="font-size: 6vh;" data-aos="fade-up">Turning the impossible<br>into wearable</h2>
+        <div class="col-md-8 text-center" data-aos="fade-up" data-aos-delay="300">
+          <p>
+            Syams is a fashion manufacturing company that delivers more than just clothing. We create apparel through a process driven by precision, creativity, and intention. Each piece is crafted by skilled hands and intentional design thinking. Resulting in garments that are not only wearable, but meaningful. Turning the Impossible into Wearable is our commitment to pushing boundaries and transforming ambitious ideas into real, wearable fashion.
+          </p>
         </div>
       </div>
       @if ($products)
@@ -156,30 +156,30 @@
       <div class="row">
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="0">
           <div class="py-3">
-            <i class="bi bi-award" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Book An Appointment</h4>
-            <p>At imperdiet dui accumsan sit amet nulla risus est ultricies quis.</p>
+            <i class="mdi mdi-truck-fast-outline" style="font-size: 45px;"></i>
+            <h4 class="element-title text-capitalize my-3">Free Shipping</h4>
+            <p>We provide free shipping to ensure a smooth and seamless production process from start to destination. No hidden costs—just efficient and reliable delivery.</p>
           </div>
         </div>
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="300">
           <div class="py-3">
-            <i class="bi bi-hand-thumbs-up" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Pick up in store</h4>
-            <p>At imperdiet dui accumsan sit amet nulla risus est ultricies quis.</p>
+            <i class="mdi mdi-message-text-fast-outline" style="font-size: 45px;"></i>
+            <h4 class="element-title text-capitalize my-3">Free Consultation</h4>
+            <p>Every production begins with a clear and focused idea. Through our free consultation, we help refine concepts, material selection, and the right production approach before bringing them to life.</p>
           </div>
         </div>
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="600">
           <div class="py-3">
-            <i class="bi bi-search-heart" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Special packaging</h4>
-            <p>At imperdiet dui accumsan sit amet nulla risus est ultricies quis.</p>
+            <i class="mdi mdi-package-variant-closed-check" style="font-size: 45px;"></i>
+            <h4 class="element-title text-capitalize my-3">Free Packaging</h4>
+            <p>The final presentation is part of a product’s value. We offer free packaging designed to protect the product while enhancing its premium appeal.</p>
           </div>
         </div>
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="900">
           <div class="py-3">
-            <i class="bi bi-currency-dollar" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">free global returns</h4>
-            <p>At imperdiet dui accumsan sit amet nulla risus est ultricies quis.</p>
+            <i class="mdi mdi-tshirt-crew-outline" style="font-size: 45px;"></i>
+            <h4 class="element-title text-capitalize my-3">Free Sample</h4>
+            <p>Quality should be experienced before full production. We provide free samples so you can directly evaluate materials, fit, and craftsmanship with confidence.</p>
           </div>
         </div>
       </div>

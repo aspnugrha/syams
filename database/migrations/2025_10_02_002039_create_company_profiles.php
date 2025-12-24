@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('company_profiles', function (Blueprint $table) {
             $table->string('id', 50)->primary();
             $table->string('name', 100);
-            $table->string('alamat', 100)->nullable();
+            $table->text('alamat')->nullable();
             $table->string('pavicon', 100)->nullable();
             $table->string('logo', 100)->nullable();
             $table->text('description')->nullable();
             $table->string('email', 100);
             $table->string('phone_number', 30);
             $table->string('whatsapp', 30)->nullable();
-            $table->string('telegram')->nullable();
+            $table->string('imessage')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();

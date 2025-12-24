@@ -26,7 +26,7 @@ class CompanyProfile extends Model
         'email',
         'phone_number',
         'whatsapp',
-        'telegram',
+        'imessage',
         'facebook',
         'instagram',
         'twitter',

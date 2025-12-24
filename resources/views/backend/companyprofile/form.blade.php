@@ -82,11 +82,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Telegram</label>
+                                    <label>IMessage</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-telegram"></i></span>
-                                        <input type="text" class="form-control" name="telegram" id="telegram" placeholder="628xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'')" value="{{ @$data ? $data->telegram : old('telegram') }}">
-                                        <small id="telegramHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                                        <span class="input-group-text"><i class="mdi mdi-chat-outline"></i></span>
+                                        <input type="text" class="form-control" name="imessage" id="imessage" placeholder="628xxxxxxxxxx" oninput="this.value=this.value.replace(/\D/g,'')" value="{{ @$data ? $data->imessage : old('imessage') }}">
+                                        <small id="imessageHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">

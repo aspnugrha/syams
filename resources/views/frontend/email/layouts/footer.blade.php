@@ -38,11 +38,11 @@
                             </a>
                         </div>
                         @endif
-                        @if ($company_profile->telegram)
+                        @if ($company_profile->imessage)
                         <div class="col-md-6 col-sm-12">
-                            <a href="https://t.me/{{ $company_profile->telegram ? $company_profile->telegram : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
-                                <img src="{{ asset('assets/email-footer/telegram.png') }}" alt="" style="width: 20px;">
-                                Telegram
+                            <a href="https://t.me/{{ $company_profile->imessage ? $company_profile->imessage : '?' }}" target="_blank" class="text-decoration-none" style="color: black;padding: 0 0 5px 15px;display: flex;align-items: center;gap: 10px;">
+                                <img src="{{ asset('assets/email-footer/chat-outline.png') }}" alt="" style="width: 20px;">
+                                IMessage
                             </a>
                         </div>
                         @endif

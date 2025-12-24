@@ -59,7 +59,7 @@ class CompanyProfileController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
                 'whatsapp' => $request->whatsapp,
-                'telegram' => $request->telegram,
+                'imessage' => $request->imessage,
                 'facebook' => $request->facebook,
                 'instagram' => $request->instagram,
                 'twitter' => $request->twitter,

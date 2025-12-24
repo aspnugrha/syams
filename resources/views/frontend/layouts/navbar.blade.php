@@ -92,9 +92,9 @@ body {
                                     <li>
                                         <a href="{{ route('contact-us') }}" class="dropdown-item item-anchor">Contact</a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="index.html" class="dropdown-item item-anchor">Service</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
