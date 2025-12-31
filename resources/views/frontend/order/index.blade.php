@@ -383,7 +383,7 @@ function setProduct(product, id){
                         <p class="m-0 p-0" style="font-size: 13px;">Mockup</p>
                         <input type="file" name="mockup[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
                         <p class="m-0 p-0" style="font-size: 13px;">Raw File</p>
-                        <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2">
+                        <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
                         <p class="m-0 p-0" style="font-size: 13px;">Notes</p>
                         <textarea name="product_notes[${product.id}]" id="" cols="30" rows="3" class="form-control mb-2" placeholder="Notes..." style="font-size: 13px;"></textarea>
                     </div>
@@ -467,6 +467,13 @@ function submitOrder(){
                 $('#form-data')[0].reset();
                 $('#products_id').val('');
                 $('#product-selected').html('')
+
+                if("{{ Auth::guard('customer')->user() ? Auth::guard('customer')->user()->country_code : '' }}"){
+                    iti.setCountry("{{ Auth::guard('customer')->user() ? Auth::guard('customer')->user()->country_code : '' }}");
+                    document.getElementById("phone").value = "{{ Auth::guard('customer')->user() ? Auth::guard('customer')->user()->phone_number : '' }}";
+                    document.getElementById("phone_number").value = "{{ Auth::guard('customer')->user() ? Auth::guard('customer')->user()->phone_number : '' }}";
+                }
+
                 showToastr('toast-top-right', 'success', data.message)
             }else{
                 showToastr('toast-top-right', 'error', data.message)
