@@ -48,7 +48,148 @@
       <small class="text-muted">{{ $product->hasCategory ? $product->hasCategory->name : 'No Category' }}</small>
       <h4>{{ $product->name }}</h4>
 
-      <button class="btn btn-default w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterialColor" aria-expanded="false" aria-controls="collapseMaterialColor" style="border: 1px solid #ddd;">
+
+      <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active"
+                    id="material-color-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#material-color"
+                    type="button"
+                    role="tab">
+                    {{-- <i class="mdi mdi-palette-swatch-variant"></i> --}}
+                Material & Color
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="sablon-type-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#sablon-type"
+                    type="button"
+                    role="tab">
+                    {{-- <i class="mdi mdi-printer-3d-nozzle"></i> --}}
+                Sablon Type
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="size-qty-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#size-qty"
+                    type="button"
+                    role="tab">
+                    {{-- <i class="mdi mdi-ruler"></i> --}}
+                Size & Quantity
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="bordir-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#bordir"
+                    type="button"
+                    role="tab">
+                    {{-- <i class="mdi mdi-wizard-hat"></i> --}}
+                Provide Bordir
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content p-3" id="myTabContent" style="background-color: #fcfcfc;">
+        <div class="tab-pane fade show active" id="material-color" role="tabpanel">
+          <table class="w-100 table table-bordered">
+            <tr>
+              <td>Material Options</td>
+              <td>Color Options</td>
+            </tr>
+            @php
+                $material_color = json_decode($product->material_color_options);
+            @endphp
+            @if ($material_color)
+                @foreach ($material_color as $item)
+                <tr>
+                  <td>{{ $item->material }}</td>
+                  <td>
+                    @if (count($item->colors))
+                      @foreach ($item->colors as $color)
+                      <p class="p-0 m-0" style="vertical-align: middle;">
+                        <label style="width: 18px;height: 18px;border-radius: 100%;background-color: {{ $color->color_code }};"></label> {{ $color->color }}
+                      </p>
+                      @endforeach
+                    @endif
+                  </td>
+                </tr>
+                @endforeach
+            @endif
+          </table>
+        </div>
+
+        <div class="tab-pane fade" id="sablon-type" role="tabpanel">
+          {{-- <div class="py-2 px-3 mb-3" style="border: 1px solid #ddd;"> --}}
+            @if (in_array('Screen Printing', explode(',', $product->sablon_type)))
+            <div class="mb-3">
+              <h5>Screen Printing</h5>
+              <article>
+                Screen printing or sablon is a printing technique that uses a screen as a stencil to transfer ink to a surface such as cloth, paper, or plastic, producing sharp, brightly colored, and durable images, often used for t-shirts, with the process of creating a pattern on the screen before the ink is applied using a squeegee. This technique is popular because of its high-quality and durable prints, although the initial preparation is complex, especially for multi-colored designs.
+              </article>
+            </div>
+            @endif
+            @if (in_array('DTF', explode(',', $product->sablon_type)))
+            <div class="mb-3">
+              <h5>Direct To Film</h5>
+              <article>
+                DTF (Direct to Film) is a modern digital screen printing technique that prints designs onto special PET films using textile inks, then transfers them to various types of fabrics (cotton, polyester, etc.) with the help of powder glue (hotmelt powder) and a heat press machine, producing sharp prints, bright colors, flexibility, and durability, suitable for various media and single or mass production.
+              </article>
+            </div>
+            @endif
+          {{-- </div> --}}
+        </div>
+
+        <div class="tab-pane fade" id="size-qty" role="tabpanel">
+          <table class="w-100 table table-bordered">
+            <tr>
+              <td>Size Options</td>
+              <td>Quantity Options</td>
+            </tr>
+            @php
+                $size_qty = json_decode($product->size_qty_options);
+            @endphp
+            @if ($size_qty)
+                @foreach ($size_qty as $item)
+                <tr>
+                  <td>{{ $item->size }}</td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      @foreach ($item->qty as $item)
+                      <span class="size-badge-dark">{{ $item }}</span>
+                      @endforeach
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
+            @endif
+          </table>
+        </div>
+
+        @if ($product->is_bordir)
+        <div class="tab-pane fade" id="bordir" role="tabpanel">
+          {{-- <div class="py-2 px-3 mb-3" style="border: 1px solid #ddd;"> --}}
+            <div class="mb-3">
+              <h5>Bordir</h5>
+              <article>
+                Embroidery (or needlework) is the art of decorating fabric using a needle and thread to create beautiful patterns or designs. It can be done manually or using a computer embroidery machine for faster and more precise results, adding aesthetic value to clothing or other textile products, and can be combined with other materials such as sequins and beads for variety.
+              </article>
+            </div>
+            {{-- </div> --}}
+        </div>
+        @endif
+    </div>
+
+
+
+      {{-- <button class="btn btn-default w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterialColor" aria-expanded="false" aria-controls="collapseMaterialColor" style="border: 1px solid #ddd;">
         <i class="mdi mdi-palette-swatch-variant"></i> Material & Color
       </button>
       <div class="collapse mt-2" id="collapseMaterialColor">
@@ -143,7 +284,7 @@
           </div>
         </div>
       </div>
-      @endif
+      @endif --}}
 
       <article class="my-3">{!! $product->description !!}</article>
 
