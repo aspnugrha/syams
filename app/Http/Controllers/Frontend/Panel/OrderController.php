@@ -40,8 +40,9 @@ class OrderController extends Controller
     public function show($order_number_decode){
         $order_number = CodeHelper::decodeCode($order_number_decode);
         $orders = Orders::with(['details'])->where('order_number', $order_number)->first();
+        $company_profile = CompanyProfile::first();
         
-        return view('frontend.order.show', compact('orders'));
+        return view('frontend.order.show', compact('orders', 'company_profile'));
     }
 
     public function cancelOrder($id){

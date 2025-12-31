@@ -30,13 +30,17 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
+			'type' => 'required',
 			'category_id' => 'required',
 			'name' => 'required',
             // 'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'cover' => 'nullable|image',
             // 'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'images.*' => 'nullable|image',
+            'images' => $this->isMethod('post') ? 'required|array' : 'nullable|array',
+            'images.*' => $this->isMethod('post') ? 'required|image' : 'nullable|image',
 			'size_options' => 'required',
+			'material_options' => 'required',
+			'sablon_type' => 'required',
         ];
     }
 
@@ -70,13 +74,17 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
+            'type.required'     => ':attribute harus diisi.',
             'category_id.required'     => ':attribute harus diisi.',
             'name.required'     => ':attribute harus diisi.',
             'cover.image'       => ':attribute harus berupa gambar.',
             'cover.mimes'       => 'Format :attribute harus jpeg, png, jpg.',
             'cover.max'         => 'Ukuran :attribute maksimal gambar 2MB.',
+            'images.required'     => ':attribute harus diisi.',
             'images.image'      => ':attribute harus berupa gambar.',
             'size_options.required'     => ':attribute harus diisi.',
+            'material_options.required'     => ':attribute harus diisi.',
+            'sablon_type.required'     => ':attribute harus diisi.',
             // 'images.mimes'      => 'Format :attribute harus jpeg, png, jpg.',
             // 'images.max'        => 'Ukuran :attribute maksimal gambar 2MB.',
         ];

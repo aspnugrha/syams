@@ -123,6 +123,15 @@
                         <input type="hidden" name="old_images" id="old_images">
                     </div>
                     <div class="form-group">
+                        <label>Type <span class="text-danger">*</span></label>
+                        <select name="type" id="type" class="form-control">
+                            <option value="">Pilih Type</option>
+                            <option value="SHOWCASE" {{ @$data->type == 'SHOWCASE' ? 'selected' : '' }}>Produk Showcase</option>
+                            <option value="ORDER" {{ @$data->type == 'ORDER' ? 'selected' : '' }}>Produk Order</option>
+                        </select>
+                        <small id="typeHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                    </div>
+                    <div class="form-group">
                         <label>Category <span class="text-danger">*</span></label>
                         <select name="category_id" id="category_id" class="form-control">
                             <option value="">Pilih Category</option>
@@ -173,6 +182,64 @@
 
                         <div class="row mt-4" id="size_quantity_options"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="image">Material & Color Options</label>
+                        
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-sm">Material <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control form-control-sm" name="material" id="material" placeholder="Cutton 16s...">
+                                            <small class="text-muted">Contoh : Cutton 16s dsb.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-sm">Color <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control form-control-sm" name="color" id="color" placeholder="Red,Black,Blue,Tosca">
+                                            <small class="text-muted">Contoh : Red,Black,Blue,Tosca... (color diinput bersamaan, dipisah dengan koma tanpa spasi)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 align-content-start">
+                                <button type="button" class="btn btn-sm btn-info w-100 mt-4" onclick="addMaterialColorOptions('create')"><i class="mdi mdi-plus"></i> Tambah</button>
+                            </div>
+                        </div>
+
+                        <small id="material_optionsHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+
+                        <div class="row mt-4" id="material_color_options"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Sablon Type <span class="text-danger">*</span></label>
+                                    <select name="sablon_type[]" id="sablon_type" class="form-control" multiple>
+                                        <option value="">Pilih Sablon Type</option>
+                                        <option value="Screen Printing" {{ @$data->sablon_type && in_array('Screen Printing', explode(',',$data->sablon_type)) ? 'selected' : '' }}>Screen Printing</option>
+                                        <option value="DTF" {{ @$data->sablon_type && in_array('DTF', explode(',',$data->sablon_type)) ? 'selected' : '' }}>Direct To Film (DTF)</option>
+                                    </select>
+                                    <small id="sablon_typeHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Provide Bordir?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" name="is_bordir" id="is_bordir" {{ @$data && $data->is_bordir ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_bordir">
+                                            Yes
+                                        </label>
+                                        <small id="is_bordirHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" name="active" id="active" {{ @$data && $data->active ? 'checked' : '' }}>
                         <label class="form-check-label" for="active">
@@ -198,6 +265,12 @@ if('{{ @$data }}'){
     data = @json(@$data ? $data : null)
 }
 // console.log('data', data, '{{ @$data }}');
+
+$('#sablon_type').select2({
+    placeholder: "Pilih Sablon Type",
+    allowClear: true,
+    width: '100%'
+});
 
 $(document).ready(function(){
     $('#description').summernote({
@@ -380,9 +453,11 @@ function addSizeQtyOptions(condition, size = null, qty = null){
                     <div class="card-body p-3">
                         <div class="row g-3">
                             <div class="col-auto">
-                                <h2 class="bg-dark text-white avatar py-2 px-3 h-100 align-content-center">${size}</h2>
+                                <small class="text-muted">Size</small>
+                                <h2 class="bg-dark text-white avatar py-2 px-3 align-content-center" style="height: 70px;">${size}</h2>
                             </div>
                             <div class="col">
+                                <small class="text-muted">Quantity</small>
                                 <input type="hidden" name="size_options[]" id="size_options" value="${size}">
                                 <input type="hidden" name="qty_options[]" id="qty_options" value="${qty}">
                                 <div class="text-secondary">
@@ -417,6 +492,79 @@ function addSizeQtyOptions(condition, size = null, qty = null){
 
 function deleteSizeQtyOptions(code){
     $('#size-qty-option-'+code).remove()
+}
+
+function addMaterialColorOptions(condition, material = null, color = null){
+    console.log('assmaterialcolor', condition, material, color);
+    
+    if(condition == 'create'){
+        material = $('#material').val()
+        color = $('#color').val()
+    }
+    const code = randomCode(10);
+
+    if(!material || !color){
+        showToastr('toast-top-right', 'error', "Masukan material dan color option dengan benar!")
+    }else{
+        let split_color = null;
+        if(condition == 'create'){
+            split_color = color.split(',');
+        }else{
+            split_color = color;
+        }
+
+        var html = `
+            <div class="col-12 col-md-4" id="material-color-option-${code}">
+                <div class="card card-sm" style="border: 2px dashed #ccc;border-radius: 10px;">
+                    <button type="button" class="btn-remove" style="z-index: 2;" onclick="deleteMaterialColorOptions('${code}')">x</button>
+                    <div class="card-body p-3">
+                        <small class="text-muted">Material</small>
+                        <h4>${material}</h4>
+                        <input type="hidden" name="material_options[]" value="${material}">
+                        <div class="my-2">
+                            <small class="text-muted">Color</small>
+                            <div class="row">`;
+
+                                if(split_color.length){
+                                    split_color.forEach(color_item => {
+                                        var color = color_item;
+                                        var color_code = '';
+                                        if(condition == 'edit'){
+                                            var color = color_item.color;
+                                            var color_code = color_item.color_code;
+                                        }
+
+                                        if(color_item){
+                                            html += `
+                                                <div class="col-6 mb-2">
+                                                    <h5 class="fs-6 fw-semibold">${color}</h5>
+                                                </div>
+                                                <div class="col-6 mb-2">
+                                                    <input type="hidden" name="color[${material}][]" class="form-control p-1" value="${color}">
+                                                    <input type="color" name="color_code[${material}][${color}]" class="form-control p-1" placeholder="Masukan Warna" value="${color_code}">
+                                                    <small class="text-muted">Sesuaikan warna</small>
+                                                </div>
+                                            `
+                                        }
+                                    });
+                                }
+
+                        html += `
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+
+        $('#material_color_options').append(html)
+        $('#material').val('')
+        $('#color').val('')
+    }
+}
+
+function deleteMaterialColorOptions(code){
+    $('#material-color-option-'+code).remove()
 }
 
 function loadDataEdit(){
@@ -458,6 +606,12 @@ function loadDataEdit(){
             addSizeQtyOptions('edit', size_qty.size, size_qty.qty)
         });
     }
+    
+    if(data.material_color_option_decode){
+        data.material_color_option_decode.forEach(material_color => {
+            addMaterialColorOptions('edit', material_color.material, material_color.colors)
+        });
+    }
 
     $('.custom-loader-overlay').css('display', 'none')
 }
@@ -473,6 +627,8 @@ function simpan(){
 
     $('#coverHelp').removeClass('d-block').addClass('d-none')
     $('#imagesHelp').removeClass('d-block').addClass('d-none')
+    $('#size_optionsHelp').removeClass('d-block').addClass('d-none')
+    $('#material_optionsHelp').removeClass('d-block').addClass('d-none')
 
     let formData = new FormData(document.getElementById("formData"))
     if(selectedFiles){
@@ -509,7 +665,7 @@ function simpan(){
                 
                 $.each(res.errors, function(key, value) {
                     let key_name = key
-                    if(key.includes('.') || key == 'cover' || key == 'size_options'){
+                    if(key.includes('.') || key == 'cover' || key == 'images' || key == 'size_options' || key == 'material_options'){
                         key_name = key.split('.')[0];
                         $('#' + key_name)
                             // .closest('#error')

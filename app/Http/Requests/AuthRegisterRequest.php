@@ -19,11 +19,11 @@ class AuthRegisterRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->has('phone_number')) {
-            $this->merge([
-                'phone_number' => PhoneHelper::normalize_phone($this->phone_number),
-            ]);
-        }
+        // if ($this->has('phone_number')) {
+        //     $this->merge([
+        //         'phone_number' => PhoneHelper::normalize_phone($this->phone_number),
+        //     ]);
+        // }
     }
 
 
@@ -43,6 +43,9 @@ class AuthRegisterRequest extends FormRequest
                 // 'unique:customers,email',
                 Rule::unique('customers', 'email')->ignore($id)
             ],
+            'dial_code' => 'required',
+            'country_code' => 'required',
+            'dial_code' => 'required',
 			'phone_number' => [
                 'required',
                 // 'unique:customers,phone_number'
@@ -66,6 +69,8 @@ class AuthRegisterRequest extends FormRequest
         return [
             'name' => 'Name',
             'email' => 'Email',
+            'dial_code' => 'Dial Code',
+            'country_code' => 'Country Code',
             'phone_number' => 'Phone Number',
             'image' => 'Profile',
             'password' => 'Password',
@@ -75,17 +80,17 @@ class AuthRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => ':attribute harus diisi.',
-            'email.required'    => ':attribute harus diisi.',
-            'email.email'       => ':attribute tidak valid.',
-            'email.unique'      => ':attribute sudah digunakan.',
-            'phone_number.required' => ':attribute harus diisi.',
-            'phone_number.unique' => ':attribute sudah digunakan.',
+            'name.required'     => 'Enter :attribute.',
+            'email.required'    => 'Enter :attribute.',
+            'email.email'       => ':attribute not valid.',
+            'email.unique'      => ':attribute already used.',
+            'phone_number.required' => 'Enter :attribute.',
+            'phone_number.unique' => ':attribute already used.',
             'image.image'       => ':attribute harus berupa gambar.',
-            'image.mimes'       => 'Format :attribute harus jpeg, png, jpg.',
-            'image.max'         => 'Ukuran :attribute maksimal gambar 2MB.',
-            'password.required' => ':attribute harus diisi.',
-            'password.min'      => ':attribute minimal 6 karakter.',
+            'image.mimes'       => 'Format :attribute must be jpeg, png, jpg.',
+            'image.max'         => 'Maximum :attribute image size 2MB.',
+            'password.required' => 'Enter :attribute.',
+            'password.min'      => ':attribute minimum 6 characters.',
         ];
     }
 }

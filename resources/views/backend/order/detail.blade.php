@@ -13,7 +13,7 @@
                 
                 <p class="p-0 m-0"><i class="mdi mdi-calendar-outline fs-5"></i> {{ date('d F Y H:i', strtotime($data->order_date)) }}</p>
                 {{-- <p class="p-0 m-0"><i class="mdi mdi-phone-outline fs-5"></i> {{ $data->customer_phone_number }}</p> --}}
-                <p class="p-0 m-0"><span class="text-muted">Notes :</span> <br>{{ $data->notes ?? '-' }}</p>
+                <p class="p-0 m-0"><span class="text-muted">Notes :</span> <br>{{ $data->notes ? '"'.$data->notes.'"' : '-' }}</p>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <img src="{{ ($data->hasCustomer ? ($data->hasCustomer->image ? asset('assets/image/upload/customer/'.$data->hasCustomer->image) : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png' ) }}" alt="Profile Customer" style="width: 100%;height: 100%;max-width: 100px;max-width: 100px;object-fit: cover;">
+                        <img src="{{ ($data->hasCustomer ? ($data->hasCustomer->image ? asset('assets/image/upload/customer/'.$data->hasCustomer->image) : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png' ) }}" alt="Profile Customer" style="width: 100%;object-fit: cover;">
                     </div>
                     <div class="col-8">
                         <h4>{{ $data->customer_name }}</h4>
@@ -49,22 +49,50 @@
             }
 
             $sizes = explode(',', $item->size_selected);
+            $material_colors = json_decode($item->material_color_selected);
             $qtys = json_decode($item->qty_selected);
         @endphp
         <div class="card mb-1">
             <div class="container bg-white rounded p-3">
                 <div class="row">
                     <div class="col-4">
-                        <img src="{{ asset('assets/image/upload/product/'.$product_image) }}" alt="Image {{ $item->product_name }}" style="width: 100%;height: 100%;object-fit: cover;">
+                        <img src="{{ asset('assets/image/upload/product/'.$product_image) }}" alt="Image {{ $item->product_name }}" style="width: 100%;object-fit: cover;">
                     </div>
                     <div class="col-8">
-                        <h5 style="margin-bottom: 5px;">{{ $item->product_name }}</h5>
                         <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">{{ $item->product_category }}</p>
+                        <h5 class="fs-4 fw-semibold" style="margin-bottom: 15px;">{{ $item->product_name }}</h5>
+                        
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Material & Color</p>
+                        <div class="mb-2 d-flex">
+                            <label class="form-check-label text-muted fw-semibold" style="font-size: 15px;">{{ $item->material_selected }}</label> &nbsp;&nbsp;
+                            <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center mb-1" style="font-size: 13px;padding: 2px 4px;">
+                                <span style="width: 15px;height: 15px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></span>
+                                &nbsp;{{ $material_colors->color }}
+                            </label>
+                        </div>
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Sablon Type</p>
+                        <div class="mb-2 d-flex">
+                            <label class="form-check-label text-muted fw-semibold" style="font-size: 15px;">{{ $item->sablon_selected }}</label>
+                        </div>
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Bordir</p>
+                        <div class="mb-2 d-flex">
+                            <label class="form-check-label text-muted fw-semibold" style="font-size: 15px;">{{ $item->is_bordir ? 'YES' : 'No' }}</label>
+                        </div>
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Size & Quantity</p>
                         @foreach ($sizes as $size)
-                        <span class="badge bg-dark mb-1" style="font-size: 13px;">{{ $size }} ({{ $qtys->$size }})</span>
+                        <span class="badge bg-dark mb-2" style="font-size: 13px;">{{ $size }} ({{ $qtys->$size }})</span>
                         @endforeach
-                        <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p>
-                        <p style="font-size: 13px;margin-bottom: 5px;margin-top: 0;padding: 0;">{{ $item->notes ?? '-' }}</p>
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Mockup</p>
+                        <div class="mb-2 d-flex">
+                            <a href="{{ asset('assets/image/upload/order/mockup/'.$item->mockup) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Mockup <i class="mdi mdi-open-in-new"></i></a>
+                        </div>
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Raw File</p>
+                        <div class="mb-2 d-flex">
+                            <a href="{{ asset('assets/image/upload/order/raw_file/'.$item->raw_file) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a>
+                        </div>
+                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Notes</p>
+                        {{-- <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p> --}}
+                        <p style="font-size: 13px;margin-bottom: 5px;margin-top: 0;padding: 0;" class="text-muted">{{ $item->notes ? '"'.$item->notes.'"' : '-' }}</p>
                     </div>
                 </div>
             </div>

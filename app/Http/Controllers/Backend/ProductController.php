@@ -92,12 +92,35 @@ class ProductController extends Controller
                 }
             }
 
+            $material_color_options = [];
+            if(count($request->material_options)){
+                foreach($request->material_options as $index_material => $material){
+                    $colors = [];
+                    if(count($request->color[$material])){
+                        foreach($request->color[$material] as $color){
+                            $colors[] = [
+                                'color' => $color,
+                                'color_code' => $request->color_code[$material][$color],
+                            ];
+                        }
+                    }
+
+                    $material_color_options[] = [
+                        'material' => $material,
+                        'colors' => $colors,
+                    ];
+                }
+            }
+
+            $request['sablon_type'] = implode(',', $request->sablon_type);
+
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name), '-'));
             $cek_slug = Products::where('slug', $slug)->first();
 
             $id = IdGenerator::generate('PRDCT', 'products');
             $save = Products::insert([
                 'id' => $id,
+                'type' => $request->type,
                 'category_id' => $request->category_id,
                 'slug' => ($cek_slug ? $slug.'-'.CodeHelper::generateRandomCode(4) : $slug),
                 'name' => $request->name,
@@ -105,6 +128,9 @@ class ProductController extends Controller
                 'cover' => $cover,
                 'image' => ($images ? implode(',', $images) : null),
                 'size_qty_options' => ($size_qty_options ? json_encode($size_qty_options) : null),
+                'material_color_options' => ($material_color_options ? json_encode($material_color_options) : null),
+                'sablon_type' => $request->sablon_type,
+                'is_bordir' => ($request->is_bordir ? 1 : 0),
                 'active' => ($request->active ? 1 : 0),
                 'created_by' => Auth::user()->id,
                 'created_at' => date('Y-m-d H:i:s'),
@@ -133,6 +159,7 @@ class ProductController extends Controller
         $product = Products::with(['hasCategory'])->where('id', $id)->first();
         $product['images'] = ($product->image ? explode(',', $product->image) : null);
         $product['size_qty_option_decode'] = ($product->size_qty_options ? json_decode($product->size_qty_options) : null);
+        $product['material_color_option_decode'] = ($product->material_color_options ? json_decode($product->material_color_options) : null);
 
         return view('backend.product.detail', compact('product'));
     }
@@ -147,6 +174,7 @@ class ProductController extends Controller
         $data = Products::where('id', $id)->first();
         $data['images'] = ($data->image ? explode(',', $data->image) : null);
         $data['size_qty_option_decode'] = ($data->size_qty_options ? json_decode($data->size_qty_options) : null);
+        $data['material_color_option_decode'] = ($data->material_color_options ? json_decode($data->material_color_options) : null);
 
         return view('backend.product.form', compact('data', 'categories'));
     }
@@ -201,6 +229,28 @@ class ProductController extends Controller
                 }
             }
 
+            $material_color_options = [];
+            if(count($request->material_options)){
+                foreach($request->material_options as $index_material => $material){
+                    $colors = [];
+                    if(count($request->color[$material])){
+                        foreach($request->color[$material] as $color){
+                            $colors[] = [
+                                'color' => $color,
+                                'color_code' => $request->color_code[$material][$color],
+                            ];
+                        }
+                    }
+
+                    $material_color_options[] = [
+                        'material' => $material,
+                        'colors' => $colors,
+                    ];
+                }
+            }
+
+            $request['sablon_type'] = implode(',', $request->sablon_type);
+
             $id = IdGenerator::generate('PRDCT', 'products');
             $product->update([
                 'category_id' => $request->category_id,
@@ -209,6 +259,9 @@ class ProductController extends Controller
                 'cover' => $cover,
                 'image' => ($images ? implode(',', $images) : null),
                 'size_qty_options' => ($size_qty_options ? json_encode($size_qty_options) : null),
+                'material_color_options' => ($material_color_options ? json_encode($material_color_options) : null),
+                'sablon_type' => $request->sablon_type,
+                'is_bordir' => ($request->is_bordir ? 1 : 0),
                 'active' => ($request->active ? 1 : 0),
                 'updated_by' => Auth::guard('web')->user()->id,
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -272,6 +325,18 @@ class ProductController extends Controller
         try{
             $id = CodeHelper::decodeCode($id);
             $show = Products::where('id', $id)->first();
+
+            $check_main_product = Products::where('main_product', 1)->get()->count();
+            if($check_main_product >= 4){
+                if(!$status){
+                    return response()->json([
+                        'response' => 'error',
+                        'success' => false,
+                        'status' => 'main-product-limit',
+                        'message' => 'Sorry, main product is only available for 4 products!'
+                    ]);
+                }
+            }
 
             $show->update([
                 'main_product' => ($status ? 0 : 1),

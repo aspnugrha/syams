@@ -40,6 +40,8 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css"/>
+
     <style>
         /* Gaya default (mobile) */
       .responsive-img {
@@ -132,6 +134,10 @@
       }
       .daterangepicker .drp-buttons .applyBtn{
         background-color: #212529;
+      }
+
+      .iti{
+        width: 100%;
       }
     </style>
     @yield('styles')
@@ -227,6 +233,9 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"></script>
+  
   <script>
     function showToastr(position, type, message){
       toastr.options = {

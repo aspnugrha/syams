@@ -78,7 +78,7 @@
             <tr>
                 <td style="vertical-align: top;">Notes</td>
                 <td style="vertical-align: top;">:</td>
-                <td>{{ $orders->notes }}</td>
+                <td>{{ $orders->notes ? '"'.$orders->notes.'"' : '-' }}</td>
             </tr>
         </table>
 
@@ -88,15 +88,33 @@
                     @php
                         $sizes = explode(',', $item->size_selected);
                         $qtys = json_decode($item->qty_selected);
+                        $material_colors = json_decode($item->material_color_selected);
                         $product_image = ($item->product_image ? explode(',',$item->product_image)[0] : '');
                     @endphp
                     <tr style="border: 1px solid #aaa;">
                         <td style="width: 140px;max-height: 200px;padding: 10px;">
-                            <img src="{{ asset('assets/image/upload/product/'.$product_image) }}" alt="Image {{ $item->product_name }}" style="width: 100%;height: 100%;object-fit: cover;">
+                            <img src="{{ asset('assets/image/upload/product/'.$product_image) }}" alt="Image {{ $item->product_name }}" style="width: 100%;object-fit: cover;">
                         </td>
                         <td>
-                            <h5 style="font-size: 16px;margin-bottom: 5px;">{{ $item->product_name }}</h5>
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">{{ $item->product_category }}</p>
+                            <h5 style="font-size: 16px;margin-bottom: 10px;">{{ $item->product_name }}</h5>
+
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Material & Color</p>
+                            <div style="margin-bottom: 10px;display: flex;">
+                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->material_selected }}</label> &nbsp;&nbsp;
+                                <p style="padding: 2px 4px;border: 1px solid #212122bf;border-radius: 10px;font-size: 13px;margin: 0;display: flex;">
+                                    <div style="width: 15px;height: 15px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></div>
+                                    &nbsp;{{ $material_colors->color }}
+                                </p>
+                            </div>
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Sablon Type</p>
+                            <div style="margin-bottom: 10px;">
+                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->sablon_selected }}</label>
+                            </div>
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Bordir</p>
+                            <div style="margin-bottom: 10px;">
+                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->is_bordir ? 'YES' : 'No' }}</label>
+                            </div>
                             @foreach ($sizes as $size)
                             <span style="background: #000;
                                 color: #fff;
@@ -110,8 +128,17 @@
                                 @endif
                             </span>
                             @endforeach
-                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p>
-                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;">{{ ($item->notes ? $item->notes : '-') }}</p>
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Mockup</p>
+                            <div style="margin-bottom: 10px;">
+                                <a href="{{ asset('assets/image/upload/order/mockup/'.$item->mockup) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Mockup <i class="mdi mdi-open-in-new"></i></a>
+                            </div>
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Raw File</p>
+                            <div style="margin-bottom: 10px;">
+                                <a href="{{ asset('assets/image/upload/order/raw_file/'.$item->raw_file) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a>
+                            </div>
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Notes :</p>
+                            {{-- <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p> --}}
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;">{{ ($item->notes ? '"'.$item->notes.'"' : '-') }}</p>
                         </td>
                     </tr>
                 @endforeach

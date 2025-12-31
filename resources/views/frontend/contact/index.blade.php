@@ -56,13 +56,13 @@
         </div>
         
         <div class="w-100">
-            <div class="row">
+            <div class="row justify-content-center">
                 @if ($company->imessage)
                 <div class="col-6 col-md-3 py-4">
-                    <a href="https://t.me/{{ $company->imessage ? $company->imessage : '?' }}">
+                    <a href="imessage://+{{ $company->imessage ? $company->imessage : '?' }}">
                         <div class="d-flex justify-content-center"><i class="mdi mdi-chat-outline fs-1 pt-4"></i></div>
                         <p class="text-muted w-100 text-center p-0 m-0 fw-semibold">IMessage</span>
-                        <p class="text-muted text-center pb-2 pt-1 px-2" style="overflow-wrap: anywhere;">t.me/{{ $company->imessage ? $company->imessage : '?' }}</p>
+                        <p class="text-muted text-center pb-2 pt-1 px-2" style="overflow-wrap: anywhere;">{{ $company->imessage ? '+'.$company->imessage : '?' }}</p>
                     </a>
                 </div>
                 @endif

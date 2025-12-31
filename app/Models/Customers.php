@@ -32,6 +32,8 @@ class Customers extends Authenticatable
         'name',
         'email',
         'phone_number',
+        'country_code',
+        'dial_code',
         'image',
         'password',
         'activation_code',

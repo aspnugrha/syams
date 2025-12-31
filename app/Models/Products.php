@@ -19,6 +19,7 @@ class Products extends Model
 
     protected $fillable = [
         'id',
+        'type',
         'category_id',
         'slug',
         'name',
@@ -26,6 +27,9 @@ class Products extends Model
         'cover',
         'image',
         'size_qty_options',
+        'material_color_options',
+        'sablon_type',
+        'is_bordir',
         'active',
         'main_product',
         'created_by',
@@ -49,6 +53,9 @@ class Products extends Model
                 })
                 ->when(request()->category_id != null, function ($query) {
                     $query->where('category_id', request()->category_id);
+                })
+                ->when(request()->type != null, function ($query) {
+                    $query->where('type', request()->type);
                 })
                 ->when(request()->active != null, function ($query) {
                     $query->where('active', request()->active);

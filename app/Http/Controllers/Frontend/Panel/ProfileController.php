@@ -53,6 +53,8 @@ class ProfileController extends Controller
                 'name' => $request->fullname,
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
+                'dial_code' => $request->dial_code,
+                'country_code' => $request->country_code,
                 'image' => $image,
                 'activation_code' => ($customer->email != $request->email ? $activation_code : $customer->activation_code),
                 'email_verified_at' => ($customer->email != $request->email ? null : $customer->email_verified_at),

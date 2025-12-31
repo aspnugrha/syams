@@ -12,7 +12,7 @@
           </div>
           <form method="POST" id="form-data" class="d-flex flex-wrap gap-2">
             @csrf
-            <input type="email" name="email" id="email" placeholder="Your Email Addresss" class="form-control form-control-lg" required value="{{ request()->email ? request()->email : old('email') }}" onkeydown="if(event.key === 'Enter') login();">
+            <input type="email" name="email" id="email" placeholder="example@email.com" class="form-control form-control-lg" required value="{{ request()->email ? request()->email : old('email') }}" onkeydown="if(event.key === 'Enter') login();">
             <input type="password" name="password" id="password" placeholder="********" class="form-control form-control-lg" required onkeydown="if(event.key === 'Enter') login();">
             <span class="text-muted my-2">Don't have an account? <a href="{{ route('register').(request()->email? '?email='.request()->email : '') }}">Register</a></span>
             <button type="button" id="btn-login" onclick="login()" class="btn btn-dark btn-lg text-uppercase w-100">Login</button>

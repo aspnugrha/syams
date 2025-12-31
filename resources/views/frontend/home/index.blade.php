@@ -52,15 +52,15 @@
 
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
     <div class="w-100 container p-0">
-      <div class="w-100 row justify-content-center">
+      <div class="row justify-content-center">
         <h2 class="section-title text-center mt-4 text-uppercase" style="font-size: 6vh;" data-aos="fade-up">Turning the impossible<br>into wearable</h2>
-        <div class="col-md-8 text-center" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-md-10 text-center" data-aos="fade-up" data-aos-delay="300">
           <p>
             Syams is a fashion manufacturing company that delivers more than just clothing. We create apparel through a process driven by precision, creativity, and intention. Each piece is crafted by skilled hands and intentional design thinking. Resulting in garments that are not only wearable, but meaningful. Turning the Impossible into Wearable is our commitment to pushing boundaries and transforming ambitious ideas into real, wearable fashion.
           </p>
         </div>
       </div>
-      @if ($products)
+      {{-- @if ($products)
       <div class="p-2 mt-5">
         <div id="imageCarousel" class="carousel slide">
             <div class="carousel-inner">
@@ -91,7 +91,7 @@
             </button>
         </div>
       </div>
-      @endif
+      @endif --}}
 
       <!--
       @if ($products)
@@ -147,6 +147,31 @@
       </div>
       @endif
     -->
+    </div>
+    <div class="w-100 container d-flex justify-content-center p-0 my-5">
+      <div class="w-100 row justify-content-center g-1 pb-5">
+      @foreach ($products as $item)
+      @php
+        $covers = explode(',', $item->image);
+        $cover = count($covers) ? $covers[0] : '';
+
+        $size_qty_count = 0;
+        if($item->size_qty_options){
+          $size_qty = json_decode($item->size_qty_options);
+          $size_qty_count = count($size_qty);
+        }
+      @endphp
+      <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
+        <div class=" border-0 rounded-0">
+          <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
+          <div class="container py-2" style="min-height: 80px;">
+            <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
+            <small class="text-muted">{{ $size_qty_count }} Size Options</small>
+          </div>
+        </div>
+      </a>
+      @endforeach
+      </div>
     </div>
   </section>
 
@@ -867,38 +892,38 @@
     @endif --}}
 
     <div class="row g-0 justify-content-center">
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/1.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/1.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/2.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/2.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/3.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/3.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/4.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/4.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/5.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/5.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/6.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/6.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/7.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/7.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/8.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/8.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/9.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/9.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/10.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/10.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
-        <div class="col-6 col-md-2">
-          <img src="{{ asset('assets/image/upload/collaboration/11.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 200px;object-fit: cover;">
+        <div class="col-3 col-md-1">
+          <img src="{{ asset('assets/image/upload/collaboration/11.jpg') }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
         </div>
       </div>
   </section>

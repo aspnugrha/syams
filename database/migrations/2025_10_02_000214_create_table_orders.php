@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('customer_id', 100)->nullable();
             $table->string('customer_name', 100);
             $table->string('customer_email', 100)->nullable();
-            $table->string('customer_phone_number', 100);
+            $table->string('customer_phone_number', 100)->nullable();
+            $table->string('customer_country_code', 20)->nullable();
+            $table->string('customer_dial_code', 20)->nullable();
             $table->text('notes')->nullable();
             $table->string('status', 100)->default('PENDING')->comment('PENDING,APPROVED,CANCELED');
             $table->dateTime('approved_at')->nullable();
@@ -47,9 +49,15 @@ return new class extends Migration
             $table->string('product_id', 50);
             $table->string('product_name', 50);
             $table->string('product_category', 50)->nullable();
-            $table->string('product_image', 50)->nullable();
+            $table->text('product_image')->nullable();
             $table->text('size_selected');
             $table->text('qty_selected');
+            $table->text('material_selected')->nullable();
+            $table->text('material_color_selected')->nullable();
+            $table->text('sablon_selected')->nullable();
+            $table->tinyInteger('is_bordir')->default(0)->comment('1=YES,0=NO');
+            $table->string('mockup', 50)->nullable();
+            $table->string('raw_file', 50)->nullable();
             $table->text('notes')->nullable();
             $table->string('status', 100)->default('PENDING')->comment('PENDING,APPROVED,CANCELED');
             $table->dateTime('approved_at')->nullable();

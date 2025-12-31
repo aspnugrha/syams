@@ -111,7 +111,17 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="phone_number" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="phone_number" id="phone_number" oninput="this.value=this.value.replace(/\D/g,'')" placeholder="628**********" value="{{ $customer->phone_number }}">
+                                            {{-- <input type="text" class="form-control" name="phone_number" id="phone_number" oninput="this.value=this.value.replace(/\D/g,'')" placeholder="628**********" value="{{ $customer->phone_number }}"> --}}
+
+                                            <input type="tel" name="phone" id="phone" class="form-control" required oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $customer->phone_number }}">
+
+                                            <!-- hidden input untuk dikirim ke backend -->
+                                            <input type="hidden" name="country_code" id="country_code" value="{{ $customer->country_code }}">
+                                            <input type="hidden" name="dial_code" id="dial_code" value="{{ $customer->dial_code }}">
+                                            <input type="hidden" name="phone_number" id="phone_number" value="{{ $customer->phone_number }}">
+
+                                            <div class="invalid-feedback" id="dial_codeHelp"></div>
+                                            <div class="invalid-feedback" id="country_codeHelp"></div>
                                             <div id="phone_numberHelp" class="form-text text-danger invalid-feedback">Enter your phone_number here.</div>
                                         </div>
                                         <button type="button" class="btn btn-dark text-uppercase w-100 mt-3" onclick="saveProfile()">Update My Profile</button>
@@ -165,6 +175,39 @@ $(document).ready(function(){
     if("{{ $customer->image }}"){
         setImageProfile()
     }
+
+    if("{{ $customer->country_code }}"){
+        iti.setCountry("{{ $customer->country_code }}");
+        document.getElementById("phone").value = "{{ $customer->phone_number }}";
+        document.getElementById("phone_number").value = "{{ $customer->phone_number }}";
+    }
+});
+
+const phoneInput = document.querySelector("#phone");
+
+const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "id",          // default Indonesia
+    separateDialCode: true,         // tampilkan +62 terpisah
+    nationalMode: false,
+    autoPlaceholder: "polite",      // placeholder sesuai negara
+    formatOnDisplay: true,
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"
+});
+
+phoneInput.addEventListener("countrychange", function () {
+const countryData = iti.getSelectedCountryData();
+
+// ISO code (id, us, sg)
+document.getElementById("country_code").value = countryData.iso2;
+
+// Dial code (+62, +1)
+document.getElementById("dial_code").value = countryData.dialCode;
+document.getElementById("phone").value = '';
+document.getElementById("phone_number").value = '';
+});
+
+document.getElementById('phone').addEventListener("keyup", function () {
+    document.getElementById("phone_number").value = iti.getNumber().replace('+', '');
 });
 
 // image
@@ -266,11 +309,12 @@ function saveProfileAct(){
                 showToastr('toast-top-right', 'success', "Data berhasil disimpan")
 
                 const email_request = $('#email').val();
-                if('{{ $customer->email }}' != email_request){
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                }
+                // if('{{ $customer->email }}' != email_request){
+                //     setTimeout(() => {
+                //         window.location.reload();
+                //     }, 1000);
+                // }
+                window.location.reload();
             } else {
                 showToastr('toast-top-right', 'error', "Terjadi kesalahan, silahkan ulangi kembali")
             }

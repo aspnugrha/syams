@@ -54,6 +54,14 @@
                 </select>
             </div>
             <div class="form-group">
+                <label>Type</label>
+                <select name="filter_type" id="filter_type" class="form-control">
+                    <option value="">Pilih Type</option>
+                    <option value="SHOWCASE">Produk Showcase</option>
+                    <option value="ORDER">Produk Order</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label>Dibuat tanggal</label>
                 <input type="text" class="form-control" name="filter_created_at" id="filter_created_at">
             </div>
@@ -186,10 +194,10 @@
         // Confirm dialog based on action type
         var confirmText = title.includes('Main Product') ? 
             'Are you sure you want to make this data main product?' : 
-            'Are you sure you want to restore this data?';
+            'Are you sure you want return to normal product this data?';
         
         
-        var confirmButtonText = title.includes('Main Product') ? 'Yes, make it!' : 'Yes, restore it!';
+        var confirmButtonText = title.includes('Main Product') ? 'Yes, make it!' : 'Yes, return to normal product!';
         var confirmButtonColor = title.includes('Main Product') ? '#13c2c2' : '#ffc107';
 
         console.log(url, title);
@@ -223,8 +231,12 @@
                             // Reload only the current page data
                             table.ajax.reload(null, false);
                         } else {
+                            let msg = 'Failed to process your request';
+                            if(response.status == 'main-product-limit'){
+                                msg = response.message;
+                            }
                             toastr.error(
-                                'Failed to process your request',
+                                msg,
                                 'Error!'
                             );
                         }
@@ -326,6 +338,7 @@
                     d.created_at=$('#filter_created_at').val();
                     d.active=$('#filter_active').val();
                     d.category_id=$('#filter_category_id').val();
+                    d.type=$('#filter_type').val();
                     // d.search= $('#searchValue').val();
                 },
                 statusCode: {
@@ -371,7 +384,7 @@
                     data: "id", 
                     name: "id",
                     render: function(data, type, row, meta) {
-                        const images = row.image.split(',');
+                        const images = row.image ? row.image.split(',') : [];
 
                         var cover = ``
                         // if(row.cover){
@@ -406,7 +419,8 @@
                     data: "id", 
                     name: "id",
                     render: function(data, type, row, meta) {
-                        let name = `<span class="badge bg-dark rounded-pill">${row.category_name}</span><br>`
+                        let name = `<span class="badge bg-info rounded-pill">${row.type.toLowerCase().charAt(0).toUpperCase() + row.type.toLowerCase().slice(1)}</span><br>`
+                        name += `<span class="badge bg-dark rounded-pill">${row.category_name}</span><br>`
                         name += row.name
 
                         return name;
@@ -462,7 +476,7 @@
                         var btn = `
                             <div class="btn-group">
                                 <a href="${url_detail}" class="btn btn-sm btn-default detail" title="Detail Product"><i class="mdi mdi-magnify"></i></a>
-                                <a href="${url_main_product}" class="btn btn-sm btn-default main-product" title="${(parseInt(row.main_product) == 1 ? `Restore Main Product` : `Main Product`)}"><i class="mdi mdi-${(parseInt(row.main_product) == 1 ? `sync` : `star-outline`)}"></i></a>
+                                <a href="${url_main_product}" class="btn btn-sm btn-default main-product" title="${(parseInt(row.main_product) == 1 ? `Restore Normal Product` : `Main Product`)}"><i class="mdi mdi-${(parseInt(row.main_product) == 1 ? `sync` : `star-outline`)}"></i></a>
                                 <a href="${url_edit}" class="btn btn-sm btn-default edit" title="Edit Product"><i class="mdi mdi-pencil-outline"></i></a>
                                 <a href="${url_delete}" class="btn btn-sm btn-default delete" title="Delete Product"><i class="mdi mdi-trash-can-outline"></i></a>
                             </div>`

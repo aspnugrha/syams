@@ -19,11 +19,11 @@ class ProfileCustomerRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->has('phone_number')) {
-            $this->merge([
-                'phone_number' => PhoneHelper::normalize_phone($this->phone_number),
-            ]);
-        }
+        // if ($this->has('phone_number')) {
+        //     $this->merge([
+        //         'phone_number' => PhoneHelper::normalize_phone($this->phone_number),
+        //     ]);
+        // }
     }
 
 
@@ -46,6 +46,8 @@ class ProfileCustomerRequest extends FormRequest
                 'required',
                 Rule::unique('customers', 'phone_number')->ignore($id)
             ],
+            'dial_code' => 'required',
+            'country_code' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];
     }
@@ -64,6 +66,8 @@ class ProfileCustomerRequest extends FormRequest
             'fullname' => 'Fullname',
             'email' => 'Email',
             'phone_number' => 'Phone Number',
+            'dial_code' => 'Dial Code',
+            'country_code' => 'Country Code',
             'image' => 'Profile',
         ];
     }

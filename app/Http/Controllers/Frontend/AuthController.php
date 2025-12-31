@@ -127,6 +127,8 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
+                'country_code' => $request->country_code,
+                'dial_code' => $request->dial_code,
                 'password' => password_hash($request->password, PASSWORD_DEFAULT),
                 'active' => 0,
                 'activation_code' => $activation_code,

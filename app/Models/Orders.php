@@ -28,6 +28,8 @@ class Orders extends Model
         'customer_name',
         'customer_email',
         'customer_phone_number',
+        'customer_country_code',
+        'customer_dial_code',
         'notes',
         'status',
         'approved_at',

@@ -74,16 +74,35 @@
                             @php
                                 $sizes = explode(',', $item->size_selected);
                                 $qtys = json_decode($item->qty_selected);
+                                $material_colors = json_decode($item->material_color_selected);
                                 $product_image = ($item->product_image ? explode(',',$item->product_image)[0] : '');
                             @endphp
                             <div class="container bg-white rounded p-4 mb-2">
                                 <div class="row">
                                     <div class="col-4">
-                                        <img src="{{ asset('assets/image/upload/product/'.$product_image) }}" alt="Image {{ $item->product_name }}" style="width: 100%;height: 100%;object-fit: cover;">
+                                        <img src="{{ asset('assets/image/upload/product/'.$product_image) }}" alt="Image {{ $item->product_name }}" style="width: 100%;object-fit: cover;">
                                     </div>
                                     <div class="col-8">
-                                        <h5 style="font-size: 16px;margin-bottom: 5px;">{{ $item->product_name }}</h5>
                                         <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">{{ $item->product_category }}</p>
+                                        <h5 style="font-size: 16px;margin-bottom: 15px;">{{ $item->product_name }}</h5>
+                                        
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Material & Color</p>
+                                        <div class="mb-2 d-flex">
+                                            <label class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">{{ $item->material_selected }}</label> &nbsp;&nbsp;
+                                            <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center mb-1" style="font-size: 13px;padding: 2px 4px;">
+                                                <span style="width: 15px;height: 15px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></span>
+                                                &nbsp;{{ $material_colors->color }}
+                                            </label>
+                                        </div>
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Sablon Type</p>
+                                        <div class="mb-2 d-flex">
+                                            <label class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">{{ $item->sablon_selected }}</label>
+                                        </div>
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Bordir</p>
+                                        <div class="mb-2 d-flex">
+                                            <label class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">{{ $item->is_bordir ? 'YES' : 'No' }}</label>
+                                        </div>
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Size & Quantity</p>
                                         @foreach ($sizes as $size)
                                         <span class="badge bg-dark mb-1">
                                             {{ $size }} 
@@ -92,31 +111,78 @@
                                             @endif
                                         </span>
                                         @endforeach
-                                        <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p>
-                                        <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;">{{ ($item->notes ? $item->notes : '-') }}</p>
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Mockup</p>
+                                        <div class="mb-2 d-flex">
+                                            <a href="{{ asset('assets/image/upload/order/mockup/'.$item->mockup) }}" target="_blank" class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">See Mockup <i class="mdi mdi-open-in-new"></i></a>
+                                        </div>
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Raw File</p>
+                                        <div class="mb-2 d-flex">
+                                            <a href="{{ asset('assets/image/upload/order/raw_file/'.$item->raw_file) }}" target="_blank" class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a>
+                                        </div>
+                                        <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Notes</p>
+                                        {{-- <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p> --}}
+                                        <p style="font-size: 15px;margin-bottom: 5px;margin-top: 0;padding: 0;">{{ ($item->notes ? '"'.$item->notes.'"' : '-') }}</p>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     @endif
                 </div>
-                @if ($orders->status == 'PENDING')
-                    <a href="javascript:void(0)" onclick="cancelOrder('{{ $orders->id }}', '{{ $orders->order_number_encode }}')" class="btn btn-dark btn-lg w-100 text-uppercase">CANCEL THIS ORDER</a>
-                @elseif($orders->status == 'APPROVED')
-                    <button type="button" class="btn btn-success btn-lg w-100" disabled>
-                        This order was Approved on {{ date('d F Y H:i', strtotime($orders->approved_at)) }}
-                    </button>
-                @else
-                    @if ($orders->canceled_by_customer)
-                        <button type="button" class="btn btn-danger btn-lg w-100" disabled>
-                            You have cancelled this order on {{ date('d F Y H:i', strtotime($orders->canceled_at)) }}
-                        </button>
-                    @else
-                        <button type="button" class="btn btn-danger btn-lg w-100" disabled>
-                            This order was cancelled on {{ date('d F Y H:i', strtotime($orders->canceled_at)) }}
-                        </button>
+@php
+$message_template = "
+Halo, ".($company_profile && $company_profile->name ? $company_profile->name : 'Syams Manufacturing')."!
+
+I have placed an order with the following details:
+Order Number : *".$orders->order_number."*
+Type : ".$orders->order_type."
+Date : ".date('d F Y H:i', strtotime($orders->order_date))."
+Name : ".$orders->customer_name."
+Email : ".$orders->customer_email."
+Phone Number : ".$orders->customer_phone_number."
+
+I would like to confirm and process the order.
+Thank you.
+";
+
+$encodedMessage = urlencode(trim($message_template));
+
+$waLink = "https://wa.me/{$company_profile->whatsapp}?text={$encodedMessage}";
+$iMessageLink = "imessage://+{$company_profile->imessage}?body={$encodedMessage}";
+@endphp
+                <div class="row g-1">
+                    @if ($orders->status == 'PENDING')
+                    <div class="col-md-9">
+                        <div class="dropdown h-100">
+                            <button class="btn btn-success w-100 text-uppercase h-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi mdi-thumb-up-outline"></i> &nbsp; Confirm and process orders
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ $waLink }}" target="_blank"><i class="mdi mdi-whatsapp"></i> Confirm via Whatsapp</a></li>
+                                <li><a class="dropdown-item" href="{{ $iMessageLink }}" target="_blank"><i class="mdi mdi-chat-outline"></i> Confirm via iMessage</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     @endif
-                @endif
+                    <div class="col-md-{{ ($orders->status == 'PENDING') ? '3' : '12' }}">
+                        @if ($orders->status == 'PENDING')
+                            <a href="javascript:void(0)" onclick="cancelOrder('{{ $orders->id }}', '{{ $orders->order_number_encode }}')" class="btn btn-outline-secondary w-100 text-uppercase"><i class="mdi mdi-close"></i> CANCEL</a>
+                        @elseif($orders->status == 'APPROVED')
+                            <button type="button" class="btn btn-success btn-lg w-100" disabled>
+                                This order was Approved on {{ date('d F Y H:i', strtotime($orders->approved_at)) }}
+                            </button>
+                        @else
+                            @if ($orders->canceled_by_customer)
+                                <button type="button" class="btn btn-danger btn-lg w-100" disabled>
+                                    You have cancelled this order on {{ date('d F Y H:i', strtotime($orders->canceled_at)) }}
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-danger btn-lg w-100" disabled>
+                                    This order was cancelled on {{ date('d F Y H:i', strtotime($orders->canceled_at)) }}
+                                </button>
+                            @endif
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
         </div>

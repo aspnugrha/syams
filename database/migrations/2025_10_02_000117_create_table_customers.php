@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('email', 100)->unique();
             $table->string('phone_number', 100)->unique()->nullable();
+            $table->string('country_code', 20)->nullable();
+            $table->string('dial_code', 20)->nullable();
             $table->string('image', 50)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

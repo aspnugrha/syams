@@ -19,11 +19,11 @@ class OrderRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->has('phone_number')) {
-            $this->merge([
-                'phone_number' => PhoneHelper::normalize_phone($this->phone_number),
-            ]);
-        }
+        // if ($this->has('phone_number')) {
+        //     $this->merge([
+        //         'phone_number' => PhoneHelper::normalize_phone($this->phone_number),
+        //     ]);
+        // }
     }
 
 
@@ -44,6 +44,8 @@ class OrderRequest extends FormRequest
 			'phone_number' => [
                 'required',
             ],
+            'dial_code' => 'required',
+            'country_code' => 'required',
             'order_type' => 'required',
             'products_id' => 'required',
             // 'size_options' => 'required_if:order_type,order',

@@ -12,11 +12,20 @@
           </div>
           <form method="POST" id="form-data" class="d-flex flex-wrap gap-2">
             @csrf
-            <input type="text" name="name" id="name" placeholder="Your Fullname" class="form-control form-control-lg" required onkeydown="if(event.key === 'Enter') register()">
-            <input type="email" name="email" id="email" placeholder="Your Email Addresss" class="form-control form-control-lg" required value="{{ request()->email }}" onkeydown="if(event.key === 'Enter') register()">
+            <input type="text" name="name" id="name" placeholder="full name" class="form-control form-control-lg" required onkeydown="if(event.key === 'Enter') register()">
+            <input type="email" name="email" id="email" placeholder="example@email.com" class="form-control form-control-lg" required value="{{ request()->email }}" onkeydown="if(event.key === 'Enter') register()">
             <div class="invalid-feedback" id="email-feedback"></div>
-            <input type="text" name="phone_number" id="phone_number" placeholder="628xxxxxxxxxx" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeydown="if(event.key === 'Enter') register()">
+            <input type="tel" name="phone" id="phone" class="form-control form-control-lg" required oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeydown="if(event.key === 'Enter') register()">
+
+            <!-- hidden input untuk dikirim ke backend -->
+            <input type="hidden" name="country_code" id="country_code" value="id">
+            <input type="hidden" name="dial_code" id="dial_code" value="62">
+            <input type="hidden" name="phone_number" id="phone_number">
+
+            {{-- <input type="text" name="phone_number" id="phone_number" placeholder="628xxxxxxxxxx" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeydown="if(event.key === 'Enter') register()"> --}}
             <div class="invalid-feedback" id="phone_number-feedback"></div>
+            <div class="invalid-feedback" id="dial_code-feedback"></div>
+            <div class="invalid-feedback" id="country_code-feedback"></div>
             <input type="password" name="password" id="password" placeholder="********" class="form-control form-control-lg" required onkeydown="if(event.key === 'Enter') register()">
             <div class="invalid-feedback" id="password-feedback"></div>
             <span class="text-muted my-2">Already have an account? <a href="{{ route('login') }}">Login</a></span>
@@ -31,6 +40,36 @@
 @endsection
 @section('scripts')
 <script>
+  // let phoneInput = '';
+  $(document).ready(function(){
+  })
+  const phoneInput = document.querySelector("#phone");
+
+  const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "id",          // default Indonesia
+      separateDialCode: true,         // tampilkan +62 terpisah
+      nationalMode: false,
+      autoPlaceholder: "polite",      // placeholder sesuai negara
+      formatOnDisplay: true,
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"
+  });
+
+  phoneInput.addEventListener("countrychange", function () {
+    const countryData = iti.getSelectedCountryData();
+
+    // ISO code (id, us, sg)
+    document.getElementById("country_code").value = countryData.iso2;
+
+    // Dial code (+62, +1)
+    document.getElementById("dial_code").value = countryData.dialCode;
+    document.getElementById("phone").value = '';
+    document.getElementById("phone_number").value = '';
+  });
+
+  document.getElementById('phone').addEventListener("keyup", function () {
+    document.getElementById("phone_number").value = iti.getNumber().replace('+', '');
+  });
+
   function clearForm(){
     $('#name').val('')
     $('#email').val('')
