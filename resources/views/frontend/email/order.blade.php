@@ -102,8 +102,8 @@
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Material & Color</p>
                             <div style="margin-bottom: 10px;display: flex;">
                                 <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->material_selected }}</label> &nbsp;&nbsp;
-                                <p style="padding: 2px 4px;border: 1px solid #212122bf;border-radius: 10px;font-size: 13px;margin: 0;display: flex;">
-                                    <div style="width: 15px;height: 15px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></div>
+                                <p style="padding: 2px 4px;border: 1px solid #212122bf;border-radius: 10px;font-size: 13px;margin: 0;display: flex;align-items:center;">
+                                    <label style="width: 15px;height: 15px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></label>
                                     &nbsp;{{ $material_colors->color }}
                                 </p>
                             </div>
