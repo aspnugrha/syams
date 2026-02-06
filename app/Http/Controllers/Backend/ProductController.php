@@ -54,7 +54,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Categories::get();
-        return view('backend.product.form', compact('categories'));
+        $materials = json_decode(json_encode(Products::getDataMaterials()));
+        return view('backend.product.form', compact('categories', 'materials'));
     }
 
     /**
@@ -93,24 +94,31 @@ class ProductController extends Controller
             }
 
             $material_color_options = [];
-            if(count($request->material_options)){
-                foreach($request->material_options as $index_material => $material){
-                    $colors = [];
-                    if(count($request->color[$material])){
-                        foreach($request->color[$material] as $color){
-                            $colors[] = [
-                                'color' => $color,
-                                'color_code' => $request->color_code[$material][$color],
-                            ];
-                        }
-                    }
+            // if(count($request->material_options)){
+            //     foreach($request->material_options as $index_material => $material){
+            //         $colors = [];
+            //         if(count($request->color[$material])){
+            //             foreach($request->color[$material] as $color){
+            //                 $colors[] = [
+            //                     'color' => $color,
+            //                     'color_code' => $request->color_code[$material][$color],
+            //                 ];
+            //             }
+            //         }
 
-                    $material_color_options[] = [
-                        'material' => $material,
-                        'colors' => $colors,
-                    ];
+            //         $material_color_options[] = [
+            //             'material' => $material,
+            //             'colors' => $colors,
+            //         ];
+            //     }
+            // }
+            if(count($request->material_color_options)){
+                foreach($request->material_color_options as $index_material => $material){
+                    $get_material = Products::getDataMaterials($material);
+                    $material_color_options[] = $get_material;
                 }
             }
+            // dd($material_color_options);
 
             $request['sablon_type'] = implode(',', $request->sablon_type);
 
@@ -175,8 +183,9 @@ class ProductController extends Controller
         $data['images'] = ($data->image ? explode(',', $data->image) : null);
         $data['size_qty_option_decode'] = ($data->size_qty_options ? json_decode($data->size_qty_options) : null);
         $data['material_color_option_decode'] = ($data->material_color_options ? json_decode($data->material_color_options) : null);
+        $materials = json_decode(json_encode(Products::getDataMaterials()));
 
-        return view('backend.product.form', compact('data', 'categories'));
+        return view('backend.product.form', compact('data', 'categories', 'materials'));
     }
 
     /**
@@ -230,22 +239,28 @@ class ProductController extends Controller
             }
 
             $material_color_options = [];
-            if(count($request->material_options)){
-                foreach($request->material_options as $index_material => $material){
-                    $colors = [];
-                    if(count($request->color[$material])){
-                        foreach($request->color[$material] as $color){
-                            $colors[] = [
-                                'color' => $color,
-                                'color_code' => $request->color_code[$material][$color],
-                            ];
-                        }
-                    }
+            // if(count($request->material_options)){
+            //     foreach($request->material_options as $index_material => $material){
+            //         $colors = [];
+            //         if(count($request->color[$material])){
+            //             foreach($request->color[$material] as $color){
+            //                 $colors[] = [
+            //                     'color' => $color,
+            //                     'color_code' => $request->color_code[$material][$color],
+            //                 ];
+            //             }
+            //         }
 
-                    $material_color_options[] = [
-                        'material' => $material,
-                        'colors' => $colors,
-                    ];
+            //         $material_color_options[] = [
+            //             'material' => $material,
+            //             'colors' => $colors,
+            //         ];
+            //     }
+            // }
+            if(count($request->material_color_options)){
+                foreach($request->material_color_options as $index_material => $material){
+                    $get_material = Products::getDataMaterials($material);
+                    $material_color_options[] = $get_material;
                 }
             }
 

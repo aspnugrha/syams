@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Helpers\IdGenerator;
+use App\Models\Products;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +18,11 @@ class ProductSeeder extends Seeder
         $data = [
             // upper
             [
-                'name' => 'T-Shirt Urban Drift Tee',
-                'category_id' => 'CTGRY2025112600001aaZNlw',
+                'name' => 'Beanie Sublime',
+                'category_id' => 'CTGRY2025112600006we823g',
                 'description' => 'A lightweight, breathable cotton tee designed for everyday comfort. Featuring a minimalist chest print, this shirt pairs effortlessly with any casual outfit.',
-                'cover' => 'bg-2.jpg',
-                'image' => 'up1.png,up2.png',
+                // 'cover' => 'bs.jpg',
+                'image' => 'bs.jpg,bs1.jpg,bs2.jpg,knit-beanie-w-pearl.jpg,beanie.jpg',
                 'size_qty_options' => json_encode([
                     [
                         'size' => 'S',
@@ -42,44 +43,73 @@ class ProductSeeder extends Seeder
                 ]),
             ],
             [
-                'name' => 'Jeans Stonewash Flex Denim',
-                'category_id' => 'CTGRY2025112600005bv7Ghe',
+                'name' => 'Knit Beanie',
+                'category_id' => 'CTGRY2025112600006we823g',
                 'description' => 'Classic straight-fit jeans crafted with stretchable denim for easy movement. The stonewashed finish adds a timeless rugged look suitable for daily wear.',
-                'cover' => 'bg-3.jpg',
-                'image' => 'up3.png',
+                // 'cover' => 'knit-beanie.jpg',
+                'image' => 'knit-beanie.jpg',
                 'size_qty_options' => null
             ],
+            // [
+            //     'name' => 'Beanie',
+            //     'category_id' => 'CTGRY2025112600006we823g',
+            //     'description' => 'A warm fleece hoodie made for comfort in chilly weather. Includes a roomy kangaroo pocket and adjustable drawstring hood with a modern casual silhouette.',
+            //     'cover' => 'beanie.jpg',
+            //     'image' => 'beanie.jpg',
+            //     'size_qty_options' => json_encode([
+            //         [
+            //             'size' => 'S',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'M',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'L',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'XL',
+            //             'qty' => ['25', '50', '100']
+            //         ]
+            //     ]),
+            // ],
+            // [
+            //     'name' => 'Knit Beanie With Pearl',
+            //     'category_id' => 'CTGRY2025112600006we823g',
+            //     'description' => 'A soft knitted sweater with subtle ribbed details. Designed to deliver warmth without being bulky—perfect for layering during colder seasons.',
+            //     'cover' => 'knit-beanie-w-pearl.jpg',
+            //     'image' => 'knit-beanie-w-pearl.jpg',
+            //     'size_qty_options' => json_encode([
+            //         [
+            //             'size' => 'S',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'M',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'L',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'XL',
+            //             'qty' => ['25', '50', '100']
+            //         ],
+            //         [
+            //             'size' => 'XXL',
+            //             'qty' => ['25', '50', '100', '150']
+            //         ]
+            //     ]),
+            // ],
             [
-                'name' => 'Hoodie CozyTrail Pullover Hoodie',
-                'category_id' => 'CTGRY2025112600002kl3qw8',
-                'description' => 'A warm fleece hoodie made for comfort in chilly weather. Includes a roomy kangaroo pocket and adjustable drawstring hood with a modern casual silhouette.',
-                'cover' => 'bg-4.jpg',
-                'image' => 'up4.png',
-                'size_qty_options' => json_encode([
-                    [
-                        'size' => 'S',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => 'M',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => 'L',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => 'XL',
-                        'qty' => ['25', '50', '100']
-                    ]
-                ]),
-            ],
-            [
-                'name' => 'Sweater Nordic Knit Essential Sweater',
-                'category_id' => 'CTGRY2025112600003we6v6m',
+                'name' => 'Knitwear Mohair Custom',
+                'category_id' => 'CTGRY2025112600008hg4ey3',
                 'description' => 'A soft knitted sweater with subtle ribbed details. Designed to deliver warmth without being bulky—perfect for layering during colder seasons.',
-                'cover' => 'bg-5.jpg',
-                'image' => 'u1.png',
+                // 'cover' => 'knitwear-mohair-custom.jpg',
+                'image' => 'knitwear-mohair-custom.jpg',
                 'size_qty_options' => json_encode([
                     [
                         'size' => 'S',
@@ -103,18 +133,142 @@ class ProductSeeder extends Seeder
                     ]
                 ]),
             ],
-            // under
             [
-                'name' => 'Pants AeroLite Tapered Pants',
-                'category_id' => 'CTGRY2025112600004kn0u9q',
+                'name' => 'Canvas Jacket',
+                'category_id' => 'CTGRY202511260000707bsh3',
                 'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
-                'cover' => 'bg-6.jpg',
-                'image' => 'u2.png,u3.png',
+                // 'cover' => 'canvas-jacket.jpg',
+                'image' => 'canvas-jacket.jpg',
                 'size_qty_options' => json_encode([
                     [
-                        'size' => '28',
+                        'size' => 'S',
                         'qty' => ['25', '50', '100']
                     ], 
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => 'XXL',
+                        'qty' => ['25', '50', '100', '150']
+                    ]
+                ]),
+            ],
+            [
+                'name' => 'Fenching Jacket',
+                'category_id' => 'CTGRY202511260000707bsh3',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'fenching-jacket.jpg',
+                'image' => 'fenching-jacket.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'S',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => 'XXL',
+                        'qty' => ['25', '50', '100', '150']
+                    ]
+                ]),
+            ],
+            [
+                'name' => 'Jacket Track Sublime',
+                'category_id' => 'CTGRY202511260000707bsh3',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'jacket-track-sublime.jpg',
+                'image' => 'jacket-track-sublime.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'S',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => 'XXL',
+                        'qty' => ['25', '50', '100', '150']
+                    ]
+                ]),
+            ],
+            [
+                'name' => 'Work Jacket With Embroidery Patch',
+                'category_id' => 'CTGRY202511260000707bsh3',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'work-jacket-with-embroidery-patch.jpg',
+                'image' => 'work-jacket-with-embroidery-patch.jpg,work-jacket-with-embroidery-patch2.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Leather Jaket With Embordir And Spray',
+                'category_id' => 'CTGRY202511260000707bsh3',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'leather-jaket-with-embordir-and-spray1.jpg',
+                'image' => 'leather-jaket-with-embordir-and-spray1.jpg,leather-jaket-with-embordir-and-spray2.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Pants With Rhinestone Fading',
+                'category_id' => 'CTGRY2025112600004kn0u9q',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'pants-with-rhinestone-fading.jpg',
+                'image' => 'pants-with-rhinestone-fading.jpg',
+                'size_qty_options' => json_encode([
                     [
                         'size' => '29',
                         'qty' => ['25', '50', '100']
@@ -126,18 +280,147 @@ class ProductSeeder extends Seeder
                     [
                         'size' => '31',
                         'qty' => ['25', '50', '100']
-                    ]
+                    ],
+                    [
+                        'size' => '32',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Hoodie Fading With Rhinestone',
+                'category_id' => 'CTGRY2025112600002kl3qw8',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'hoodie-fading-with-rhinestone.jpg',
+                'image' => 'hoodie-fading-with-rhinestone.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'S',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Washing Hoodie',
+                'category_id' => 'CTGRY2025112600002kl3qw8',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'washing-hoodie.jpg',
+                'image' => 'washing-hoodie.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'S',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Hoodie Zipper',
+                'category_id' => 'CTGRY2025112600009hf7eh3',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'hoodie-zipper.jpg',
+                'image' => 'hoodie-zipper.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => 'S',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'M',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => 'L',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => 'XL',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Jeans Rhinestone',
+                'category_id' => 'CTGRY2025112600005bv7Ghe',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'jeans-rhinestone1.jpg',
+                'image' => 'jeans-rhinestone1.jpg,jeans-rhinestone2.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => '29',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => '30',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => '31',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => '32',
+                        'qty' => ['25', '50', '100']
+                    ],
+                ]),
+            ],
+            [
+                'name' => 'Jorts Jeans',
+                'category_id' => 'CTGRY2025112600005bv7Ghe',
+                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+                // 'cover' => 'jorts-jeans1.jpg',
+                'image' => 'jorts-jeans1.jpg,jorts-jeans2.jpg',
+                'size_qty_options' => json_encode([
+                    [
+                        'size' => '29',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => '30',
+                        'qty' => ['25', '50', '100']
+                    ], 
+                    [
+                        'size' => '31',
+                        'qty' => ['25', '50', '100']
+                    ],
+                    [
+                        'size' => '32',
+                        'qty' => ['25', '50', '100']
+                    ],
                 ]),
             ],
             
             // order
             [
                 'type' => 'ORDER',
-                'name' => 'Shirt Unisex Cutting Standar',
+                'name' => 'Shirt Unisex Oversize',
                 'category_id' => 'CTGRY2025112600001aaZNlw',
                 'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
                 'cover' => null,
-                'image' => 't-shirt.jpg',
+                'image' => 'blank-shirt-white.png',
                 'size_qty_options' => json_encode([
                     [
                         'size' => 'S',
@@ -157,92 +440,69 @@ class ProductSeeder extends Seeder
                     ]
                 ]),
                 'material_color_options' => json_encode([
-                    [
-                        'material' => 'Cutton 16s',
-                        'colors' => [
-                            [
-                                'color' => 'Sunset Blaze',
-                                'color_code' => '#FF5F45'
-                            ],
-                            [
-                                'color' => 'Mint Splash',
-                                'color_code' => '#2EC4B6'
-                            ],
-                        ],
-                    ], 
-                    [
-                        'material' => 'Cutton 26s',
-                        'colors' => [
-                            [
-                                'color' => 'Lime Punch',
-                                'color_code' => '#A7C957'
-                            ],
-                            [
-                                'color' => 'Neon Peach',
-                                'color_code' => '#FF9F9F'
-                            ],
-                        ],
-                    ], 
+                    Products::getDataMaterials('Baby Terry Cotton (220gsm)'),
+                    Products::getDataMaterials('Cotton Striper (20s)'),
+                    Products::getDataMaterials('Cotton Combed BCI Supersoft (24s)'),
                 ]),
                 'sablon_type' => 'Screen Printing,DTF',
                 'is_bordir' => 1,
             ],
-            [
-                'type' => 'ORDER',
-                'name' => 'Hoodie Unisex Oversize',
-                'category_id' => 'CTGRY2025112600002kl3qw8',
-                'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
-                'cover' => null,
-                'image' => 'hoodie-oversize.jpg',
-                'size_qty_options' => json_encode([
-                    [
-                        'size' => 'S',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => 'M',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => 'L',
-                        'qty' => ['25', '50', '100']
-                    ], 
-                    [
-                        'size' => 'XL',
-                        'qty' => ['25', '50', '100']
-                    ]
-                ]),
-                'material_color_options' => json_encode([
-                    [
-                        'material' => 'Cutton 16s',
-                        'colors' => [
-                            [
-                                'color' => 'Lavender Crush',
-                                'color_code' => '#B388EB'
-                            ],
-                            [
-                                'color' => 'Dusty Rose',
-                                'color_code' => '#E5989B'
-                            ],
-                        ],
-                    ], 
-                    [
-                        'material' => 'Cutton 26s',
-                        'colors' => [
-                            [
-                                'color' => 'Soft Lilac',
-                                'color_code' => '#CDB4DB'
-                            ],
-                            [
-                                'color' => 'Jet Black',
-                                'color_code' => '#0B0B0B'
-                            ],
-                        ],
-                    ], 
-                ]),
-                'sablon_type' => 'Screen Printing,DTF',
-                'is_bordir' => 0,
-            ],
+            // [
+            //     'type' => 'ORDER',
+            //     'name' => 'Hoodie Unisex Oversize',
+            //     'category_id' => 'CTGRY2025112600002kl3qw8',
+            //     'description' => 'Lightweight tapered pants with a clean fit and elastic waistband. Ideal for both casual days and semi-formal occasions, offering all-day comfort and style.',
+            //     'cover' => null,
+            //     'image' => 'hoodie-oversize.jpg',
+            //     'size_qty_options' => json_encode([
+            //         [
+            //             'size' => 'S',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'M',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'L',
+            //             'qty' => ['25', '50', '100']
+            //         ], 
+            //         [
+            //             'size' => 'XL',
+            //             'qty' => ['25', '50', '100']
+            //         ]
+            //     ]),
+            //     'material_color_options' => json_encode([
+            //         [
+            //             'material' => 'Cutton 16s',
+            //             'colors' => [
+            //                 [
+            //                     'color' => 'Lavender Crush',
+            //                     'color_code' => '#B388EB'
+            //                 ],
+            //                 [
+            //                     'color' => 'Dusty Rose',
+            //                     'color_code' => '#E5989B'
+            //                 ],
+            //             ],
+            //         ], 
+            //         [
+            //             'material' => 'Cutton 26s',
+            //             'colors' => [
+            //                 [
+            //                     'color' => 'Soft Lilac',
+            //                     'color_code' => '#CDB4DB'
+            //                 ],
+            //                 [
+            //                     'color' => 'Jet Black',
+            //                     'color_code' => '#0B0B0B'
+            //                 ],
+            //             ],
+            //         ], 
+            //     ]),
+            //     'sablon_type' => 'Screen Printing,DTF',
+            //     'is_bordir' => 0,
+            // ],
         ];
 
         foreach($data as $index => $item){

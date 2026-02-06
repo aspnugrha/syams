@@ -60,10 +60,11 @@ class ProductExport implements FromArray, WithHeadings, WithStyles, WithColumnWi
                     $colors = [];
                     if($mc->colors){
                         foreach($mc->colors as $color){
-                            $colors[] = $color->color.'('.$color->color_code.')';
+                            // $colors[] = $color->color.'('.$color->color_code.')';
+                            $colors[] = $color->color;
                         } 
                     }
-                    $material_color[] = $mc->material.' ('.($colors ? implode(',',$colors) : '').')';
+                    $material_color[] = $mc->name.' ('.($colors ? implode(',',$colors) : '').')';
                 }
             }
 

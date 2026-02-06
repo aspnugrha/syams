@@ -65,8 +65,16 @@
                         <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Material & Color</p>
                         <div class="mb-2 d-flex">
                             <label class="form-check-label text-muted fw-semibold" style="font-size: 15px;">{{ $item->material_selected }}</label> &nbsp;&nbsp;
-                            <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center mb-1" style="font-size: 13px;padding: 2px 4px;">
+                            {{-- <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex align-items-center mb-1" style="font-size: 13px;padding: 2px 4px;">
                                 <span style="width: 15px;height: 15px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></span>
+                                &nbsp;{{ $material_colors->color }}
+                            </label> --}}
+                            <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex justify-content-start align-items-center mb-1" style="font-size: 13px;padding: 4px 5px;">
+                                @if (isset($material_colors->color_code))
+                                <span style="width: 35px;height: 35px;border-radius: 100%;background-color: {{ $material_colors->color_code }};"></span>
+                                @else
+                                <img src="{{ asset('assets/image/upload/product/material/'.$material_colors->color_image) }}" alt="Color {{ $material_colors->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
+                                @endif
                                 &nbsp;{{ $material_colors->color }}
                             </label>
                         </div>

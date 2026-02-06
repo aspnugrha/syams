@@ -110,13 +110,21 @@
             @if ($material_color)
                 @foreach ($material_color as $item)
                 <tr>
-                  <td>{{ $item->material }}</td>
+                  <td>{{ $item->name }}</td>
                   <td>
                     @if (count($item->colors))
                       @foreach ($item->colors as $color)
-                      <p class="p-0 m-0" style="vertical-align: middle;">
+                      {{-- <p class="p-0 m-0" style="vertical-align: middle;">
                         <label style="width: 18px;height: 18px;border-radius: 100%;background-color: {{ $color->color_code }};"></label> {{ $color->color }}
-                      </p>
+                      </p> --}}
+                      <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex justify-content-start align-items-center mb-1" style="font-size: 13px;padding: 4px 5px;">
+                          @if (isset($color->color_code))
+                          <span style="width: 35px;height: 35px;border-radius: 100%;background-color: {{ $color->color_code }};"></span>
+                          @else
+                          <img src="{{ asset('assets/image/upload/product/material/'.$color->color_image) }}" alt="Color {{ $color->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
+                          @endif
+                          &nbsp;{{ $color->color }}
+                      </label>
                       @endforeach
                     @endif
                   </td>

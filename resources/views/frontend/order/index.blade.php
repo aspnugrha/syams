@@ -126,29 +126,41 @@
     <div class="list-product w-100">
         <div class="row g-2">
             @foreach ($products as $product)
-                @php
+                {{-- @php
                     $image = $product->image;
                     if(str_contains($product->image, ',')){
                         $pisah_image = explode(',', $product->image);
                         $image = $pisah_image[0];
                     }
                 @endphp
-                {{-- <a href="#" onclick="setProduct({{ $product }})" class="col-6 col-md-3" title="Select This Product">
-                    <div class="card rounded-0 border">
-                        <img src="{{ ($image ? 'assets/image/upload/product/'.$image : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') }}" alt="Image {{ $product->name }}" style="width: 100%;height: 170px;object-fit: cover;">
-                        <p class="p-2 m-0 border-top text-dark fs-6">{{ $product->name }}</p>
-                    </div>
-                </a> --}}
                 <a href="#" onclick="setProduct({{ $product }})" class="col-6 col-md-3">
                     <div class="card text-white border-0 position-relative" style="overflow:hidden;">
                         <img src="{{ ($image ? 'assets/image/upload/product/'.$image : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') }}" class="card-img" alt="Image {{ $product->name }}" style="width: 100%;height: 280px;object-fit: cover;">
 
-                        <!-- Overlay gradient -->
                         <div class="position-absolute bottom-0 start-0 w-100 p-3"
                             style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
 
                             <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($product->hasCategory ? $product->hasCategory->name : '') }}</p>
                             <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $product->name }}</h5>
+                        </div>
+                    </div>
+                </a> --}}
+                @php
+                    $covers = explode(',', $product->image);
+                    $cover = count($covers) ? $covers[0] : '';
+
+                    $size_qty_count = 0;
+                    if($product->size_qty_options){
+                        $size_qty = json_decode($product->size_qty_options);
+                        $size_qty_count = count($size_qty);
+                    }
+                @endphp
+                <a href="#" onclick="setProduct({{ $product }})" class="col-md-3">
+                    <div class=" border-0 rounded-0">
+                        <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $product->name }}" style="width: 100%;height: 320px;object-fit: cover">
+                        <div class="container py-2" style="min-height: 80px;">
+                            <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $product->name }}</p>
+                            <small class="text-muted">{{ $size_qty_count }} Size Options</small>
                         </div>
                     </div>
                 </a>
@@ -261,9 +273,9 @@ function setProduct(product, id){
                                     <td class="d-flex align-items-start pt-2" width="150px;">
                                         <div class="d-flex justify-content-start">
                                             <div class="form-check me-2">
-                                                <input class="form-check-input ms-0" type="radio" name="material_options[${product.id}]" value="${material_color.material}" id="material_option_${code2}" onchange="disabledColor('${product.id}', '${code2}', this)">
+                                                <input class="form-check-input ms-0" type="radio" name="material_options[${product.id}]" value="${material_color.name}" id="material_option_${code2}" onchange="disabledColor('${product.id}', '${code2}', this)">
                                                 <label class="form-check-label text-muted fw-semibold" for="material_option_${code2}" style="padding-left: 25px;font-size: 14px;">
-                                                ${material_color.material}
+                                                ${material_color.name}
                                                 </label>
                                             </div>
                                         </div>
@@ -274,11 +286,18 @@ function setProduct(product, id){
                                                 const code3 = generateRandomCode(10);
 
                                                 html += `
-                                                <input type="hidden" name="color_code_options[${product.id}][${material_color.material}][${color.color}]" value="${color.color_code}">
-                                                <input type="radio" class="btn-check material-color-${product.id} material-color-${product.id}-${code2}" name="color_options[${product.id}][${material_color.material}]" id="color_option_${code3}" value="${color.color}" autocomplete="off" disabled>
-                                                <label class="btn btn-outline-primary rounded-pill fw-semibold d-inline-flex align-items-center mb-1 material-color-${material_color.material}" for="color_option_${code3}" disabled style="font-size: 13px;padding: 2px 4px;">
-                                                    <span style="width: 15px;height: 15px;border-radius: 100%;background-color: ${color.color_code};"></span>
-                                                    &nbsp;${color.color}
+                                                <input type="hidden" name="color_code_options[${product.id}][${material_color.name}][${color.color}]" value="${((color.color_code !== undefined && color.color_code !== null) ? color.color_code : '')}">
+                                                <input type="hidden" name="color_image_options[${product.id}][${material_color.name}][${color.color}]" value="${((color.color_image !== undefined && color.color_image !== null) ? color.color_image : '')}">
+                                                <input type="radio" class="btn-check material-color-${product.id} material-color-${product.id}-${code2}" name="color_options[${product.id}][${material_color.name}]" id="color_option_${code3}" value="${color.color}" autocomplete="off" disabled>
+                                                <label class="btn btn-outline-primary rounded-pill fw-semibold d-inline-flex align-items-center mb-1 material-color-${material_color.name}" for="color_option_${code3}" disabled style="font-size: 13px;padding: 4px 5px;">`;
+
+                                                    if (color.color_code !== undefined && color.color_code !== null) {
+                                                        html += `<span style="width: 35px;height: 35px;background-color: ${color.color_code};border-radius: 100%;"></span>`;
+                                                    }else{
+                                                        html += `<img src="{{ asset('assets/image/upload/product/material') }}/${color.color_image}" alt="Color ${color.color} Image" style="width: 35px;height: 35px;border-radius: 100%;">`;
+                                                    }
+                                                    
+                                                    html += `&nbsp;${color.color}
                                                 </label>
                                                 `
                                             });
@@ -347,7 +366,7 @@ function setProduct(product, id){
                                         item.qty.forEach(qty => {
                                             html += `
                                             <input type="radio" class="btn-check qty-size-${product.id}-${item.size}" name="qty_options[${product.id}][${item.size}]" id="${product.id+'-'+item.size+'-'+qty}" value="${qty}" autocomplete="off" disabled>
-                                            <label class="btn btn-outline-primary rounded-pill fw-semibold mb-1 qty-size-${item.size}" for="${product.id+'-'+item.size+'-'+qty}" disabled style="font-size: 13px;padding: 2px 3px;">${qty}</label>
+                                            <label class="btn btn-outline-primary rounded-pill fw-semibold mb-1 qty-size-${item.size}" for="${product.id+'-'+item.size+'-'+qty}" disabled style="font-size: 13px;padding: 4px 5px;">${qty}</label>
                                             `
                                         });
                                     }

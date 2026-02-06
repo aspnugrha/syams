@@ -101,22 +101,35 @@
         <div class="tab-pane fade show active" id="material-color" role="tabpanel">
           <table class="w-100 table table-bordered">
             <tr>
-              <td>Material Options</td>
+              <td style="width: 150px;">Material Options</td>
               <td>Color Options</td>
             </tr>
             @php
                 $material_color = json_decode($product->material_color_options);
             @endphp
-            @if ($material_color)
+            @if ($product->material_color_options)
                 @foreach ($material_color as $item)
                 <tr>
-                  <td>{{ $item->material }}</td>
+                  <td>{{ $item->name }}</td>
                   <td>
                     @if (count($item->colors))
                       @foreach ($item->colors as $color)
-                      <p class="p-0 m-0" style="vertical-align: middle;">
-                        <label style="width: 18px;height: 18px;border-radius: 100%;background-color: {{ $color->color_code }};"></label> {{ $color->color }}
-                      </p>
+                      {{-- <p class="p-0 m-0" style="vertical-align: middle;">
+                        @if (isset($color->color_code))
+                        <label style="width: 35px;height: 35px;border-radius: 100%;background-color: {{ $color->color_code }};"></label>
+                        @else
+                        <img src="{{ asset('assets/image/upload/product/material/'.$color->color_image) }}" alt="Color {{ $color->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
+                        @endif
+                        &nbsp;{{ $color->color }}
+                      </p> --}}
+                      <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex justify-content-start align-items-center mb-1" style="font-size: 13px;padding: 4px 5px;">
+                          @if (isset($color->color_code))
+                          <span style="width: 35px;height: 35px;border-radius: 100%;background-color: {{ $color->color_code }};"></span>
+                          @else
+                          <img src="{{ asset('assets/image/upload/product/material/'.$color->color_image) }}" alt="Color {{ $color->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
+                          @endif
+                          &nbsp;{{ $color->color }}
+                      </label>
                       @endforeach
                     @endif
                   </td>

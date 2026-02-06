@@ -13,8 +13,9 @@ class PortofolioController extends Controller
     public function index(){
         $product_showcase = Products::with(['hasCategory'])->where('active', 1)->where('type', 'SHOWCASE')->inRandomOrder()->get();
         $product_order = Products::with(['hasCategory'])->where('active', 1)->where('type', 'ORDER')->inRandomOrder()->get();
+        $materials = json_decode(json_encode(Products::getDataMaterials()));
 
-        return view('frontend.portofolio.index', compact('product_showcase', 'product_order'));
+        return view('frontend.portofolio.index', compact('product_showcase', 'product_order', 'materials'));
     }
     
     public function detail($slug){

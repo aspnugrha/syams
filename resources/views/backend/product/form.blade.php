@@ -187,6 +187,23 @@
                         
                         <div class="row">
                             <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="text-sm">Material & colors <span class="text-danger">*</span></label>
+                                    <select name="material_color_options[]" id="material_color_options" class="form-control form-control-sm" multiple>
+                                        <option value="">Pilih Material</option>
+                                        @foreach ($materials as $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <small class="text-muted">Contoh : Cutton 16s dsb.</small> --}}
+                                </div>
+                            </div>
+                            {{-- <div class="col-md-2 align-content-start">
+                                <button type="button" class="btn btn-sm btn-info w-100 mt-4" onclick="addMaterialColorOptions('create')"><i class="mdi mdi-plus"></i> Tambah</button>
+                            </div> --}}
+                        </div>
+                        {{-- <div class="row">
+                            <div class="col-md-10">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -207,7 +224,7 @@
                             <div class="col-md-2 align-content-start">
                                 <button type="button" class="btn btn-sm btn-info w-100 mt-4" onclick="addMaterialColorOptions('create')"><i class="mdi mdi-plus"></i> Tambah</button>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <small id="material_optionsHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
 
@@ -266,6 +283,11 @@ if('{{ @$data }}'){
 }
 // console.log('data', data, '{{ @$data }}');
 
+$('#material_color_options').select2({
+    placeholder: "Pilih Material",
+    allowClear: true,
+    width: '100%'
+});
 $('#sablon_type').select2({
     placeholder: "Pilih Sablon Type",
     allowClear: true,
@@ -607,11 +629,17 @@ function loadDataEdit(){
         });
     }
     
-    if(data.material_color_option_decode){
-        data.material_color_option_decode.forEach(material_color => {
-            addMaterialColorOptions('edit', material_color.material, material_color.colors)
-        });
-    }
+    // if(data.material_color_option_decode){
+    //     data.material_color_option_decode.forEach(material_color => {
+    //         addMaterialColorOptions('edit', material_color.material, material_color.colors)
+    //     });
+    // }
+
+    // if(data)
+    const materials = data.material_color_option_decode.map(item => item.name);
+
+    $('#material_color_options').val(materials).trigger('change');
+    // console.log('edit', data, materials)
 
     $('.custom-loader-overlay').css('display', 'none')
 }

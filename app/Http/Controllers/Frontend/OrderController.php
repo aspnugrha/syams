@@ -179,6 +179,7 @@ class OrderController extends Controller
                 $material_options = $request->material_options;
                 $color_options = $request->color_options;
                 $color_code_options = $request->color_code_options;
+                $color_image_options = $request->color_image_options;
                 $sablon_type = $request->sablon_type;
                 $is_bordir = $request->is_bordir;
                 $size_options = $request->size_options;
@@ -231,10 +232,11 @@ class OrderController extends Controller
 
                 $color = $color_options[$product_id][$material_options[$product_id]];
                 $color_code = $color_code_options[$product_id][$material_options[$product_id]][$color];
+                $color_image = $color_image_options[$product_id][$material_options[$product_id]][$color];
 
                 $data_detail['material_color_selected'] = json_encode([
                     'color' => $color,
-                    'color_code' => $color_code,
+                    (isset($color_code) ? 'color_code' : 'color_image') => (isset($color_code) ? $color_code : $color_image),
                 ]);
                 $data_detail['sablon_selected'] = $sablon_type[$product_id];
 

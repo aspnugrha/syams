@@ -33,7 +33,7 @@
                 <span id="text-total-user">0</span>
                 {{-- <span class="badge bg-light-primary border border-primary"><i class="ti ti-trending-up"></i> 59.3%</span> --}}
             </h4>
-            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_user_month'], 0, '.', '.') }}</span> user bulan ini
+            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_user_month'], 0, '.', '.') }}</span> user
             </p>
         </div>
         </div>
@@ -47,7 +47,7 @@
                 <span id="text-total-customer">0</span>
                 {{-- <span class="badge bg-light-success border border-success"><i class="ti ti-trending-up"></i> 70.5%</span> --}}
             </h4>
-            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_customer_month'], 0, '.', '.') }}</span> customer bulan ini</p>
+            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_customer_month'], 0, '.', '.') }}</span> customer</p>
         </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
                 <span id="text-total-product">0</span>
                 {{-- <span class="badge bg-light-warning border border-warning"><i class="ti ti-trending-down"></i> 27.4%</span> --}}
             </h4>
-            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_product_month'], 0, '.', '.') }}</span> sample bulan ini</p>
+            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_product_month'], 0, '.', '.') }}</span> product</p>
         </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
                 <span id="text-total-order">0</span>
                 {{-- <span class="badge bg-light-danger border border-danger"><i class="ti ti-trending-down"></i> 27.4%</span> --}}
             </h4>
-            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_order_month'], 0, '.', '.') }}</span> order bulan ini
+            <p class="mb-0 text-muted text-sm">Total <span class="text-info">{{ number_format($total_data['total_order_month'], 0, '.', '.') }}</span> order
             </p>
         </div>
         </div>

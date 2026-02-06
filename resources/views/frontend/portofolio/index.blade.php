@@ -121,72 +121,82 @@
 {{-- <img class="responsive-img" src="{{ asset('assets/image/upload/landing_page/bg-7.jpg') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;"> --}}
 <img class="responsive-img" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
 
-<div class="container mt-4">
-    <div class="row g-2 mb-5">
-        <h4 class="mb-3">Showcase</h4>
-        @foreach($product_showcase as $item)
-        <a href="{{ route('showcase.detail', $item->slug) }}" class="col-6 col-md-3">
-            <div class="card text-white border-0 position-relative rounded-0" style="overflow:hidden;">
-                <img src="{{ $item->image ? asset('assets/image/upload/product/'.explode(',', $item->image)[0]) : 'https://via.assets.so/img.jpg?w=800&h=800&bg=ddd' }}" class="card-img rounded-0" alt="Product" style="width: 100%;height: 280px;object-fit: cover;">
+<div class="bg-light">
+    <div class="container pt-4">
+        <div class="row g-1 pb-5">
+            <h4 class="mb-3">Showcase</h4>
+            @foreach($product_showcase as $item)
+            @php
+                $covers = explode(',', $item->image);
+                $cover = count($covers) ? $covers[0] : '';
 
-                <!-- Overlay gradient -->
-                <div class="position-absolute bottom-0 start-0 w-100 p-3"
-                    style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
-
-                    <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
-                    <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
-
-                    <!--
-                    <div class="d-flex gap-2">
-                        @php
-                            $size_qty = json_decode($item->size_qty_options);
-                        @endphp
-                        @if ($size_qty)
-                            @foreach ($size_qty as $item2)
-                            {{-- <span class="size-badge" style="font-size: 10px;padding: 2px !important;">{{ $item2->size }}</span> --}}
-                            <span style="font-size: 8px;">{{ $item2->size }}</span>
-                            @endforeach
-                        @endif
+                $size_qty_count = 0;
+                if($item->size_qty_options){
+                    $size_qty = json_decode($item->size_qty_options);
+                    $size_qty_count = count($size_qty);
+                }
+            @endphp
+            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
+                <div class=" border-0 rounded-0">
+                    <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
+                    <div class="container py-2" style="min-height: 80px;">
+                        <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
+                        <small class="text-muted">{{ $size_qty_count }} Size Options</small>
                     </div>
-                    -->
-
                 </div>
-            </div>
-        </a>
-        @endforeach
-    </div>
-    <div class="row g-2 mb-5">
-        <h4 class="mb-3">Order</h4>
-        @foreach($product_order as $item)
-        <a href="{{ route('showcase.detail', $item->slug) }}" class="col-6 col-md-3">
-            <div class="card text-white border-0 position-relative rounded-0" style="overflow:hidden;">
-                <img src="{{ $item->image ? asset('assets/image/upload/product/'.explode(',', $item->image)[0]) : 'https://via.assets.so/img.jpg?w=800&h=800&bg=ddd' }}" class="card-img rounded-0" alt="Product" style="width: 100%;height: 280px;object-fit: cover;">
+            </a>
+            {{-- <a href="{{ route('showcase.detail', $item->slug) }}" class="col-6 col-md-3">
+                <div class="card text-white border-0 position-relative rounded-0" style="overflow:hidden;">
+                    <img src="{{ $item->image ? asset('assets/image/upload/product/'.explode(',', $item->image)[0]) : 'https://via.assets.so/img.jpg?w=800&h=800&bg=ddd' }}" class="card-img rounded-0" alt="Product" style="width: 100%;height: 280px;object-fit: cover;">
 
-                <!-- Overlay gradient -->
-                <div class="position-absolute bottom-0 start-0 w-100 p-3"
-                    style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
+                    <div class="position-absolute bottom-0 start-0 w-100 p-3"
+                        style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
 
-                    <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
-                    <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
+                        <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
+                        <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
 
-                    <!--
-                    <div class="d-flex gap-2">
-                        @php
-                            $size_qty = json_decode($item->size_qty_options);
-                        @endphp
-                        @if ($size_qty)
-                            @foreach ($size_qty as $item2)
-                            {{-- <span class="size-badge" style="font-size: 10px;padding: 2px !important;">{{ $item2->size }}</span> --}}
-                            <span style="font-size: 8px;">{{ $item2->size }}</span>
-                            @endforeach
-                        @endif
                     </div>
-                    -->
-
                 </div>
-            </div>
-        </a>
-        @endforeach
+            </a> --}}
+            @endforeach
+        </div>
+        <div class="row g-1 pb-3">
+            <h4 class="mb-3">Order</h4>
+            @foreach($product_order as $item)
+            @php
+                $covers = explode(',', $item->image);
+                $cover = count($covers) ? $covers[0] : '';
+
+                $size_qty_count = 0;
+                if($item->size_qty_options){
+                    $size_qty = json_decode($item->size_qty_options);
+                    $size_qty_count = count($size_qty);
+                }
+            @endphp
+            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
+                <div class=" border-0 rounded-0">
+                    <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
+                    <div class="container py-2" style="min-height: 80px;">
+                        <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
+                        <small class="text-muted">{{ $size_qty_count }} Size Options</small>
+                    </div>
+                </div>
+            </a>
+            {{-- <a href="{{ route('showcase.detail', $item->slug) }}" class="col-6 col-md-3">
+                <div class="card text-white border-0 position-relative rounded-0" style="overflow:hidden;">
+                    <img src="{{ $item->image ? asset('assets/image/upload/product/'.explode(',', $item->image)[0]) : 'https://via.assets.so/img.jpg?w=800&h=800&bg=ddd' }}" class="card-img rounded-0" alt="Product" style="width: 100%;height: 280px;object-fit: cover;">
+
+                    <div class="position-absolute bottom-0 start-0 w-100 p-3"
+                        style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
+
+                        <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
+                        <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
+
+                    </div>
+                </div>
+            </a> --}}
+            @endforeach
+        </div>
     </div>
 </div>
 
@@ -209,8 +219,44 @@
                     </div>
                 </div>
         
-                <div class="row g-2 bg-white">
-                    @foreach ($material_colors as $item)
+                <div class="row g-1">
+                    @foreach ($materials as $item)
+                    <div class="col-md-6">
+                        <div class="material-info p-3 bg-white h-100">
+                            <small class="text-muted">Material</small>
+                            <h5 class="mb-1">{{ $item->name }}</h5>
+    
+                            <small class="text-muted">Available Colors</small>
+                            @if ($item->colors)
+                                <div class="mb-2 mt-1 d-flex flex-wrap w-100">
+                                    @foreach ($item->colors as $index_color => $color)
+                                        @if ($index_color <= 2)
+                                        <label class="btn btn-outline-secondary fw-semibold rounded-pill d-inline-flex align-items-center mb-1 me-1" style="font-size: 13px;padding: 4px 5px;">
+                                            @if (isset($color->color_code))
+                                            <span style="width: 35px;height: 35px;background-color: {{ $color->color_code }};border-radius: 100%;"></span>
+                                            @else
+                                            <img src="{{ asset('assets/image/upload/product/material/'.$color->color_image) }}" alt="Color {{ $color->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
+                                            @endif
+                                            &nbsp;{{ $color->color }}
+                                        </label>
+                                        @endif
+                                    @endforeach
+                                    @if (count($item->colors) > 3)
+                                        <a href="#modal-custom" class="btn btn-outline-secondary fw-semibold rounded-pill d-inline-flex align-items-center mb-1 me-1" style="font-size: 13px;padding: 4px 5px;" onclick='seeMoreColor(@json($item))'>
+                                            <span class="mdi mdi-arrow-right align-content-center" style="height: 35px;font-size: 20px;"></span>
+                                            &nbsp;See {{ count($item->colors) - 3 }} more
+                                        </a>
+                                    @endif
+                                </div>
+                            @else
+                                <small class="text-muted">No colors available yet</small>
+                            @endif
+    
+                            <article>{{ $item->desc ? $item->desc : 'No Description' }}</article>
+                        </div>
+                    </div>
+                    @endforeach
+                    {{-- @foreach ($material_colors as $item)
                     <div class="col-12 mb-2">
                         <div class="row g-0">
                             <div class="col-md-4 p-2">
@@ -240,7 +286,7 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @endforeach --}}
                 </div>
         
             </section>
@@ -261,11 +307,11 @@
         
                 @foreach ($sablons as $index_sablon => $item)
                     @if ($index_sablon % 2 == 0)
-                        <div class="row g-0 bg-white">
-                            <div class="col-md-4 mb-4 p-3">
+                        <div class="row g-0 mb-1 bg-white">
+                            <div class="col-md-4 p-3">
                                 <img src="{{ asset('assets/image/upload/sablon/'.$item->image) }}" alt="Image {{ $item->name }}" class="w-100 w-md-40" style="height: 100%;max-height: 200px;object-fit: cover;background-position: center;">
                             </div>
-                            <div class="col-md-8 mb-4">
+                            <div class="col-md-8">
                                 <div class="p-3">
                                     <small class="text-muted">Printing Type</small>
                                     <h5 class="mb-1">{{ $item->name }}</h5>
@@ -274,15 +320,15 @@
                             </div>
                         </div>
                     @else
-                        <div class="row g-0 bg-white">
-                            <div class="col-md-8 mb-4">
+                        <div class="row g-0 mb-1 bg-white">
+                            <div class="col-md-8">
                                 <div class="p-3">
                                     <small class="text-muted">Printing Type</small>
                                     <h5 class="mb-1">{{ $item->name }}</h5>
                                     <article>{{ $item->description }}</article>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-4 p-3">
+                            <div class="col-md-4 p-3">
                                 <img src="{{ asset('assets/image/upload/sablon/'.$item->image) }}" alt="Image {{ $item->name }}" class="w-100 w-md-40" style="height: 100%;max-height: 200px;object-fit: cover;background-position: center;">
                             </div>
                         </div>
@@ -328,6 +374,24 @@
 
     </div>
 </div>
+@section('modal_header_text', 'Material Details')
+@section('modal_body')
+<div class="w-100" id="modal-custom-body" style="max-height: 80vh;overflow: scroll;">
+    <div class="mb-2">
+        <label>Material :</label>
+        <h5 id="modal-material-name"></h5>
+    </div>
+    <div class="mb-2">
+        <label>Description :</label>
+        <p id="modal-material-desc" style="font-size: 16px;color: #555;"></p>
+    </div>
+    <div class="mb-2">
+        <label>Available Colors :</label>
+        <div id="modal-material-colors"></div>
+    </div>
+</div>
+@endsection
+@include('frontend.layouts.modal')
 
 {{-- 
 @if ($covers)
@@ -412,4 +476,28 @@ const swiper_porto = new Swiper(".mySwiper", {
     speed: 800,
 });
 </script> --}}
+<script>
+function seeMoreColor(item){
+    console.log(item);
+    $('#modal-material-name').text(item.name);
+    $('#modal-material-desc').text(item.desc ?? 'No Description');
+
+    let html_colors = `
+    <div class="mb-2 mt-1 d-flex flex-wrap w-100">`;
+        item.colors.forEach(color => {
+            html_colors += `
+            <label class="btn btn-outline-secondary fw-semibold rounded-pill d-inline-flex align-items-center mb-1 me-1" style="font-size: 13px;padding: 4px 5px;">`;
+            if (color.color_code !== undefined && color.color_code !== null) {
+                html_colors += `<span style="width: 35px;height: 35px;background-color: ${color.color_code};border-radius: 100%;"></span>`;
+            }else{
+                html_colors += `<img src="{{ asset('assets/image/upload/product/material') }}/${color.color_image}" alt="Color ${color.color} Image" style="width: 35px;height: 35px;border-radius: 100%;">`;
+            }
+
+            html_colors += `&nbsp;${color.color}</label>`;
+        });
+    html_colors += `</div>`;
+    $('#modal-material-colors').html(html_colors);
+    $('#modal-more-color').modal('show');
+}
+</script>
 @endsection
