@@ -506,23 +506,16 @@ class ProductSeeder extends Seeder
         ];
 
         foreach($data as $index => $item){
-            DB::table('products')->insert([
-                'id' => IdGenerator::generate('PRDCT', 'products'),
-                'type' => (isset($item['type']) ? $item['type'] : 'SHOWCASE'),
-                'category_id' => $item['category_id'],
-                'name' => $item['name'],
-                'slug' => str_replace(' ', '-', strtolower($item['name'])),
-                'description' => $item['description'],
-                'cover' => $item['cover'],
-                'image' => $item['image'],
-                'size_qty_options' => $item['size_qty_options'],
-                'material_color_options' => (isset($item['material_color_options']) ? $item['material_color_options'] : null),
-                'sablon_type' => (isset($item['sablon_type']) ? $item['sablon_type'] : null),
-                'is_bordir' => (isset($item['is_bordir']) ? $item['is_bordir'] : 0),
-                'active' => 1,
-                'main_product' => (($index <= 3) ? 1 : 0),
-                'created_at' => date('Y-m-d H:i:s'),
-            ]);
+            $item['id'] = IdGenerator::generate('PRDCT', 'products');
+            $item['type'] = (isset($item['type']) ? $item['type'] : 'SHOWCASE');
+            $item['slug'] = str_replace(' ', '-', strtolower($item['name']));
+            $item['material_color_options'] = (isset($item['material_color_options']) ? $item['material_color_options'] : null);
+            $item['sablon_type'] = (isset($item['sablon_type']) ? $item['sablon_type'] : null);
+            $item['is_bordir'] = (isset($item['is_bordir']) ? $item['is_bordir'] : 0);
+            $item['active'] = 1;
+            $item['main_product'] = (($index <= 3) ? 1 : 0);
+            $item['created_at'] = date('Y-m-d H:i:s');
+            DB::table('products')->insert($item);
         }
     }
 }
