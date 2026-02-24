@@ -2,7 +2,15 @@
 
 @section('content')
 {{-- <img class="responsive-img" src="{{ asset($product->cover ? 'assets/image/upload/product/'.$product->cover : 'https://via.assets.so/img.jpg?w=400&h=300&bg=e5e7eb&text=+&f=png') }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;"> --}}
+
+@if ($company)
+@php
+    $banner = json_decode($company->banner, true);
+@endphp
+<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;">
+@else
 <img class="responsive-img" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;">
+@endif
 
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 

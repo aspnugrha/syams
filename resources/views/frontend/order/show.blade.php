@@ -154,10 +154,12 @@ I would like to confirm and process the order.
 Thank you.
 ";
 
-$encodedMessage = urlencode(trim($message_template));
+// $encodedMessage = urlencode(trim($message_template));
+$encodedMessage = rawurlencode(trim($message_template));
 
 $waLink = "https://wa.me/{$company_profile->whatsapp}?text={$encodedMessage}";
-$iMessageLink = "imessage://+{$company_profile->imessage}?body={$encodedMessage}";
+// $iMessageLink = "imessage://+{$company_profile->imessage}?body={$encodedMessage}";
+$iMessageLink = "sms:+{$company_profile->imessage}?body={$encodedMessage}";
 @endphp
                 <div class="row g-1">
                     @if ($orders->status == 'PENDING')

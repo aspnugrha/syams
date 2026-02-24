@@ -16,6 +16,7 @@
                             <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
                             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
                             <button class="nav-link" id="nav-policy-tab" data-bs-toggle="tab" data-bs-target="#nav-policy" type="button" role="tab" aria-controls="nav-policy" aria-selected="false">Policy</button>
+                            <button class="nav-link" id="nav-banner-tab" data-bs-toggle="tab" data-bs-target="#nav-banner" type="button" role="tab" aria-controls="nav-banner" aria-selected="false">Banner</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
@@ -38,7 +39,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="logo">Logo</label>
-                                <input type="file" class="form-control" name="logo" id="logo">
+                                <input type="file" class="form-control" name="logo" id="logo" accept="image/jpg,image/jpeg,image/png,image/webp">
                                 <small id="logoHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
 
                                 @if (@$data && $data->logo)
@@ -47,7 +48,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="pavicon">Pavicon</label>
-                                <input type="file" class="form-control" name="pavicon" id="pavicon">
+                                <input type="file" class="form-control" name="pavicon" id="pavicon" accept="image/jpg,image/jpeg,image/png,image/webp">
                                 <small id="paviconHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
 
                                 @if (@$data && $data->pavicon)
@@ -154,6 +155,27 @@
                                 <label>Shipping Policy</label>
                                 <textarea name="shipping" id="shipping" cols="30" rows="10" class="form-control">{{ @$data ? $data->shipping : old('shipping') }}</textarea>
                                 <small id="shippingHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade py-4 px-2" id="nav-banner" role="tabpanel" aria-labelledby="nav-banner-tab">
+                            @php
+                                $banner = (@$data ? json_decode($data->banner, true) : null);
+                            @endphp
+                            <div class="form-group">
+                                <label>Banner Landing Page</label>
+                                <input type="file" class="form-control" name="banner_landing_page" id="banner_landing_page" accept="image/jpg,image/jpeg,image/png,image/webp">
+                                @if (@$banner['banner_landing_page'])
+                                    <img src="{{ asset('assets/image/upload/banner/'.$banner['banner_landing_page']) }}" alt="Banner Landing Page" style="height: 200px;">
+                                @endif
+                                <small id="banner_landing_pageHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Banner Showcase</label>
+                                <input type="file" class="form-control" name="banner_showcase" id="banner_showcase" accept="image/jpg,image/jpeg,image/png,image/webp">
+                                @if (@$banner['banner_showcase'])
+                                    <img src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Banner Showcase" style="height: 200px;">
+                                @endif
+                                <small id="banner_showcaseHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
                             </div>
                         </div>
                     </div>

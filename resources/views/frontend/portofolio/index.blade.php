@@ -119,7 +119,15 @@
 @endphp
 
 {{-- <img class="responsive-img" src="{{ asset('assets/image/upload/landing_page/bg-7.jpg') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;"> --}}
+
+@if ($company)
+@php
+    $banner = json_decode($company->banner, true);
+@endphp
+<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+@else
 <img class="responsive-img" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+@endif
 
 <div class="bg-light">
     <div class="container pt-4">

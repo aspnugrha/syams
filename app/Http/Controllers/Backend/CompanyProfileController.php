@@ -50,6 +50,33 @@ class CompanyProfileController extends Controller
                 $request->file('pavicon')->move($destinationPath, $pavicon);
             }
 
+            $banner = ($company_profile->banner ? json_decode($company_profile->banner, true) : null);
+            
+            $banner_landing_page = ($banner ? $banner['banner_landing_page'] : null);
+            if (!empty($request->file('banner_landing_page'))) {
+                if (File::exists(public_path('assets/image/upload/banner/' . ($banner ? $banner['banner_landing_page'] : null)))) {
+                    File::delete(public_path('assets/image/upload/banner/' . ($banner ? $banner['banner_landing_page'] : null)));
+                }
+                $banner_landing_page = time() .'-'. rand(1000, 9999) . '.' . $request->file('banner_landing_page')->getClientOriginalExtension();
+                $destinationPath = public_path('/assets/image/upload/banner');
+                $request->file('banner_landing_page')->move($destinationPath, $banner_landing_page);
+            }
+
+            $banner_showcase = ($banner ? $banner['banner_showcase'] : null);
+            if (!empty($request->file('banner_showcase'))) {
+                if (File::exists(public_path('assets/image/upload/banner/' . ($banner ? $banner['banner_showcase'] : null)))) {
+                    File::delete(public_path('assets/image/upload/banner/' . ($banner ? $banner['banner_showcase'] : null)));
+                }
+                $banner_showcase = time() .'-'. rand(1000, 9999) . '.' . $request->file('banner_showcase')->getClientOriginalExtension();
+                $destinationPath = public_path('/assets/image/upload/banner');
+                $request->file('banner_showcase')->move($destinationPath, $banner_showcase);
+            }
+
+            $new_banner = json_encode([
+                'banner_landing_page' => $banner_landing_page,
+                'banner_showcase' => $banner_showcase,
+            ]);
+
             $save = $company_profile->update([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -69,6 +96,7 @@ class CompanyProfileController extends Controller
                 'privacy' => $request->privacy,
                 'refund' => $request->refund,
                 'shipping' => $request->shipping,
+                'banner' => $new_banner,
                 'updated_by' => Auth::guard('web')->user()->id,
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);

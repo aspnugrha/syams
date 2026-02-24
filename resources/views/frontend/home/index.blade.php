@@ -48,7 +48,14 @@
   <source src="{{ asset('assets/video') }}/Syams-Manufacturing-Profile.mp4" type="video/mp4">
   Browser kamu tidak mendukung video.
 </video> --}}
+@if ($company)
+@php
+    $banner = json_decode($company->banner, true);
+@endphp
+<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_landing_page']) }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+@else
 <img class="responsive-img" src="{{ asset('assets/image/upload/landing_page/bg-5.jpg') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+@endif
 
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
     <div class="w-100 container p-0">

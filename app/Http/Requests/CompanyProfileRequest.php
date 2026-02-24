@@ -48,6 +48,8 @@ class CompanyProfileRequest extends FormRequest
             ],
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'pavicon' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'banner_landing_page' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'banner_showcase' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];
     }
 
@@ -67,6 +69,8 @@ class CompanyProfileRequest extends FormRequest
             'phone_number' => 'Phone Number',
             'logo' => 'Logo',
             'pavicon' => 'Pavicon',
+            'banner_landing_page' => 'Banner Landing Page',
+            'banner_showcase' => 'Banner Showcase',
         ];
     }
 
@@ -85,6 +89,12 @@ class CompanyProfileRequest extends FormRequest
             'pavicon.image'    => ':attribute harus berupa gambar.',
             'pavicon.mimes'    => 'Format :attribute harus jpeg, png, jpg.',
             'pavicon.max'      => 'Ukuran :attribute maksimal gambar 2MB.',
+            'banner_landing_page.image'    => ':attribute harus berupa gambar.',
+            'banner_landing_page.mimes'    => 'Format :attribute harus jpeg, png, jpg.',
+            'banner_landing_page.max'      => 'Ukuran :attribute maksimal gambar 2MB.',
+            'banner_showcase.image'    => ':attribute harus berupa gambar.',
+            'banner_showcase.mimes'    => 'Format :attribute harus jpeg, png, jpg.',
+            'banner_showcase.max'      => 'Ukuran :attribute maksimal gambar 2MB.',
         ];
     }
 }

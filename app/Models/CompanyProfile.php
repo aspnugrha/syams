@@ -36,6 +36,7 @@ class CompanyProfile extends Model
         'refund',
         'shipping',
         'maps',
+        'banner',
         'created_by',
         'updated_by',
     ];
