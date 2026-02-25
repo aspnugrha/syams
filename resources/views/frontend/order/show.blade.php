@@ -159,7 +159,7 @@ $encodedMessage = rawurlencode(trim($message_template));
 
 $waLink = "https://wa.me/{$company_profile->whatsapp}?text={$encodedMessage}";
 // $iMessageLink = "imessage://+{$company_profile->imessage}?body={$encodedMessage}";
-$iMessageLink = "sms:+{$company_profile->imessage}?body={$encodedMessage}";
+$iMessageLink = "sms:+{$company_profile->imessage}&body={$encodedMessage}";
 @endphp
                 <div class="row g-1">
                     @if ($orders->status == 'PENDING')
