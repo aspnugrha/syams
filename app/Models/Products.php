@@ -32,6 +32,8 @@ class Products extends Model
         'is_bordir',
         'active',
         'main_product',
+        'bordir',
+        'input_settings',
         'created_by',
         'updated_by',
         'created_at',

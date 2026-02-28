@@ -186,7 +186,7 @@
                         <label for="image">Material & Color Options</label>
                         
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="text-sm">Material & colors <span class="text-danger">*</span></label>
                                     <select name="material_color_options[]" id="material_color_options" class="form-control form-control-sm" multiple>
@@ -246,22 +246,55 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Provide Bordir?</label>
-                                    <div class="form-check">
+                                    <select name="bordir[]" id="bordir" class="form-control" multiple>
+                                        <option value="">Pilih Sablon Type</option>
+                                        <option value="3D" {{ @$data->bordir && in_array('3D', explode(',',$data->bordir)) ? 'selected' : '' }}>3D</option>
+                                        <option value="Patch" {{ @$data->bordir && in_array('Patch', explode(',',$data->bordir)) ? 'selected' : '' }}>Patch</option>
+                                        <option value="Reguler" {{ @$data->bordir && in_array('Reguler', explode(',',$data->bordir)) ? 'selected' : '' }}>Reguler</option>
+                                    </select>
+                                    {{-- <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="1" name="is_bordir" id="is_bordir" {{ @$data && $data->is_bordir ? 'checked' : '' }}>
                                         <label class="form-check-label" for="is_bordir">
                                             Yes
                                         </label>
                                         <small id="is_bordirHelp" class="invalid-feedback form-text text-danger">Please provide a valid informations.</small>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" name="active" id="active" {{ @$data && $data->active ? 'checked' : '' }}>
-                        <label class="form-check-label" for="active">
-                        Active
-                        </label>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <button class="btn btn-dark text-start w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettingInput" aria-expanded="false" aria-controls="collapseSettingInput">
+                                        Setting Input
+                                    </button>
+                                </div>
+                                <div class="collapse" id="collapseSettingInput">
+                                    <div class="card card-body">
+                                        @php
+                                            $input_settings = [];
+                                            if(@$data->input_settings) $input_settings = explode(',',$data->input_settings);
+                                        @endphp
+                                        @foreach (['sablon_type', 'bordir', 'mockup', 'raw_file', 'custom_packaging', 'custom_label', 'custom_metal'] as $item)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="{{ $item }}" name="input_settings[]" id="input_setting_{{ $item }}" {{ in_array($item, $input_settings) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="input_setting_{{ $item }}">{{ str_replace('_', ' ', ucfirst($item)) }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="active" id="active" {{ @$data && $data->active ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="active">
+                                    Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-3 d-flex justify-content-end">
@@ -290,6 +323,11 @@ $('#material_color_options').select2({
 });
 $('#sablon_type').select2({
     placeholder: "Pilih Sablon Type",
+    allowClear: true,
+    width: '100%'
+});
+$('#bordir').select2({
+    placeholder: "Pilih Bordir",
     allowClear: true,
     width: '100%'
 });

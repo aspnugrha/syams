@@ -240,6 +240,8 @@ function setProduct(product, id){
     
         const code = generateRandomCode(10);
         const code_number = Math.floor(Math.random() * 100) + 1;
+        let input_settings = [];
+        if(product.input_settings) input_settings = product.input_settings.split(',');
         
         var html = `
             <div class="w-100 p-2 bg-white rounded mb-2" id="product-selected-${code}" style="position: relative;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
@@ -262,30 +264,36 @@ function setProduct(product, id){
                         <h5 class="mb-2 p-0 fw-bold" style="font-size: 19px;color: #333;">${product.name}</h5>
 
                         <p class="m-0 p-0" style="font-size: 13px;">Material & Color</p>
-                        <table class="w-100 mb-2">`
-
+                        `
                         if(product.material_color){
                             product.material_color.forEach((material_color) => {
                                 const code2 = generateRandomCode(10);
 
                                 html += `
-                                <tr>
-                                    <td class="d-flex align-items-start pt-2" width="150px;">
-                                        <div class="d-flex justify-content-start">
-                                            <div class="form-check me-2">
-                                                <input class="form-check-input ms-0" type="radio" name="material_options[${product.id}]" value="${material_color.name}" id="material_option_${code2}" onchange="disabledColor('${product.id}', '${code2}', this)">
-                                                <label class="form-check-label text-muted fw-semibold" for="material_option_${code2}" style="padding-left: 25px;font-size: 14px;">
-                                                ${material_color.name}
-                                                </label>
+                                <div>
+                                    <button class="btn btn-default border border-1 border-secondary rounded text-start w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettingInput" aria-expanded="false" aria-controls="collapseSettingInput">
+                                        <div class="d-flex align-items-start pt-1" width="150px;">
+                                            <div class="d-flex justify-content-start">
+                                                <div class="form-check me-2">
+                                                    <input class="form-check-input ms-0" type="radio" name="material_options[${product.id}]" value="${material_color.name}" id="material_option_${code2}" onchange="disabledColor('${product.id}', '${code2}', this)">
+                                                    <label class="form-check-label text-muted fw-semibold" for="material_option_${code2}" style="padding-left: 25px;font-size: 14px;">
+                                                    ${material_color.name}
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>`
+                                    </button>
+                                </div>
+                                <div class="collapse" id="collapseSettingInput">
+                                    <div class="card card-body">
+                                        <div class="d-flex flex-wrap gap-2">
+                                        `;
                                         if(material_color.colors){
                                             material_color.colors.forEach(color => {
                                                 const code3 = generateRandomCode(10);
 
                                                 html += `
+                                                <div class="w-auto">
                                                 <input type="hidden" name="color_code_options[${product.id}][${material_color.name}][${color.color}]" value="${((color.color_code !== undefined && color.color_code !== null) ? color.color_code : '')}">
                                                 <input type="hidden" name="color_image_options[${product.id}][${material_color.name}][${color.color}]" value="${((color.color_image !== undefined && color.color_image !== null) ? color.color_image : '')}">
                                                 <input type="radio" class="btn-check material-color-${product.id} material-color-${product.id}-${code2}" name="color_options[${product.id}][${material_color.name}]" id="color_option_${code3}" value="${color.color}" autocomplete="off" disabled>
@@ -299,33 +307,54 @@ function setProduct(product, id){
                                                     
                                                     html += `&nbsp;${color.color}
                                                 </label>
+                                                </div>
                                                 `
                                             });
                                         }
-                                html += `</td>
-                                </tr>
+                                        html +=`
+                                        </div>
+                                    </div>
+                                </div>
                                 `
                             });
                         }else{
-                            html += `<tr><td colspan="2" class="text-center" style="font-size: 13px;">No Options</td></tr>`
+                            html += `<div class="text-center" style="font-size: 13px;">No Options</div>`
                         }
-
-                    html += `</table>
-                    
-                        <p class="m-0 p-0" style="font-size: 13px;">Sablon Type</p>
+                        
+                if(product.bordir && input_settings.includes('sablon_type')){
+                    html +=`<p class="mt-2 mb-0 p-0" style="font-size: 13px;">Sablon Type</p>
                         <span class="d-flex justify-content-start mb-2">`;
 
                             if(product.sablon_type.split(',').length){
                                 product.sablon_type.split(',').forEach(sablon_type => {
                                     html += `<div class="form-check me-3">
-                                        <input class="form-check-input ms-0" type="radio" name="sablon_type[${product.id}]" id="sablon_type_${sablon_type.split(' ').join('-')}_${code_number}" value="${sablon_type}">
+                                        <input class="form-check-input ms-0" type="checkbox" name="sablon_type[${product.id}][]" id="sablon_type_${sablon_type.split(' ').join('-')}_${code_number}" value="${sablon_type}">
                                         <label class="form-check-label text-muted fw-semibold" for="sablon_type_${sablon_type.split(' ').join('-')}_${code_number}" style="padding-left: 25px;font-size: 16px;">
                                         ${sablon_type}
                                         </label>
                                     </div>`;
                                 });
                             }
+                    html += `</span>`
+                }
+
+                // bordir
+                if(product.bordir && input_settings.includes('bordir')){
+                    html +=`<p class="mt-2 mb-0 p-0" style="font-size: 13px;">Bordir</p>
+                        <span class="d-flex justify-content-start mb-2">`;
+
+                            if(product.bordir.split(',').length){
+                                product.bordir.split(',').forEach(bordir => {
+                                    html += `<div class="form-check me-3">
+                                        <input class="form-check-input ms-0" type="checkbox" name="bordir[${product.id}][]" id="bordir_${bordir.split(' ').join('-')}_${code_number}" value="${bordir}">
+                                        <label class="form-check-label text-muted fw-semibold" for="bordir_${bordir.split(' ').join('-')}_${code_number}" style="padding-left: 25px;font-size: 16px;">
+                                        ${bordir}
+                                        </label>
+                                    </div>`;
+                                });
+                            }
                 html += `</span>`
+                }
                         
                 if(product.is_bordir){
                 html += `
@@ -398,11 +427,60 @@ function setProduct(product, id){
                         html += `<span lass="text-center" style="font-size: 13px;">No Options</span>`
                     }
                 }
+
+                let number_file = 0;
+                let number_file2 = 0;
+                let number_cols = 0;
+                let number_cols2 = 0;
+                if(input_settings){
+                    input_settings.forEach(is => {
+                        if(is == 'custom_packaging') number_file++;
+                        if(is == 'custom_label') number_file++;
+                        if(is == 'custom_metal') number_file++;
+                        if(is == 'mockup') number_file2++;
+                        if(is == 'raw_file') number_file2++;
+                    });
+
+                    number_cols = ((number_file == 3) ? 4 : (number_file == 2 ? 6 : 12));
+                    number_cols2 = ((number_file2 == 2) ? 6 : 12);
+                }
+
                 html += `
-                        <p class="m-0 p-0" style="font-size: 13px;">Mockup</p>
-                        <input type="file" name="mockup[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
-                        <p class="m-0 p-0" style="font-size: 13px;">Raw File</p>
-                        <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                        <div class="row g-1">`;
+                            if(product.bordir && input_settings.includes('mockup')){
+                            html += `<div class="col-md-${number_cols2}">
+                                <p class="m-0 p-0" style="font-size: 13px;">Mockup</p>
+                                <input type="file" name="mockup[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                            </div>`;
+                            }
+                            if(product.bordir && input_settings.includes('raw_file')){
+                            html += `<div class="col-md-${number_cols2}">
+                                <p class="m-0 p-0" style="font-size: 13px;">Raw File</p>
+                                <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                            </div>`;
+                            }
+                        html += `</div>
+                        <div class="row g-1">`;
+                            if(product.bordir && input_settings.includes('custom_packaging')){
+                            html += `<div class="col-md-${number_cols}">
+                                <p class="m-0 p-0" style="font-size: 13px;">Custom Packaging</p>
+                                <input type="file" name="custom_packaging[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                            </div>`
+                            }
+                            if(product.bordir && input_settings.includes('custom_label')){
+                            html += `<div class="col-md-${number_cols}">
+                                <p class="m-0 p-0" style="font-size: 13px;">Custom Label/Hangtag</p>
+                                <input type="file" name="custom_label[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                            </div>`
+                            }
+                            if(product.bordir && input_settings.includes('custom_metal')){
+                            html += `<div class="col-md-${number_cols}">
+                                <p class="m-0 p-0" style="font-size: 13px;">Zipper/Pin/Metal Custom</p>
+                                <input type="file" name="custom_metal[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                            </div>`
+                            }
+                        html += `</div>
+                        
                         <p class="m-0 p-0" style="font-size: 13px;">Notes</p>
                         <textarea name="product_notes[${product.id}]" id="" cols="30" rows="3" class="form-control mb-2" placeholder="Notes..." style="font-size: 13px;"></textarea>
                     </div>

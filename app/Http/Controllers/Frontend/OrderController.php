@@ -44,128 +44,229 @@ class OrderController extends Controller
     public function store(OrderRequest $request){
         DB::beginTransaction();
         try{
-            $check_material_color = true;
-            if($request->material_options == null || $request->color_options == null){
-                $check_material_color = false;
-            }else{
-                if((count($request->product_id) > count($request->material_options)) || (count($request->product_id) > count($request->color_options))){
+            // dd($request->all());
+            $products = Products::whereIn('id', $request->product_id)->get();
+            foreach($products as $product){
+                $input_settings = ($product->input_settings ? explode(',', $product->input_settings) : []);
+
+                $check_material_color = true;
+                if((!isset($request->material_options[$product->id]) || !isset($request->color_options[$product->id])) || ($request->material_options[$product->id] == null || $request->color_options[$product->id] == null)){
                     $check_material_color = false;
                 }
-            }
 
-            if(!$check_material_color){
-                return response()->json([
-                    'status' => 'material_color_options',
-                    'success' => false,
-                    'message' => 'Please select material and color!'
-                ]);
-            }
-            
-            $check_sablon_type = true;
-            if($request->sablon_type == null){
-                $check_sablon_type = false;
-            }else{
-                if(count($request->product_id) > count($request->sablon_type)){
-                    $check_sablon_type = false;
-                }
-            }
-
-            if(!$check_sablon_type){
-                return response()->json([
-                    'status' => 'sablon_type',
-                    'success' => false,
-                    'message' => 'Please select sablon type!'
-                ]);
-            }
-
-            $check_size_qty = true;
-            if($request->order_type == 'ORDER'){
-                if($request->size_options == null || $request->qty_options == null){
-                    $check_size_qty = false;
-                }else{
-                    if((count($request->product_id) > count($request->size_options)) || (count($request->product_id) > count($request->qty_options))){
-                        $check_size_qty = false;
-                    }
-                }
-            }else{
-                if($request->size_options == null){
-                    $check_size_qty = false;
-                }else{
-                    if(count($request->product_id) > count($request->size_options)){
-                        $check_size_qty = false;
-                    }
-                }
-            }
-            
-            if(!$check_size_qty){
-                return response()->json([
-                    'status' => 'size_qty_options',
-                    'success' => false,
-                    'message' => 'Please select '.($request->order_type == 'ORDER' ? 'size and quantity!' : 'size!')
-                ]);
-            }
-
-            $check_mockup = true;
-            if($request->mockup == null){
-                $check_mockup = false;
-            }else{
-                if(count($request->product_id) > count($request->mockup)){
-                    $check_mockup = false;
-                }
-            }
-
-            if(!$check_mockup){
-                return response()->json([
-                    'status' => 'mockup',
-                    'success' => false,
-                    'message' => 'Please select mockup file!'
-                ]);
-            }else{
-                $mockup_gagal = 0;
-                foreach($request->mockup as $mockup){
-                    if(!in_array($mockup->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
-                        $mockup_gagal++;
-                    }
-                }
-
-                if($mockup_gagal){
+                if(!$check_material_color){
                     return response()->json([
-                        'status' => 'mockup',
+                        'status' => 'material_color_options',
                         'success' => false,
-                        'message' => 'Only accepted mockup files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                        'message' => 'Please select material and color "'.$product->name.'"!'
                     ]);
                 }
-            }
 
-            $check_raw_file = true;
-            if($request->raw_file == null){
-                $check_raw_file = false;
-            }else{
-                if(count($request->product_id) > count($request->raw_file)){
-                    $check_raw_file = false;
+                if(in_array('sablon_type', $input_settings)){
+                    $check_sablon_type = true;
+                    if(!isset($request->sablon_type[$product->id]) || $request->sablon_type[$product->id] == null){
+                        $check_sablon_type = false;
+                    }
+
+                    if(!$check_sablon_type){
+                        return response()->json([
+                            'status' => 'sablon_type',
+                            'success' => false,
+                            'message' => 'Please select sablon type "'.$product->name.'"!'
+                        ]);
+                    }
                 }
-            }
+                if(in_array('bordir', $input_settings)){
+                    $check_bordir = true;
+                    if(!isset($request->bordir[$product->id]) || $request->bordir[$product->id] == null){
+                        $check_bordir = false;
+                    }
 
-            if(!$check_raw_file){
-                return response()->json([
-                    'status' => 'raw_file',
-                    'success' => false,
-                    'message' => 'Please select raw file!'
-                ]);
-            }else{
-                $raw_file_gagal = 0;
-                foreach($request->raw_file as $raw_file){
-                    if(!in_array($raw_file->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
-                        $raw_file_gagal++;
+                    if(!$check_bordir){
+                        return response()->json([
+                            'status' => 'bordir',
+                            'success' => false,
+                            'message' => 'Please select bordir type "'.$product->name.'"!'
+                        ]);
                     }
                 }
 
-                if($raw_file_gagal){
+                $check_size_qty = true;
+                if($request->order_type == 'ORDER'){
+                    if((!isset($request->size_options[$product->id]) || !isset($request->qty_options[$product->id])) || ($request->size_options[$product->id] == null || $request->qty_options[$product->id] == null)){
+                        $check_size_qty = false;
+                    }
+                    // else{
+                    //     if((count($request->product_id) > count($request->size_options)) || (count($request->product_id) > count($request->qty_options))){
+                    //         $check_size_qty = false;
+                    //     }
+                    // }
+                }else{
+                    if(!isset($request->size_options[$product->id]) || ($request->size_options[$product->id] == null)){
+                        $check_size_qty = false;
+                    }
+                    // else{
+                    //     if(count($request->product_id) > count($request->size_options)){
+                    //         $check_size_qty = false;
+                    //     }
+                    // }
+                }
+                
+                if(!$check_size_qty){
                     return response()->json([
-                        'status' => 'raw_file',
+                        'status' => 'size_qty_options',
                         'success' => false,
-                        'message' => 'Only accepted raw files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                        'message' => 'Please select '.($request->order_type == 'ORDER' ? 'size and quantity!' : 'size!').' "'.$product->name.'"',
                     ]);
+                }
+
+                if(in_array('mockup', $input_settings)){
+                    $check_mockup = true;
+                    if(!isset($request->mockup[$product->id]) || ($request->mockup[$product->id] == null)){
+                        $check_mockup = false;
+                    }
+
+                    if(!$check_mockup){
+                        return response()->json([
+                            'status' => 'mockup',
+                            'success' => false,
+                            'message' => 'Please select mockup file "'.$product->name.'"!'
+                        ]);
+                    }else{
+                        $mockup_gagal = false;
+                        if(!in_array($request->mockup[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                            $mockup_gagal = true;
+                        }
+                        // $mockup_gagal = 0;
+                        // foreach($request->mockup as $mockup){
+                        //     if(!in_array($mockup->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                        //         $mockup_gagal++;
+                        //     }
+                        // }
+
+                        if($mockup_gagal){
+                            return response()->json([
+                                'status' => 'mockup',
+                                'success' => false,
+                                'message' => '"'.$product->name.'" Only accepted mockup files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                            ]);
+                        }
+                    }
+                }
+
+                if(in_array('raw_file', $input_settings)){
+                    $check_raw_file = true;
+                    if(!isset($request->raw_file[$product->id]) || ($request->raw_file[$product->id] == null)){
+                        $check_raw_file = false;
+                    }
+
+                    if(!$check_raw_file){
+                        return response()->json([
+                            'status' => 'raw_file',
+                            'success' => false,
+                            'message' => 'Please select raw file "'.$product->name.'"!'
+                        ]);
+                    }else{
+                        $raw_file_gagal = false;
+                        if(!in_array($request->raw_file[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                            $raw_file_gagal = true;
+                        }
+                        // $raw_file_gagal = 0;
+                        // foreach($request->raw_file as $raw_file){
+                        //     if(!in_array($raw_file->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                        //         $raw_file_gagal++;
+                        //     }
+                        // }
+
+                        if($raw_file_gagal){
+                            return response()->json([
+                                'status' => 'raw_file',
+                                'success' => false,
+                                'message' => '"'.$product->name.'" Only accepted raw files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                            ]);
+                        }
+                    }
+                }
+                if(in_array('custom_packaging', $input_settings)){
+                    $check_packaging = true;
+                    if(!isset($request->custom_packaging[$product->id]) || ($request->custom_packaging[$product->id] == null)){
+                        $check_packaging = false;
+                    }
+
+                    if(!$check_packaging){
+                        return response()->json([
+                            'status' => 'packaging',
+                            'success' => false,
+                            'message' => 'Please select packaging file "'.$product->name.'"!'
+                        ]);
+                    }else{
+                        $packaging_gagal = false;
+                        if(!in_array($request->custom_packaging[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                            $packaging_gagal = true;
+                        }
+
+                        if($packaging_gagal){
+                            return response()->json([
+                                'status' => 'packaging',
+                                'success' => false,
+                                'message' => '"'.$product->name.'" Only accepted packaging files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                            ]);
+                        }
+                    }
+                }
+                if(in_array('custom_label', $input_settings)){
+                    $check_label = true;
+                    if(!isset($request->custom_label[$product->id]) || ($request->custom_label[$product->id] == null)){
+                        $check_label = false;
+                    }
+
+                    if(!$check_label){
+                        return response()->json([
+                            'status' => 'label',
+                            'success' => false,
+                            'message' => 'Please select label file "'.$product->name.'"!'
+                        ]);
+                    }else{
+                        $label_gagal = false;
+                        if(!in_array($request->custom_label[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                            $label_gagal = true;
+                        }
+
+                        if($label_gagal){
+                            return response()->json([
+                                'status' => 'label',
+                                'success' => false,
+                                'message' => '"'.$product->name.'" Only accepted label files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                            ]);
+                        }
+                    }
+                }
+                if(in_array('custom_metal', $input_settings)){
+                    $check_metal = true;
+                    if(!isset($request->custom_metal[$product->id]) || ($request->custom_metal[$product->id] == null)){
+                        $check_metal = false;
+                    }
+
+                    if(!$check_metal){
+                        return response()->json([
+                            'status' => 'metal',
+                            'success' => false,
+                            'message' => 'Please select zipper/pin/metal file "'.$product->name.'"!'
+                        ]);
+                    }else{
+                        $metal_gagal = false;
+                        if(!in_array($request->custom_metal[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                            $metal_gagal = true;
+                        }
+
+                        if($metal_gagal){
+                            return response()->json([
+                                'status' => 'metal',
+                                'success' => false,
+                                'message' => '"'.$product->name.'" Only accepted zipper/pin/metal files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                            ]);
+                        }
+                    }
                 }
             }
 
@@ -182,6 +283,7 @@ class OrderController extends Controller
                 $color_image_options = $request->color_image_options;
                 $sablon_type = $request->sablon_type;
                 $is_bordir = $request->is_bordir;
+                $bordir = $request->bordir;
                 $size_options = $request->size_options;
                 $qty_options = $request->qty_options;
                 $product_notes = $request->product_notes;
@@ -200,6 +302,27 @@ class OrderController extends Controller
                     $request->file('raw_file')[$product_id]->move($destinationPath, $raw_file);
                 }
 
+                $custom_packaging = null;
+                if (!empty($request->file('custom_packaging')[$product_id])) {
+                    $custom_packaging = time() .'-'. rand(1000, 9999) . '.' . $request->file('custom_packaging')[$product_id]->getClientOriginalExtension();
+                    $destinationPath = public_path('/assets/image/upload/order/custom_packaging');
+                    $request->file('custom_packaging')[$product_id]->move($destinationPath, $custom_packaging);
+                }
+
+                $custom_label = null;
+                if (!empty($request->file('custom_label')[$product_id])) {
+                    $custom_label = time() .'-'. rand(1000, 9999) . '.' . $request->file('custom_label')[$product_id]->getClientOriginalExtension();
+                    $destinationPath = public_path('/assets/image/upload/order/custom_label');
+                    $request->file('custom_label')[$product_id]->move($destinationPath, $custom_label);
+                }
+
+                $custom_metal = null;
+                if (!empty($request->file('custom_metal')[$product_id])) {
+                    $custom_metal = time() .'-'. rand(1000, 9999) . '.' . $request->file('custom_metal')[$product_id]->getClientOriginalExtension();
+                    $destinationPath = public_path('/assets/image/upload/order/custom_metal');
+                    $request->file('custom_metal')[$product_id]->move($destinationPath, $custom_metal);
+                }
+
                 $data_detail = [
                     'id' => IdGenerator::generate('ORDRDTL', 'order_details'),
                     'order_id' => $id,
@@ -209,6 +332,9 @@ class OrderController extends Controller
                     'product_image' => $product->image,
                     'mockup' => $mockup,
                     'raw_file' => $raw_file,
+                    'custom_packaging' => $custom_packaging,
+                    'custom_label' => $custom_label,
+                    'custom_metal' => $custom_metal,
                     'notes' =>$product_notes[$product_id],
                     'created_by_customer' => (Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id : null),
                     'created_at' => date('Y-m-d H:i:s'),
@@ -238,10 +364,15 @@ class OrderController extends Controller
                     'color' => $color,
                     (isset($color_code) ? 'color_code' : 'color_image') => (isset($color_code) ? $color_code : $color_image),
                 ]);
-                $data_detail['sablon_selected'] = $sablon_type[$product_id];
+                // $data_detail['sablon_selected'] = $sablon_type[$product_id];
+                
+                // if(isset($is_bordir[$product_id])){
+                //     $data_detail['is_bordir'] = 1;
+                // }
 
-                if(isset($is_bordir[$product_id])){
-                    $data_detail['is_bordir'] = 1;
+                $data_detail['sablon_selected'] = implode(',', $sablon_type[$product_id]);
+                if(isset($bordir[$product_id])){
+                    $data_detail['bordir_selected'] = implode(',', $bordir[$product_id]);
                 }
 
                 // dd($data_detail, $request->all());

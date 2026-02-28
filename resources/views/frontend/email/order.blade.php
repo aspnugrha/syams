@@ -111,14 +111,19 @@
                                     &nbsp;{{ $material_colors->color }}
                                 </p>
                             </div>
+                            @if ($item->sablon_selected)
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Sablon Type</p>
                             <div style="margin-bottom: 10px;">
-                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->sablon_selected }}</label>
+                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ str_replace(',', ', ', $item->sablon_selected) }}</label>
                             </div>
+                            @endif
+                            @if ($item->bordir_selected)
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Bordir</p>
                             <div style="margin-bottom: 10px;">
-                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->is_bordir ? 'YES' : 'No' }}</label>
+                                {{-- <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ $item->is_bordir ? 'YES' : 'No' }}</label> --}}
+                                <label style="font-size: 15px;font-weight: semibold;color: #212122bf;">{{ str_replace(',', ', ', $item->bordir_selected) }}</label>
                             </div>
+                            @endif
                             @foreach ($sizes as $size)
                             <span style="background: #000;
                                 color: #fff;
@@ -132,14 +137,36 @@
                                 @endif
                             </span>
                             @endforeach
+                            @if ($item->mockup)
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Mockup</p>
                             <div style="margin-bottom: 10px;">
                                 <a href="{{ asset('assets/image/upload/order/mockup/'.$item->mockup) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Mockup <i class="mdi mdi-open-in-new"></i></a>
                             </div>
+                            @endif
+                            @if ($item->raw_file)
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Raw File</p>
                             <div style="margin-bottom: 10px;">
                                 <a href="{{ asset('assets/image/upload/order/raw_file/'.$item->raw_file) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a>
                             </div>
+                            @endif
+                            @if ($item->custom_packaging)
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Custom Packaging</p>
+                            <div style="margin-bottom: 10px;">
+                                <a href="{{ asset('assets/image/upload/order/custom_packaging/'.$item->custom_packaging) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Custom Packaging <i class="mdi mdi-open-in-new"></i></a>
+                            </div>
+                            @endif
+                            @if ($item->custom_label)
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Custom Label</p>
+                            <div style="margin-bottom: 10px;">
+                                <a href="{{ asset('assets/image/upload/order/custom_label/'.$item->custom_label) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Custom Label <i class="mdi mdi-open-in-new"></i></a>
+                            </div>
+                            @endif
+                            @if ($item->custom_metal)
+                            <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Zipper/Pin/Metal Custom</p>
+                            <div style="margin-bottom: 10px;">
+                                <a href="{{ asset('assets/image/upload/order/custom_metal/'.$item->custom_metal) }}" target="_blank" class="form-check-label text-muted fw-semibold" style="font-size: 15px;">See Zipper/Pin/Metal Custom <i class="mdi mdi-open-in-new"></i></a>
+                            </div>
+                            @endif
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Notes :</p>
                             {{-- <p style="font-size: 12px;margin-bottom: 5px;margin-top: 5px;padding: 0;">Notes :</p> --}}
                             <p style="font-size: 12px;margin-bottom: 5px;margin-top: 0;padding: 0;">{{ ($item->notes ? '"'.$item->notes.'"' : '-') }}</p>
