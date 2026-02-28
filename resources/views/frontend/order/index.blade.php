@@ -321,7 +321,7 @@ function setProduct(product, id){
                             html += `<div class="text-center" style="font-size: 13px;">No Options</div>`
                         }
                         
-                if(product.bordir && input_settings.includes('sablon_type')){
+                if(product.sablon_type && input_settings.includes('sablon_type')){
                     html +=`<p class="mt-2 mb-0 p-0" style="font-size: 13px;">Sablon Type</p>
                         <span class="d-flex justify-content-start mb-2">`;
 
@@ -356,19 +356,19 @@ function setProduct(product, id){
                 html += `</span>`
                 }
                         
-                if(product.is_bordir){
-                html += `
-                    <p class="m-0 p-0" style="font-size: 13px;">Bordir</p>
-                    <div class="d-flex justify-content-start mb-2">
-                        <div class="form-check me-2">
-                            <input class="form-check-input ms-0" type="checkbox" name="is_bordir[${product.id}]" value="1" id="is_bordir_${code}">
-                            <label class="form-check-label text-muted fw-semibold" for="is_bordir_${code}" style="padding-left: 25px;font-size: 16px;">
-                            Make with embroidery
-                            </label>
-                        </div>
-                    </div>
-                    `
-                }
+                // if(product.is_bordir){
+                // html += `
+                //     <p class="m-0 p-0" style="font-size: 13px;">Bordir</p>
+                //     <div class="d-flex justify-content-start mb-2">
+                //         <div class="form-check me-2">
+                //             <input class="form-check-input ms-0" type="checkbox" name="is_bordir[${product.id}]" value="1" id="is_bordir_${code}">
+                //             <label class="form-check-label text-muted fw-semibold" for="is_bordir_${code}" style="padding-left: 25px;font-size: 16px;">
+                //             Make with embroidery
+                //             </label>
+                //         </div>
+                //     </div>
+                //     `
+                // }
 
                 html += `<p class="m-0 p-0" style="font-size: 13px;">Size ${(order_type == 'ORDER' ? '& Quantity' : '')}</p>
                         `;
@@ -447,13 +447,13 @@ function setProduct(product, id){
 
                 html += `
                         <div class="row g-1">`;
-                            if(product.bordir && input_settings.includes('mockup')){
+                            if(input_settings.includes('mockup')){
                             html += `<div class="col-md-${number_cols2}">
                                 <p class="m-0 p-0" style="font-size: 13px;">Mockup</p>
                                 <input type="file" name="mockup[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
                             </div>`;
                             }
-                            if(product.bordir && input_settings.includes('raw_file')){
+                            if(input_settings.includes('raw_file')){
                             html += `<div class="col-md-${number_cols2}">
                                 <p class="m-0 p-0" style="font-size: 13px;">Raw File</p>
                                 <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
@@ -461,19 +461,19 @@ function setProduct(product, id){
                             }
                         html += `</div>
                         <div class="row g-1">`;
-                            if(product.bordir && input_settings.includes('custom_packaging')){
+                            if(input_settings.includes('custom_packaging')){
                             html += `<div class="col-md-${number_cols}">
                                 <p class="m-0 p-0" style="font-size: 13px;">Custom Packaging</p>
                                 <input type="file" name="custom_packaging[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
                             </div>`
                             }
-                            if(product.bordir && input_settings.includes('custom_label')){
+                            if(input_settings.includes('custom_label')){
                             html += `<div class="col-md-${number_cols}">
                                 <p class="m-0 p-0" style="font-size: 13px;">Custom Label/Hangtag</p>
                                 <input type="file" name="custom_label[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
                             </div>`
                             }
-                            if(product.bordir && input_settings.includes('custom_metal')){
+                            if(input_settings.includes('custom_metal')){
                             html += `<div class="col-md-${number_cols}">
                                 <p class="m-0 p-0" style="font-size: 13px;">Zipper/Pin/Metal Custom</p>
                                 <input type="file" name="custom_metal[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
