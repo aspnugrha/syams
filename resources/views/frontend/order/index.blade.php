@@ -271,7 +271,7 @@ function setProduct(product, id){
 
                                 html += `
                                 <div>
-                                    <button class="btn btn-default border border-1 border-secondary rounded text-start w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettingInput" aria-expanded="false" aria-controls="collapseSettingInput">
+                                    <button class="btn btn-default border border-1 border-secondary rounded text-start w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettingInput${code2}" aria-expanded="false" aria-controls="collapseSettingInput${code2}">
                                         <div class="d-flex align-items-start pt-1" width="150px;">
                                             <div class="d-flex justify-content-start">
                                                 <div class="form-check me-2">
@@ -284,7 +284,7 @@ function setProduct(product, id){
                                         </div>
                                     </button>
                                 </div>
-                                <div class="collapse" id="collapseSettingInput">
+                                <div class="collapse" id="collapseSettingInput${code2}">
                                     <div class="card card-body">
                                         <div class="d-flex flex-wrap gap-2">
                                         `;
