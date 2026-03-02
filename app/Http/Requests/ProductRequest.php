@@ -38,10 +38,10 @@ class ProductRequest extends FormRequest
             // 'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'images' => $this->isMethod('post') ? 'required|array' : 'nullable|array',
             'images.*' => $this->isMethod('post') ? 'required|image' : 'nullable|image',
-			'size_options' => 'required',
+			// 'size_options' => 'required',
 			// 'material_options' => 'required',
-			'material_color_options' => 'required',
-			'sablon_type' => 'required',
+			// 'material_color_options' => 'required',
+			// 'sablon_type' => 'required',
         ];
     }
 

@@ -188,7 +188,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="text-sm">Material & colors <span class="text-danger">*</span></label>
+                                    <label class="text-sm">Material & colors</label>
                                     <select name="material_color_options[]" id="material_color_options" class="form-control form-control-sm" multiple>
                                         <option value="">Pilih Material</option>
                                         @foreach ($materials as $item)
@@ -234,7 +234,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Sablon Type <span class="text-danger">*</span></label>
+                                    <label>Sablon Type </label>
                                     <select name="sablon_type[]" id="sablon_type" class="form-control" multiple>
                                         <option value="">Pilih Sablon Type</option>
                                         <option value="Screen Printing" {{ @$data->sablon_type && in_array('Screen Printing', explode(',',$data->sablon_type)) ? 'selected' : '' }}>Screen Printing</option>
