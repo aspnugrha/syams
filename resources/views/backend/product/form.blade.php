@@ -159,14 +159,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="text-sm">Size <span class="text-danger">*</span></label>
+                                            <label class="text-sm">Size</label>
                                             <input type="text" class="form-control form-control-sm" name="size" id="size" placeholder="S/M/L/XL...">
                                             <small class="text-muted">Contoh : S/M/L/XL</small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="text-sm">Quantity <span class="text-danger">*</span></label>
+                                            <label class="text-sm">Quantity</label>
                                             <input type="text" class="form-control form-control-sm" name="qty" id="qty" placeholder="10,20,30,40,50...">
                                             <small class="text-muted">Contoh : 10,20,30,40... (quantity diinput bersamaan, dipisah dengan koma tanpa spasi)</small>
                                         </div>
