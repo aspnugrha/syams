@@ -251,6 +251,7 @@
                                         <option value="3D" {{ @$data->bordir && in_array('3D', explode(',',$data->bordir)) ? 'selected' : '' }}>3D</option>
                                         <option value="Patch" {{ @$data->bordir && in_array('Patch', explode(',',$data->bordir)) ? 'selected' : '' }}>Patch</option>
                                         <option value="Reguler" {{ @$data->bordir && in_array('Reguler', explode(',',$data->bordir)) ? 'selected' : '' }}>Reguler</option>
+                                        <option value="Towel" {{ @$data->bordir && in_array('Towel', explode(',',$data->bordir)) ? 'selected' : '' }}>Towel</option>
                                     </select>
                                     {{-- <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="1" name="is_bordir" id="is_bordir" {{ @$data && $data->is_bordir ? 'checked' : '' }}>

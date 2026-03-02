@@ -453,10 +453,16 @@ function setProduct(product, id){
                                 <input type="file" name="mockup[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
                             </div>`;
                             }
+                            // if(input_settings.includes('raw_file')){
+                            // html += `<div class="col-md-${number_cols2}">
+                            //     <p class="m-0 p-0" style="font-size: 13px;">Raw File</p>
+                            //     <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                            // </div>`;
+                            // }
                             if(input_settings.includes('raw_file')){
                             html += `<div class="col-md-${number_cols2}">
                                 <p class="m-0 p-0" style="font-size: 13px;">Raw File</p>
-                                <input type="file" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps">
+                                <input type="text" name="raw_file[${product.id}]" class="form-control form-control-sm mb-2" accept=".psd,.png,.pdf,.cdr,.spg,.eps" placeholder="Link Raw File">
                             </div>`;
                             }
                         html += `</div>

@@ -50,6 +50,10 @@ class CategorySeeder extends Seeder
                 'id' => 'CTGRY2025112600009hf7eh3',
                 'name' => 'Hoodie Zipper'
             ],
+            [
+                'id' => 'CTGRY2025112600010hf7eg2',
+                'name' => 'Long Sleeve'
+            ],
         ];
         foreach($data as $item){
             DB::table('categories')->insert([

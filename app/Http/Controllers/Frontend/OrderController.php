@@ -164,27 +164,27 @@ class OrderController extends Controller
                         return response()->json([
                             'status' => 'raw_file',
                             'success' => false,
-                            'message' => 'Please select raw file "'.$product->name.'"!'
+                            'message' => 'Please enter link to raw file "'.$product->name.'"!'
                         ]);
                     }else{
-                        $raw_file_gagal = false;
-                        if(!in_array($request->raw_file[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
-                            $raw_file_gagal = true;
-                        }
-                        // $raw_file_gagal = 0;
-                        // foreach($request->raw_file as $raw_file){
-                        //     if(!in_array($raw_file->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
-                        //         $raw_file_gagal++;
-                        //     }
+                        // $raw_file_gagal = false;
+                        // if(!in_array($request->raw_file[$product->id]->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                        //     $raw_file_gagal = true;
                         // }
+                        // // $raw_file_gagal = 0;
+                        // // foreach($request->raw_file as $raw_file){
+                        // //     if(!in_array($raw_file->getClientOriginalExtension(), ['psd','png','pdf','cdr','spg','eps'])){
+                        // //         $raw_file_gagal++;
+                        // //     }
+                        // // }
 
-                        if($raw_file_gagal){
-                            return response()->json([
-                                'status' => 'raw_file',
-                                'success' => false,
-                                'message' => '"'.$product->name.'" Only accepted raw files are .psd, .png, .pdf, .cdr, .spg and .eps!'
-                            ]);
-                        }
+                        // if($raw_file_gagal){
+                        //     return response()->json([
+                        //         'status' => 'raw_file',
+                        //         'success' => false,
+                        //         'message' => '"'.$product->name.'" Only accepted raw files are .psd, .png, .pdf, .cdr, .spg and .eps!'
+                        //     ]);
+                        // }
                     }
                 }
                 if(in_array('custom_packaging', $input_settings)){
@@ -295,12 +295,13 @@ class OrderController extends Controller
                     $request->file('mockup')[$product_id]->move($destinationPath, $mockup);
                 }
                 
-                $raw_file = null;
-                if (!empty($request->file('raw_file')[$product_id])) {
-                    $raw_file = time() .'-'. rand(1000, 9999) . '.' . $request->file('raw_file')[$product_id]->getClientOriginalExtension();
-                    $destinationPath = public_path('/assets/image/upload/order/raw_file');
-                    $request->file('raw_file')[$product_id]->move($destinationPath, $raw_file);
-                }
+                $raw_file = $request->raw_file[$product_id];
+                // $raw_file = null;
+                // if (!empty($request->file('raw_file')[$product_id])) {
+                //     $raw_file = time() .'-'. rand(1000, 9999) . '.' . $request->file('raw_file')[$product_id]->getClientOriginalExtension();
+                //     $destinationPath = public_path('/assets/image/upload/order/raw_file');
+                //     $request->file('raw_file')[$product_id]->move($destinationPath, $raw_file);
+                // }
 
                 $custom_packaging = null;
                 if (!empty($request->file('custom_packaging')[$product_id])) {

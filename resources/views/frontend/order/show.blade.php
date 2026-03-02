@@ -135,7 +135,8 @@
                                         @if ($item->raw_file)
                                         <p style="margin-bottom: 5px;margin-top: 0;padding: 0;color: #aaa;">Raw File</p>
                                         <div class="mb-2 d-flex">
-                                            <a href="{{ asset('assets/image/upload/order/raw_file/'.$item->raw_file) }}" target="_blank" class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a>
+                                            {{-- <a href="{{ asset('assets/image/upload/order/raw_file/'.$item->raw_file) }}" target="_blank" class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a> --}}
+                                            <a href="{{ $item->raw_file }}" target="_blank" class="form-check-label ps-0 text-muted fw-semibold" style="font-size: 15px;">See Raw File <i class="mdi mdi-open-in-new"></i></a>
                                         </div>
                                         @endif
                                         @if ($item->custom_packaging)
