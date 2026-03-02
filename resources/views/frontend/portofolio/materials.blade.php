@@ -130,95 +130,16 @@
 @endif
 
 <div class="bg-light">
-    <div class="container pt-4">
-        <div class="row g-1 pb-5">
-            <h4 class="mb-3">Showcase</h4>
-            @foreach($product_showcase as $item)
-            @php
-                $covers = explode(',', $item->image);
-                $cover = count($covers) ? $covers[0] : '';
-
-                $size_qty_count = 0;
-                if($item->size_qty_options){
-                    $size_qty = json_decode($item->size_qty_options);
-                    $size_qty_count = count($size_qty);
-                }
-            @endphp
-            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
-                <div class=" border-0 rounded-0">
-                    <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
-                    <div class="container py-2" style="min-height: 80px;">
-                        <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
-                        <small class="text-muted">{{ $size_qty_count }} Size Options</small>
-                    </div>
-                </div>
-            </a>
-            {{-- <a href="{{ route('showcase.detail', $item->slug) }}" class="col-6 col-md-3">
-                <div class="card text-white border-0 position-relative rounded-0" style="overflow:hidden;">
-                    <img src="{{ $item->image ? asset('assets/image/upload/product/'.explode(',', $item->image)[0]) : 'https://via.assets.so/img.jpg?w=800&h=800&bg=ddd' }}" class="card-img rounded-0" alt="Product" style="width: 100%;height: 280px;object-fit: cover;">
-
-                    <div class="position-absolute bottom-0 start-0 w-100 p-3"
-                        style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
-
-                        <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
-                        <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
-
-                    </div>
-                </div>
-            </a> --}}
-            @endforeach
-        </div>
-        <div class="row g-1 pb-3">
-            <h4 class="mb-3">Order</h4>
-            @foreach($product_order as $item)
-            @php
-                $covers = explode(',', $item->image);
-                $cover = count($covers) ? $covers[0] : '';
-
-                $size_qty_count = 0;
-                if($item->size_qty_options){
-                    $size_qty = json_decode($item->size_qty_options);
-                    $size_qty_count = count($size_qty);
-                }
-            @endphp
-            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
-                <div class=" border-0 rounded-0">
-                    <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
-                    <div class="container py-2" style="min-height: 80px;">
-                        <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
-                        <small class="text-muted">{{ $size_qty_count }} Size Options</small>
-                    </div>
-                </div>
-            </a>
-            {{-- <a href="{{ route('showcase.detail', $item->slug) }}" class="col-6 col-md-3">
-                <div class="card text-white border-0 position-relative rounded-0" style="overflow:hidden;">
-                    <img src="{{ $item->image ? asset('assets/image/upload/product/'.explode(',', $item->image)[0]) : 'https://via.assets.so/img.jpg?w=800&h=800&bg=ddd' }}" class="card-img rounded-0" alt="Product" style="width: 100%;height: 280px;object-fit: cover;">
-
-                    <div class="position-absolute bottom-0 start-0 w-100 p-3"
-                        style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));">
-
-                        <p class="mb-1 p-0" style="font-size: 0.7rem; opacity: 0.9;">{{ ($item->hasCategory ? $item->hasCategory->name : '') }}</p>
-                        <h5 class="m-0 p-0" style="font-size: .95rem;">{{ $item->name }}</h5>
-
-                    </div>
-                </div>
-            </a> --}}
-            @endforeach
-        </div>
-    </div>
-</div>
-
-<div class="bg-light">
     <div class="container pt-5">
         <div class="row g-2 mb-5">
-            <h4 class="mb-3">Materials, colors, and workmanship</h4>
+            <h4 class="mb-3">Materials and colors</h4>
             
             <!-- SECTION 01 -->
             <section class="section pt-2">
                 <div class="row align-items-start mb-4">
-                    <div class="col-auto">
+                    {{-- <div class="col-auto">
                         <div class="section-number">01</div>
-                    </div>
+                    </div> --}}
                     <div class="col">
                         <div class="section-title fw-semibold">CHOOSE FABRIC AND COLOR</div>
                         <div class="section-subtitle">
@@ -229,7 +150,6 @@
         
                 <div class="row g-1">
                     @foreach ($materials as $index_material => $item)
-                    @if ($index_material <= 3)
                     <div class="col-md-6">
                         <div class="material-info p-3 bg-white h-100">
                             <small class="text-muted">Material</small>
@@ -264,11 +184,7 @@
                             <article>{{ $item->desc ? $item->desc : 'No Description' }}</article>
                         </div>
                     </div>
-                    @endif
                     @endforeach
-                    @if (count($materials) > 3)
-                    <a href="{{ route('showcase.all-materials') }}" class="btn btn-dark"><i class="mdi mdi-arrow-right"></i> See More</a>
-                    @endif
                     {{-- @foreach ($material_colors as $item)
                     <div class="col-12 mb-2">
                         <div class="row g-0">
@@ -302,86 +218,6 @@
                     @endforeach --}}
                 </div>
         
-            </section>
-        
-            <!-- SECTION 02 -->
-            <section class="section">
-                <div class="row align-items-start mb-4">
-                    <div class="col-auto">
-                        <div class="section-number">02</div>
-                    </div>
-                    <div class="col">
-                        <div class="section-title fw-semibold">SCREEN PRINTING TYPE</div>
-                        <div class="section-subtitle">
-                            Several screen printing processes that we can do on a large or small scale.
-                        </div>
-                    </div>
-                </div>
-        
-                @foreach ($sablons as $index_sablon => $item)
-                    @if ($index_sablon % 2 == 0)
-                        <div class="row g-0 mb-1 bg-white">
-                            <div class="col-md-4 p-3">
-                                <img src="{{ asset('assets/image/upload/sablon/'.$item->image) }}" alt="Image {{ $item->name }}" class="w-100 w-md-40" style="height: 100%;max-height: 200px;object-fit: cover;background-position: center;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="p-3">
-                                    <small class="text-muted">Printing Type</small>
-                                    <h5 class="mb-1">{{ $item->name }}</h5>
-                                    <article>{{ $item->description }}</article>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <div class="row g-0 mb-1 bg-white">
-                            <div class="col-md-8">
-                                <div class="p-3">
-                                    <small class="text-muted">Printing Type</small>
-                                    <h5 class="mb-1">{{ $item->name }}</h5>
-                                    <article>{{ $item->description }}</article>
-                                </div>
-                            </div>
-                            <div class="col-md-4 p-3">
-                                <img src="{{ asset('assets/image/upload/sablon/'.$item->image) }}" alt="Image {{ $item->name }}" class="w-100 w-md-40" style="height: 100%;max-height: 200px;object-fit: cover;background-position: center;">
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-            </section>
-            
-            <!-- SECTION 03 -->
-            <section class="section">
-                <div class="row align-items-start mb-4">
-                    <div class="col-auto">
-                        <div class="section-number">03</div>
-                    </div>
-                    <div class="col">
-                        <div class="section-title fw-semibold">PROVIDING EMBROIDERY</div>
-                        <div class="section-subtitle">
-                            We provide custom embroidery services on request.
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="row justify-content-center mb-3 g-4">
-                    <div class="col-6 col-md-auto text-center">
-                        <img src="{{ asset('assets/image/upload/bordir/bordir-1.jpg') }}" alt="Image Bordir" style="width: 150px;height: 150px;object-fit: cover;background-position: center;border-radius: 100%;">
-                    </div>
-                    <div class="col-6 col-md-auto text-center">
-                        <img src="{{ asset('assets/image/upload/bordir/bordir-2.jpg') }}" alt="Image Bordir" style="width: 150px;height: 150px;object-fit: cover;background-position: center;border-radius: 100%;">
-                    </div>
-                    <div class="col-6 col-md-auto text-center">
-                        <img src="{{ asset('assets/image/upload/bordir/bordir-3.jpg') }}" alt="Image Bordir" style="width: 150px;height: 150px;object-fit: cover;background-position: center;border-radius: 100%;">
-                    </div>
-                    <div class="col-6 col-md-auto text-center">
-                        <img src="{{ asset('assets/image/upload/bordir/bordir-4.jpg') }}" alt="Image Bordir" style="width: 150px;height: 150px;object-fit: cover;background-position: center;border-radius: 100%;">
-                    </div>
-                </div>
-        
-                <article class="p-3 bg-white my-4">
-                    Embroidery (or needlework) is the art of decorating fabric using a needle and thread to create beautiful motifs or designs, it can be done manually (by hand) or using modern embroidery machines which are sometimes computer-assisted, adding texture and aesthetic value to clothing, logos, or decorations, often using additional materials such as sequins, beads, or cord for variation. <br>
-                    Embroidery options: <b>3D</b>, <b>Patch</b> and <b>Regular</b>.
-                </article>
             </section>
         
         </div>

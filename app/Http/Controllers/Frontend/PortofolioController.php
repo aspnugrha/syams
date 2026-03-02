@@ -20,6 +20,13 @@ class PortofolioController extends Controller
         return view('frontend.portofolio.index', compact('product_showcase', 'product_order', 'materials', 'company'));
     }
     
+    public function allMaterials(){
+        $company = CompanyProfile::first();
+        $materials = json_decode(json_encode(Products::getDataMaterials()));
+
+        return view('frontend.portofolio.materials', compact('materials', 'company'));
+    }
+    
     public function detail($slug){
         $company = CompanyProfile::first();
         $product = Products::with(['hasCategory'])->where('slug', $slug)->first();

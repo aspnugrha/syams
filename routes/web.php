@@ -46,6 +46,7 @@ Route::get('/set-new-password/{email}/{code}', [AuthController::class, 'setNewPa
 Route::post('/set-new-password', [AuthController::class, 'setNewPasswordProcess'])->name('set-new-password.process');
 
 Route::get('/showcase', [PortofolioController::class, 'index'])->name('showcase');
+Route::get('/showcase/all-materials', [PortofolioController::class, 'allMaterials'])->name('showcase.all-materials');
 Route::get('/showcase/{slug}', [PortofolioController::class, 'detail'])->name('showcase.detail');
 // Route::get('/sample', [SampleController::class, 'index'])->name('sample');
 Route::get('/order', [OrderController::class, 'index'])->name('order');

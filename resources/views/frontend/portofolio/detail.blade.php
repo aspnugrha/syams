@@ -105,31 +105,49 @@
     </ul>
 
     <!-- Tab Content -->
-    <div class="tab-content p-3" id="myTabContent" style="background-color: #fcfcfc;">
+    <div class="tab-content p-3 rounded" id="myTabContent" style="background-color: #faf9f9;border-right: 1px solid #eee;border-left: 1px solid #eee;border-bottom: 1px solid #eee;">
         <div class="tab-pane fade show active" id="material-color" role="tabpanel">
+          @php
+              $material_color = json_decode($product->material_color_options);
+          @endphp
+          @if ($product->material_color_options)
           <table class="w-100 table table-bordered">
             <tr>
               <td style="width: 150px;">Material Options</td>
               <td>Color Options</td>
             </tr>
-            @php
-                $material_color = json_decode($product->material_color_options);
-            @endphp
-            @if ($product->material_color_options)
                 @foreach ($material_color as $item)
                 <tr>
                   <td>{{ $item->name }}</td>
                   <td>
-                    @if (count($item->colors))
+                    @if ($item->colors)
+                      <div class="mb-2 mt-1 d-flex flex-wrap w-100">
+                          @foreach ($item->colors as $index_color => $color)
+                              @if ($index_color <= 2)
+                              <label class="btn btn-outline-secondary fw-semibold rounded-pill d-inline-flex align-items-center mb-1 me-1" style="font-size: 13px;padding: 4px 5px;">
+                                  @if (isset($color->color_code))
+                                  <span style="width: 35px;height: 35px;background-color: {{ $color->color_code }};border-radius: 100%;"></span>
+                                  @else
+                                  <img src="{{ asset('assets/image/upload/product/material/'.$color->color_image) }}" alt="Color {{ $color->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
+                                  @endif
+                                  &nbsp;{{ $color->color }}
+                              </label>
+                              @endif
+                          @endforeach
+                          @if (count($item->colors) > 3)
+                              <a href="#modal-custom" class="btn btn-outline-secondary fw-semibold rounded-pill d-inline-flex align-items-center mb-1 me-1" style="font-size: 13px;padding: 4px 5px;" onclick='seeMoreColor(@json($item))'>
+                                  <span class="mdi mdi-arrow-right align-content-center" style="height: 35px;font-size: 20px;"></span>
+                                  &nbsp;See {{ count($item->colors) - 3 }} more
+                              </a>
+                          @endif
+                      </div>
+                    @else
+                        <small class="text-muted">No colors available yet</small>
+                    @endif
+
+
+                    {{-- @if (count($item->colors))
                       @foreach ($item->colors as $color)
-                      {{-- <p class="p-0 m-0" style="vertical-align: middle;">
-                        @if (isset($color->color_code))
-                        <label style="width: 35px;height: 35px;border-radius: 100%;background-color: {{ $color->color_code }};"></label>
-                        @else
-                        <img src="{{ asset('assets/image/upload/product/material/'.$color->color_image) }}" alt="Color {{ $color->color }} Image" style="width: 35px;height: 35px;border-radius: 100%;">
-                        @endif
-                        &nbsp;{{ $color->color }}
-                      </p> --}}
                       <label class="btn btn-outline-secondary rounded-pill fw-semibold d-inline-flex justify-content-start align-items-center mb-1" style="font-size: 13px;padding: 4px 5px;">
                           @if (isset($color->color_code))
                           <span style="width: 35px;height: 35px;border-radius: 100%;background-color: {{ $color->color_code }};"></span>
@@ -139,31 +157,45 @@
                           &nbsp;{{ $color->color }}
                       </label>
                       @endforeach
-                    @endif
+                    @endif --}}
                   </td>
                 </tr>
                 @endforeach
+            </table>
+            @else
+            <div class="mb-3">
+              <article>
+                No Info.
+              </article>
+            </div>
             @endif
-          </table>
         </div>
 
         <div class="tab-pane fade" id="sablon-type" role="tabpanel">
           {{-- <div class="py-2 px-3 mb-3" style="border: 1px solid #ddd;"> --}}
-            @if (in_array('Screen Printing', explode(',', $product->sablon_type)))
-            <div class="mb-3">
-              <h5>Screen Printing</h5>
-              <article>
-                Screen printing or sablon is a printing technique that uses a screen as a stencil to transfer ink to a surface such as cloth, paper, or plastic, producing sharp, brightly colored, and durable images, often used for t-shirts, with the process of creating a pattern on the screen before the ink is applied using a squeegee. This technique is popular because of its high-quality and durable prints, although the initial preparation is complex, especially for multi-colored designs.
-              </article>
-            </div>
-            @endif
-            @if (in_array('DTF', explode(',', $product->sablon_type)))
-            <div class="mb-3">
-              <h5>Direct To Film</h5>
-              <article>
-                DTF (Direct to Film) is a modern digital screen printing technique that prints designs onto special PET films using textile inks, then transfers them to various types of fabrics (cotton, polyester, etc.) with the help of powder glue (hotmelt powder) and a heat press machine, producing sharp prints, bright colors, flexibility, and durability, suitable for various media and single or mass production.
-              </article>
-            </div>
+            @if (in_array('Screen Printing', explode(',', $product->sablon_type)) || in_array('DTF', explode(',', $product->sablon_type)))
+              @if (in_array('Screen Printing', explode(',', $product->sablon_type)))
+              <div class="mb-3">
+                <h5>Screen Printing</h5>
+                <article>
+                  Screen printing or sablon is a printing technique that uses a screen as a stencil to transfer ink to a surface such as cloth, paper, or plastic, producing sharp, brightly colored, and durable images, often used for t-shirts, with the process of creating a pattern on the screen before the ink is applied using a squeegee. This technique is popular because of its high-quality and durable prints, although the initial preparation is complex, especially for multi-colored designs.
+                </article>
+              </div>
+              @endif
+              @if (in_array('DTF', explode(',', $product->sablon_type)))
+              <div class="mb-3">
+                <h5>Direct To Film</h5>
+                <article>
+                  DTF (Direct to Film) is a modern digital screen printing technique that prints designs onto special PET films using textile inks, then transfers them to various types of fabrics (cotton, polyester, etc.) with the help of powder glue (hotmelt powder) and a heat press machine, producing sharp prints, bright colors, flexibility, and durability, suitable for various media and single or mass production.
+                </article>
+              </div>
+              @endif
+            @else
+              <div class="mb-3">
+                <article>
+                  No Info.
+                </article>
+              </div>
             @endif
           {{-- </div> --}}
         </div>
@@ -196,12 +228,20 @@
 
         <div class="tab-pane fade" id="bordir" role="tabpanel">
             {{-- <div class="py-2 px-3 mb-3" style="border: 1px solid #ddd;"> --}}
+              @if ($product->bordir)
               <div class="mb-3">
-                <h5>Bordir</h5>
+                <h5>Bordir ({{ str_replace(',', ', ', ucfirst($product->bordir)) }})</h5>
                 <article>
                   Embroidery (or needlework) is the art of decorating fabric using a needle and thread to create beautiful patterns or designs. It can be done manually or using a computer embroidery machine for faster and more precise results, adding aesthetic value to clothing or other textile products, and can be combined with other materials such as sequins and beads for variety.
                 </article>
               </div>
+              @else
+              <div class="mb-3">
+                <article>
+                  No info.
+                </article>
+              </div>
+              @endif
             {{-- </div> --}}
         </div>
     </div>
@@ -319,6 +359,26 @@
 </div>
 
 
+@section('modal_header_text', 'Material Details')
+@section('modal_body')
+<div class="w-100" id="modal-custom-body" style="max-height: 80vh;overflow: scroll;">
+    <div class="mb-2">
+        <label>Material :</label>
+        <h5 id="modal-material-name"></h5>
+    </div>
+    <div class="mb-2">
+        <label>Description :</label>
+        <p id="modal-material-desc" style="font-size: 16px;color: #555;"></p>
+    </div>
+    <div class="mb-2">
+        <label>Available Colors :</label>
+        <div id="modal-material-colors"></div>
+    </div>
+</div>
+@endsection
+@include('frontend.layouts.modal')
+
+
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 <script>
@@ -386,4 +446,30 @@
     </div>
 </section>
 @endif --}}
+@endsection
+@section('scripts')
+<script>
+function seeMoreColor(item){
+    console.log(item);
+    $('#modal-material-name').text(item.name);
+    $('#modal-material-desc').text(item.desc ?? 'No Description');
+
+    let html_colors = `
+    <div class="mb-2 mt-1 d-flex flex-wrap w-100">`;
+        item.colors.forEach(color => {
+            html_colors += `
+            <label class="btn btn-outline-secondary fw-semibold rounded-pill d-inline-flex align-items-center mb-1 me-1" style="font-size: 13px;padding: 4px 5px;">`;
+            if (color.color_code !== undefined && color.color_code !== null) {
+                html_colors += `<span style="width: 35px;height: 35px;background-color: ${color.color_code};border-radius: 100%;"></span>`;
+            }else{
+                html_colors += `<img src="{{ asset('assets/image/upload/product/material') }}/${color.color_image}" alt="Color ${color.color} Image" style="width: 35px;height: 35px;border-radius: 100%;">`;
+            }
+
+            html_colors += `&nbsp;${color.color}</label>`;
+        });
+    html_colors += `</div>`;
+    $('#modal-material-colors').html(html_colors);
+    $('#modal-more-color').modal('show');
+}
+</script>
 @endsection
