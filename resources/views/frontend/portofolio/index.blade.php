@@ -104,13 +104,48 @@
     $sablons = [
         [
             'name' => 'Screen Printing',
-            'description' => 'Screen printing or sablon is a printing technique that uses a screen as a stencil to transfer ink to a surface such as cloth, paper, or plastic, producing sharp, brightly colored, and durable images, often used for t-shirts, with the process of creating a pattern on the screen before the ink is applied using a squeegee. This technique is popular because of its high-quality and durable prints, although the initial preparation is complex, especially for multi-colored designs.',
-            'image' => 'sablon.jpg'
+            // 'description' => 'Screen printing or sablon is a printing technique that uses a screen as a stencil to transfer ink to a surface such as cloth, paper, or plastic, producing sharp, brightly colored, and durable images, often used for t-shirts, with the process of creating a pattern on the screen before the ink is applied using a squeegee. This technique is popular because of its high-quality and durable prints, although the initial preparation is complex, especially for multi-colored designs.',
+            'description' => 'Screen printing or sablon is a printing technique that uses a screen as a stencil to transfer ink to a surface such as cloth, paper, or plastic, producing sharp, brightly colored, and durable images, often used for t-shirts, with the process of creating a pattern on the screen before the ink is applied using a squeegee.',
+            'image' => 'sablon.jpg',
+            'examples' => [
+                [
+                    'image' => 'plastisol.png',
+                    'name' => 'Plastisol',
+                    'description' => 'Is a PVC-based ink that stands as the industry standard in screen printing.',
+                ],
+                [
+                    'image' => 'discharge.png',
+                    'name' => 'Discharge',
+                    'description' => 'Is a printing technique that works by altering the color of the fabric itself.',
+                ],
+                [
+                    'image' => 'high-destiny.png',
+                    'name' => 'High Destiny',
+                    'description' => 'Is a variation of plastisol that is printed with extra thickness using a special, thicker emulsion on the screen.',
+                ],
+                [
+                    'image' => 'puff-ink.png',
+                    'name' => 'Puff Ink',
+                    'description' => 'Is a specialized ink containing an expanding agent in its formula.',
+                ],
+            ],
         ],
         [
             'name' => 'Direct to Film',
             'description' => 'DTF (Direct to Film) is a modern digital screen printing technique that prints designs onto special PET films using textile inks, then transfers them to various types of fabrics (cotton, polyester, etc.) with the help of powder glue (hotmelt powder) and a heat press machine, producing sharp prints, bright colors, flexibility, and durability, suitable for various media and single or mass production.',
-            'image' => 'dtf.jpg'
+            'image' => 'dtf.jpg',
+            'examples' => [
+                [
+                    'image' => 'sublimation.png',
+                    'name' => 'Sublimation',
+                    'description' => 'Is a printing process that uses heat to transfer dye from a special paper medium (sublimation paper) directly onto the material.',
+                ],
+                [
+                    'image' => 'dtf2.png',
+                    'name' => 'DTF',
+                    'description' => 'The main advantages of DTF Printing lie in its flexibility, as it can print full-color and detailed designs on almost all textile types.',
+                ],
+            ],
         ],
     ];
 
@@ -320,15 +355,30 @@
         
                 @foreach ($sablons as $index_sablon => $item)
                     @if ($index_sablon % 2 == 0)
-                        <div class="row g-0 mb-1 bg-white">
+                        <div class="row mb-1 g-0 bg-white">
                             <div class="col-md-4 p-3">
-                                <img src="{{ asset('assets/image/upload/sablon/'.$item->image) }}" alt="Image {{ $item->name }}" class="w-100 w-md-40" style="height: 100%;max-height: 200px;object-fit: cover;background-position: center;">
+                                <img src="{{ asset('assets/image/upload/sablon/'.$item->image) }}" alt="Image {{ $item->name }}" class="w-100 w-md-40" style="height: 100%;height: 100%;object-fit: cover;background-position: center;">
                             </div>
                             <div class="col-md-8">
                                 <div class="p-3">
                                     <small class="text-muted">Printing Type</small>
                                     <h5 class="mb-1">{{ $item->name }}</h5>
                                     <article>{{ $item->description }}</article>
+                                    <div class="row g-1 bg-white mt-3 mb-1">
+                                        @foreach ($item->examples as $example)
+                                        <div class="col-md-6">
+                                            <div class="row g-2">
+                                                <div class="col-4">
+                                                    <img class="rounded" src="{{ asset('assets/image/upload/sablon/'.$example->image) }}" alt="{{ $example->name }}" style="width: 100%;height: 100px;object-fit: cover;">
+                                                </div>
+                                                <div class="col-8">
+                                                    <p class="p-0 mb-0 fw-semibold" style="color: #555;">{{ $example->name }}</p>
+                                                    <p class="p-0 mb-0">{!! $example->description !!}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -339,6 +389,21 @@
                                     <small class="text-muted">Printing Type</small>
                                     <h5 class="mb-1">{{ $item->name }}</h5>
                                     <article>{{ $item->description }}</article>
+                                    <div class="row g-1 bg-white mt-3 mb-1">
+                                        @foreach ($item->examples as $example)
+                                        <div class="col-md-6">
+                                            <div class="row g-2">
+                                                <div class="col-4">
+                                                    <img class="rounded" src="{{ asset('assets/image/upload/sablon/'.$example->image) }}" alt="{{ $example->name }}" style="width: 100%;height: 100px;object-fit: cover;">
+                                                </div>
+                                                <div class="col-8">
+                                                    <p class="p-0 mb-0 fw-semibold" style="color: #555;">{{ $example->name }}</p>
+                                                    <p class="p-0 mb-0">{!! $example->description !!}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4 p-3">
