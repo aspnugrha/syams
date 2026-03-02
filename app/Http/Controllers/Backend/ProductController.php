@@ -84,7 +84,7 @@ class ProductController extends Controller
             }
 
             $size_qty_options = [];
-            if(count($request->size_options)){
+            if(isset($request->size_options) && count($request->size_options)){
                 for ($i=0; $i < count($request->size_options); $i++) { 
                     $size_qty_options[] = [
                         'size' => $request->size_options[$i],
@@ -112,7 +112,7 @@ class ProductController extends Controller
             //         ];
             //     }
             // }
-            if(count($request->material_color_options)){
+            if(isset($request->material_color_options) && count($request->material_color_options)){
                 foreach($request->material_color_options as $index_material => $material){
                     $get_material = Products::getDataMaterials($material);
                     $material_color_options[] = $get_material;
@@ -231,7 +231,7 @@ class ProductController extends Controller
             }
 
             $size_qty_options = [];
-            if(count($request->size_options)){
+            if(isset($request->size_options) && count($request->size_options)){
                 for ($i=0; $i < count($request->size_options); $i++) { 
                     $size_qty_options[] = [
                         'size' => $request->size_options[$i],
@@ -259,7 +259,8 @@ class ProductController extends Controller
             //         ];
             //     }
             // }
-            if(count($request->material_color_options)){
+            
+            if(isset($request->material_color_options) && count($request->material_color_options)){
                 foreach($request->material_color_options as $index_material => $material){
                     $get_material = Products::getDataMaterials($material);
                     $material_color_options[] = $get_material;
