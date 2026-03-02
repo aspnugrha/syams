@@ -114,8 +114,10 @@ class ProductController extends Controller
             // }
             if(isset($request->material_color_options) && count($request->material_color_options)){
                 foreach($request->material_color_options as $index_material => $material){
-                    $get_material = Products::getDataMaterials($material);
-                    $material_color_options[] = $get_material;
+                    if($material){
+                        $get_material = Products::getDataMaterials($material);
+                        $material_color_options[] = $get_material;
+                    }
                 }
             }
             // dd($material_color_options);
@@ -262,8 +264,10 @@ class ProductController extends Controller
 
             if(isset($request->material_color_options) && count($request->material_color_options)){
                 foreach($request->material_color_options as $index_material => $material){
-                    $get_material = Products::getDataMaterials($material);
-                    $material_color_options[] = $get_material;
+                    if($material){
+                        $get_material = Products::getDataMaterials($material);
+                        $material_color_options[] = $get_material;
+                    }
                 }
             }
 
