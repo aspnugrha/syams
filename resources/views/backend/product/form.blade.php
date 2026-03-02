@@ -674,7 +674,7 @@ function loadDataEdit(){
     // }
 
     // if(data)
-    const materials = data.material_color_option_decode.map(item => item.name);
+    const materials = (data.material_color_option_decode ? data.material_color_option_decode.map(item => item.name) : '');
 
     $('#material_color_options').val(materials).trigger('change');
     // console.log('edit', data, materials)
