@@ -120,7 +120,7 @@ class ProductController extends Controller
             }
             // dd($material_color_options);
 
-            $request['sablon_type'] = implode(',', $request->sablon_type);
+            $request['sablon_type'] = ($request->sablon_type ? implode(',', $request->sablon_type) : null);
 
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name), '-'));
             $cek_slug = Products::where('slug', $slug)->first();
@@ -259,7 +259,7 @@ class ProductController extends Controller
             //         ];
             //     }
             // }
-            
+
             if(isset($request->material_color_options) && count($request->material_color_options)){
                 foreach($request->material_color_options as $index_material => $material){
                     $get_material = Products::getDataMaterials($material);
@@ -267,7 +267,7 @@ class ProductController extends Controller
                 }
             }
 
-            $request['sablon_type'] = implode(',', $request->sablon_type);
+            $request['sablon_type'] = ($request->sablon_type ? implode(',', $request->sablon_type) : null);
 
             $id = IdGenerator::generate('PRDCT', 'products');
             $product->update([
