@@ -456,15 +456,18 @@
 
                 <div class="row justify-content-center mb-3 g-1">
                     <div class="col-md-6">
-                        <div class="row g-1">
-                            <div class="col-md-5">
-                                <img src="{{ asset('assets/image/upload/bordir/3d.png') }}" alt="Image Bordir" style="width: 100%;height: 100%;object-fit: cover;background-position: center;">
+                        <div class="row g-1 align-items-stretch h-100">
+                            <div class="col-5 d-flex">
+                                <img src="{{ asset('assets/image/upload/bordir/3d.png') }}"
+                                    class="img-fluid w-100 h-100 object-fit-cover"
+                                    style="object-position: top;"
+                                    alt="">
                             </div>
-                            <div class="col-md-7">
-                                <div class="card w-100 rounded-0 border-0">
-                                    <div class="card-body">
+                            <div class="col-7">
+                                <div class="card h-100 rounded-0 border-0">
+                                    <div class="card-body d-flex flex-column">
                                         <h5 class="mb-1">3D</h5>
-                                        <article style="max-height: 270px;min-height: 270px;overflow-y: auto;">
+                                        <article class="flex-grow-1 overflow-auto" style="max-height:270px;">
                                             <p>3D embroidery is a specialized embroidery technique that uses foam padding underneath the stitches to create a very pronounced embossed or raised effect. The process involves placing EVA foam with a thickness of 2-4mm on top of the fabric before the embroidery process begins.</p>
                                             <p>This foam is then sewn together with the fabric, and the embroidery machine will stitch through the foam following the design pattern. After the embroidery is complete, the foam not covered by stitches (the area outside the design) is cut or torn manually or by using a heat gun to melt it. The result is an embroidery design that is highly prominent and dimensional.</p>
                                         </article>
@@ -474,45 +477,60 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row g-1">
-                            <div class="col-md-5">
-                                <img src="{{ asset('assets/image/upload/bordir/towel.png') }}" alt="Image Bordir" style="width: 100%;height: 100%;object-fit: cover;background-position: center;">
+                        <div class="row g-1 align-items-stretch h-100">
+                            <div class="col-5 d-flex">
+                                <img src="{{ asset('assets/image/upload/bordir/towel.png') }}"
+                                    class="img-fluid w-100 h-100 object-fit-cover"
+                                    style="object-position: top;"
+                                    alt="">
                             </div>
-                            <div class="col-md-7">
-                                <div class="card w-100 rounded-0 border-0">
-                                    <div class="card-body">
+                            <div class="col-7">
+                                <div class="card h-100 rounded-0 border-0">
+                                    <div class="card-body d-flex flex-column">
                                         <h5 class="mb-1">Towel</h5>
-                                        <article style="max-height: 270px;min-height: 270px;overflow-y: auto;">Towel embroidery is a specialized technique that produces a furry or fuzzy texture resembling a towel or carpet. This technique uses special chenille yarn that is thicker and possesses fine fibers on its surface, or utilizes a chain stitch.</article>
+                                        <article class="flex-grow-1 overflow-auto" style="max-height:270px;">
+                                            Towel embroidery is a specialized technique that produces a furry or fuzzy texture resembling a towel or carpet. This technique uses special chenille yarn that is thicker and possesses fine fibers on its surface, or utilizes a chain stitch.
+                                        </article>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row g-1">
-                            <div class="col-md-5">
-                                <img src="{{ asset('assets/image/upload/bordir/regular.png') }}" alt="Image Bordir" style="width: 100%;height: 100%;object-fit: cover;background-position: center;">
+                        <div class="row g-1 align-items-stretch h-100">
+                            <div class="col-5 d-flex">
+                                <img src="{{ asset('assets/image/upload/bordir/regular.png') }}"
+                                    class="img-fluid w-100 h-100 object-fit-cover"
+                                    style="object-position: top;"
+                                    alt="">
                             </div>
-                            <div class="col-md-7">
-                                <div class="card w-100 rounded-0 border-0">
-                                    <div class="card-body">
+                            <div class="col-7">
+                                <div class="card h-100 rounded-0 border-0">
+                                    <div class="card-body d-flex flex-column">
                                         <h5 class="mb-1">Regular</h5>
-                                        <article style="max-height: 270px;min-height: 270px;overflow-y: auto;">Regular embroidery is the most commonly used standard embroidery technique, utilizing normal stitch density to produce a surface that is relatively flat or slightly raised from the fabric. Regular embroidery can be applied to almost any type of fabric, ranging from thin materials like polo shirts to thick ones like jackets, by adjusting the type of backing and stabilizer used.</article>
+                                        <article class="flex-grow-1 overflow-auto" style="max-height:270px;">
+                                            Regular embroidery is the most commonly used standard embroidery technique, utilizing normal stitch density to produce a surface that is relatively flat or slightly raised from the fabric. Regular embroidery can be applied to almost any type of fabric, ranging from thin materials like polo shirts to thick ones like jackets, by adjusting the type of backing and stabilizer used.
+                                        </article>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row g-1">
-                            <div class="col-md-5">
-                                <img src="{{ asset('assets/image/upload/bordir/velcro-patch.png') }}" alt="Image Bordir" style="width: 100%;height: 100%;object-fit: cover;background-position: center;">
+                        <div class="row g-1 align-items-stretch h-100">
+                            <div class="col-5 d-flex">
+                                <img src="{{ asset('assets/image/upload/bordir/velcro-patch.png') }}"
+                                    class="img-fluid w-100 h-100 object-fit-cover"
+                                    style="object-position: top;"
+                                    alt="">
                             </div>
-                            <div class="col-md-7">
-                                <div class="card w-100 rounded-0 border-0">
-                                    <div class="card-body">
+                            <div class="col-7">
+                                <div class="card h-100 rounded-0 border-0">
+                                    <div class="card-body d-flex flex-column">
                                         <h5 class="mb-1">Velcro Patches</h5>
-                                        <article style="max-height: 270px;min-height: 270px;overflow-y: auto;">Velcro Patches are badges that feature a hook backing, allowing them to be instantly attached and detached from jackets, bags, or other garments that have a corresponding loop surface. Their main advantage is high flexibility. These patches are often used on coach jackets, leather jackets, backpacks, and hats to add an eye-catching accent, enabling the wearer to quickly and easily change their outfit's appearance according to their mood or event.</article>
+                                        <article class="flex-grow-1 overflow-auto" style="max-height:270px;">
+                                            Velcro Patches are badges that feature a hook backing, allowing them to be instantly attached and detached from jackets, bags, or other garments that have a corresponding loop surface. Their main advantage is high flexibility. These patches are often used on coach jackets, leather jackets, backpacks, and hats to add an eye-catching accent, enabling the wearer to quickly and easily change their outfit's appearance according to their mood or event.
+                                        </article>
                                     </div>
                                 </div>
                             </div>
@@ -538,30 +556,38 @@
                 
                 <div class="row justify-content-center mb-3 g-1">
                     <div class="col-md-6">
-                        <div class="row g-1">
-                            <div class="col-md-5">
-                                <img src="{{ asset('assets/image/upload/others/rhinestone.png') }}" alt="Image Others" style="width: 100%;height: 100%;object-fit: cover;background-position: center;">
+                        <div class="row g-1 align-items-stretch h-100">
+                            <div class="col-5 d-flex">
+                                <img src="{{ asset('assets/image/upload/others/rhinestone.jpeg') }}"
+                                    class="img-fluid w-100 h-100 object-fit-cover"
+                                    style="object-position: top;"
+                                    alt="">
                             </div>
-                            <div class="col-md-7">
-                                <div class="card w-100 rounded-0 border-0">
-                                    <div class="card-body">
+                            <div class="col-7">
+                                <div class="card h-100 rounded-0 border-0">
+                                    <div class="card-body d-flex flex-column">
                                         <h5 class="mb-1">Rhinestone</h5>
-                                        <article style="max-height: 270px;min-height: 270px;overflow-y: auto;">The use of rhinestones is a fantastic way to instantly elevate the look of clothing. These shimmering stones are not just decorations; they provide a dramatic sense of glamor and luxury, making plain clothes or simple designs look far more exclusive and eye-catching (a true statement piece). The sparkle reflected by the rhinestones can lend a cool and unique visual dimension to any outfit.</article>
+                                        <article class="flex-grow-1 overflow-auto" style="max-height:270px;">
+                                            The use of rhinestones is a fantastic way to instantly elevate the look of clothing. These shimmering stones are not just decorations; they provide a dramatic sense of glamor and luxury, making plain clothes or simple designs look far more exclusive and eye-catching (a true statement piece). The sparkle reflected by the rhinestones can lend a cool and unique visual dimension to any outfit.
+                                        </article>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row g-1">
-                            <div class="col-md-5">
-                                <img src="{{ asset('assets/image/upload/others/distress.png') }}" alt="Image Others" style="width: 100%;height: 100%;object-fit: cover;background-position: center;">
+                        <div class="row g-1 align-items-stretch h-100">
+                            <div class="col-5 d-flex">
+                                <img src="{{ asset('assets/image/upload/others/distress.jpeg') }}"
+                                    class="img-fluid w-100 h-100 object-fit-cover"
+                                    style="object-position: top;"
+                                    alt="">
                             </div>
-                            <div class="col-md-7">
-                                <div class="card w-100 rounded-0 border-0">
-                                    <div class="card-body">
+                            <div class="col-7">
+                                <div class="card h-100 rounded-0 border-0">
+                                    <div class="card-body d-flex flex-column">
                                         <h5 class="mb-1">Distress</h5>
-                                        <article style="max-height: 270px;min-height: 270px;overflow-y: auto;">
+                                        <article class="flex-grow-1 overflow-auto" style="max-height:270px;">
                                             <p>Distressing in fashion is a deliberate finishing process applied to fabric or garments to create a worn-out, old, faded, or torn look. This technique mimics the natural damage that occurs over time and through use, often achieved through harsh washing processes, abrasion, or mechanical tearing.</p>
                                             <p>This distressing effect significantly adds an edgy feel to the fashion being worn. With its imperfect and rugged appearance, distressing imparts a vibe of rebellion, cool casualness, and authentic vintage style. Distressed garments, such as faded hoodies or ripped jeans, immediately become a statement piece that attracts attention, radiating an aura of <i>effortlessly cool</i> and <i>anti-establishment</i>.</p>
                                         </article>
@@ -570,6 +596,7 @@
                             </div>
                         </div>
                     </div>
+
                     {{-- <div class="col-md-4">
                         <img src="{{ asset('assets/image/upload/others/velcro-patch.png') }}" alt="Image Others" style="width: 100%;height: 350px;object-fit: cover;background-position: center;">
                         <div class="card w-100 rounded-0 border-0">

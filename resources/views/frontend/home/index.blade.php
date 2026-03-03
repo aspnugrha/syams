@@ -57,7 +57,7 @@
 <img class="responsive-banner" src="{{ asset('assets/image/upload/landing_page/bg-5.jpg') }}" alt="Banner">
 @endif
 
-<section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
+<section id="billboard" class="bg-light pt-5" style="position: relative;">
     <div class="w-100 container p-0">
       <div class="row justify-content-center">
         <h2 class="section-title text-center mt-4 text-uppercase fs-1" data-aos="fade-up">Turning the impossible<br>into wearable</h2>
