@@ -139,6 +139,58 @@
       .iti{
         width: 100%;
       }
+
+      .responsive-banner {
+          width: 100%;
+          height: 100vh;
+          object-fit: cover;
+      }
+
+      .showcase-image {
+          width: 100%;height: 320px;object-fit: cover
+      }
+
+      .showcase-title{
+        font-size: 14px;color: #333;
+      }
+
+      .showcase-note{
+        font-size: 13px;
+      }
+
+      .showcase-info{
+        min-height: 80px;
+      }
+
+      .text-title-landing{
+        font-size: 6vh;
+      }
+
+      /* Mobile */
+      @media (max-width: 768px) {
+          .responsive-banner {
+              height: 40vh;
+          }
+          .showcase-image {
+              height: 200px;
+          }
+
+          .showcase-title{
+            font-size: 13px;
+          }
+
+          .showcase-note{
+            font-size: 11px;
+          }
+
+          .showcase-info{
+            min-height: 60px;
+          }
+
+          .text-title-landing{
+            font-size: 4.5vh;
+          }
+      }
     </style>
     @yield('styles')
 </head>

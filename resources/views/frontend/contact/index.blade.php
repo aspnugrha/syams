@@ -52,11 +52,6 @@
                     </a>
                 </div>
                 @endif
-            </div>
-        </div>
-        
-        <div class="w-100">
-            <div class="row justify-content-center">
                 @if ($company->imessage)
                 <div class="col-6 col-md-3 py-4">
                     <a href="imessage://+{{ $company->imessage ? $company->imessage : '?' }}">

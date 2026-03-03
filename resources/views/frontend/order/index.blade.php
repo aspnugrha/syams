@@ -50,7 +50,7 @@
       <div class="row justify-content-center" style="">
         <div class="col-md-8 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
-            <h3 class="section-title text-uppercase">Order Form</h3>
+            <h3 class="section-title text-uppercase fs-1">Order Form</h3>
             <span class="text-muted">Fill out the form and customize your order</span>
         </div>
           <form method="POST" id="form-data" class="d-flex flex-wrap gap-2">

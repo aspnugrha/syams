@@ -7,9 +7,9 @@
     $banner = json_decode($company->banner, true);
 @endphp
 @if ($banner)
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Cover Product">
 @else
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Cover Product" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Cover Product">
 @endif
 
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
@@ -55,7 +55,7 @@
     </div>
     <div class="col-md-7">
       <small class="text-muted">{{ ($product->hasCategory ? $product->hasCategory->name : '') }}</small>
-      <h4>{{ $product->name }}</h4>
+      <h4 class="fs-4 fs-md-3">{{ $product->name }}</h4>
 
       <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">

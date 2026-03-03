@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
-            <h3 class="section-title text-uppercase">Login Form</h3>
+            <h3 class="section-title text-uppercase fs-1">Login Form</h3>
             <span class="text-muted">Login to get full access</span>
           </div>
           <form method="POST" id="form-data" class="d-flex flex-wrap gap-2">

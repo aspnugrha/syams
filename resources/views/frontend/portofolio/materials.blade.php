@@ -124,15 +124,16 @@
     $banner = json_decode($company->banner, true);
 @endphp
 @if ($banner)
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Banner">
 @else
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Banner">
 @endif
 
 <div class="bg-light">
     <div class="container pt-5">
         <div class="row g-2 mb-5">
-            <h4 class="mb-3">Materials and colors</h4>
+            <h4 class="mb-3 fs-3 d-none d-md-block">Materials and colors</h4>
+            <h4 class="mb-3 fs-3 d-block d-md-none">Materials and colors</h4>
             
             <!-- SECTION 01 -->
             <section class="section pt-2">
@@ -153,7 +154,8 @@
                     <div class="col-md-6">
                         <div class="material-info p-3 bg-white h-100">
                             <small class="text-muted">Material</small>
-                            <h5 class="mb-1">{{ $item->name }}</h5>
+                            <h4 class="mb-1 fs-4 d-none d-md-block">{{ $item->name }}</h4>
+                            <h4 class="mb-1 fs-6 d-block d-md-none">{{ $item->name }}</h4>
     
                             <small class="text-muted">Available Colors</small>
                             @if ($item->colors)

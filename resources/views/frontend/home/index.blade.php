@@ -52,15 +52,15 @@
     $banner = json_decode($company->banner, true);
 @endphp
 @if ($banner)
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_landing_page']) }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/'.$banner['banner_landing_page']) }}" alt="Banner">
 @else
-<img class="responsive-img" src="{{ asset('assets/image/upload/landing_page/bg-5.jpg') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/landing_page/bg-5.jpg') }}" alt="Banner">
 @endif
 
 <section id="billboard" class="bg-light pt-5" style="position: relative;margin-top: -10px;">
     <div class="w-100 container p-0">
       <div class="row justify-content-center">
-        <h2 class="section-title text-center mt-4 text-uppercase" style="font-size: 6vh;" data-aos="fade-up">Turning the impossible<br>into wearable</h2>
+        <h2 class="section-title text-center mt-4 text-uppercase fs-1" data-aos="fade-up">Turning the impossible<br>into wearable</h2>
         <div class="col-md-10 text-center" data-aos="fade-up" data-aos-delay="300">
           <p>
             Syams is a fashion manufacturing company that delivers more than just clothing. We create apparel through a process driven by precision, creativity, and intention. Each piece is crafted by skilled hands and intentional design thinking. Resulting in garments that are not only wearable, but meaningful. Turning the Impossible into Wearable is our commitment to pushing boundaries and transforming ambitious ideas into real, wearable fashion.
@@ -168,12 +168,12 @@
           $size_qty_count = count($size_qty);
         }
       @endphp
-      <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
+      <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3 col-6">
         <div class=" border-0 rounded-0">
-          <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
-          <div class="container py-2" style="min-height: 80px;">
-            <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
-            <small class="text-muted">{{ $size_qty_count }} Size Options</small>
+          <img class="showcase-image" src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}">
+          <div class="container py-2 showcase-info">
+            <p class="p-0 fw-semibold text-uppercase m-0 showcase-title">{{ $item->name }}</p>
+            <small class="text-muted showcase-note">{{ $size_qty_count }} Size Options</small>
           </div>
         </div>
       </a>
@@ -189,28 +189,28 @@
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="0">
           <div class="py-3">
             <i class="mdi mdi-truck-fast-outline" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Free Shipping</h4>
+            <h4 class="element-title text-capitalize my-3 fs-3 fs-md-1">Free Shipping</h4>
             <p>We provide free shipping to ensure a smooth and seamless production process from start to destination. No hidden costs—just efficient and reliable delivery.</p>
           </div>
         </div>
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="300">
           <div class="py-3">
             <i class="mdi mdi-message-text-fast-outline" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Free Consultation</h4>
+            <h4 class="element-title text-capitalize my-3 fs-3 fs-md-1">Free Consultation</h4>
             <p>Every production begins with a clear and focused idea. Through our free consultation, we help refine concepts, material selection, and the right production approach before bringing them to life.</p>
           </div>
         </div>
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="600">
           <div class="py-3">
             <i class="mdi mdi-package-variant-closed-check" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Free Packaging</h4>
+            <h4 class="element-title text-capitalize my-3 fs-3 fs-md-1">Free Packaging</h4>
             <p>The final presentation is part of a product’s value. We offer free packaging designed to protect the product while enhancing its premium appeal.</p>
           </div>
         </div>
         <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="900">
           <div class="py-3">
             <i class="mdi mdi-tshirt-crew-outline" style="font-size: 45px;"></i>
-            <h4 class="element-title text-capitalize my-3">Free Sample</h4>
+            <h4 class="element-title text-capitalize my-3 fs-3 fs-md-1">Free Sample</h4>
             <p>Quality should be experienced before full production. We provide free samples so you can directly evaluate materials, fit, and craftsmanship with confidence.</p>
           </div>
         </div>
@@ -832,7 +832,7 @@
       <div class="row justify-content-center">
         <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
-            <h3 class="section-title text-uppercase">I would like to request a sample</h3>
+            <h3 class="section-title text-uppercase fs-1">I would like to request a sample</h3>
           </div>
           <div class="d-flex flex-wrap gap-2">
             <input type="text" name="email" id="email_request_sample" placeholder="Your Email Addresss" class="form-control form-control-lg" required>

@@ -54,7 +54,7 @@
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="footer-menu footer-menu-002">
-                <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
+                <h5 class="widget-title text-uppercase mb-4 fs-6 fs-md-4">Quick Links</h5>
                 {{-- <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6"> --}}
                 <ul class="menu-list list-unstyled border-animation-left fs-6">
                     <li class="menu-item" style="font-size: 15px;">
@@ -80,7 +80,7 @@
             </div>
             {{-- <div class="col-md-3 col-sm-6">
                 <div class="footer-menu footer-menu-002">
-                <h5 class="widget-title text-uppercase mb-4">Contact & Order</h5>
+                <h5 class="widget-title text-uppercase mb-4 fs-6 fs-md-4">Contact & Order</h5>
                 <ul class="menu-list list-unstyled border-animation-left fs-6">
                     <li class="menu-item" style="font-size: 15px;">
                     <a href="{{ route('contact-us') }}" class="item-anchor">Contact</a>
@@ -93,7 +93,7 @@
             </div> --}}
             <div class="col-md-2 col-sm-6">
                 <div class="footer-menu footer-menu-003">
-                <h5 class="widget-title text-uppercase mb-4">Policy</h5>
+                <h5 class="widget-title text-uppercase mb-4 fs-6 fs-md-4">Policy</h5>
                 <ul class="menu-list list-unstyled border-animation-left fs-6">
                     <li class="menu-item" style="font-size: 15px;">
                     <a href="{{ route('policies', 'privacy') }}" class="item-anchor">Privacy</a>
@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="footer-menu footer-menu-004 border-animation-left">
-                    <h5 class="widget-title text-uppercase mb-4">Help & Info</h5>
+                    <h5 class="widget-title text-uppercase mb-4 fs-6 fs-md-4">Help & Info</h5>
                     <p style="word-break: break-all;">
                         Do you have any questions or suggestions?
                         <a href="mailto:{{ ($company_profile && $company_profile->email ? $company_profile->email : 'example@email.com') }}"

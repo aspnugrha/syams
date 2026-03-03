@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 py-5 {{ Auth::guard('customer')->user() ? 'mb-5' : 'my-5' }}">
                 <div class="subscribe-header text-center pb-3">
-                    <h3 class="section-title text-uppercase">Order Details</h3>
+                    <h3 class="section-title text-uppercase fs-1">Order Details</h3>
                     <span class="text-muted">Your order details</span><br>
                     <h5 class="badge bg-dark mt-2 fs-6">{{ $orders->order_number }}</h5>
                 </div>

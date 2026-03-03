@@ -159,15 +159,16 @@
     $banner = json_decode($company->banner, true);
 @endphp
 @if ($banner)
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/'.$banner['banner_showcase']) }}" alt="Banner">
 @else
-<img class="responsive-img" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Banner" style="width: 100%;height: 100vh;object-fit: cover;">
+<img class="responsive-banner" src="{{ asset('assets/image/upload/banner/banner-showcase.png') }}" alt="Banner">
 @endif
 
 <div class="bg-light">
     <div class="container pt-4">
         <div class="row g-1 pb-5">
-            <h4 class="mb-3">Showcase</h4>
+            <h4 class="mb-3 fs-4 d-none d-md-block">Showcase</h4>
+            <h4 class="mb-3 fs-5 d-block d-md-none">Showcase</h4>
             @foreach($product_showcase as $item)
             @php
                 $covers = explode(',', $item->image);
@@ -179,12 +180,12 @@
                     $size_qty_count = count($size_qty);
                 }
             @endphp
-            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
+            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3 col-6">
                 <div class=" border-0 rounded-0">
-                    <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
-                    <div class="container py-2" style="min-height: 80px;">
-                        <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
-                        <small class="text-muted">{{ $size_qty_count }} Size Options</small>
+                    <img class="showcase-image" src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="">
+                    <div class="container py-2 showcase-info">
+                        <p class="p-0 fw-semibold text-uppercase m-0 showcase-title">{{ $item->name }}</p>
+                        <small class="text-muted showcase-note">{{ $size_qty_count }} Size Options</small>
                     </div>
                 </div>
             </a>
@@ -204,7 +205,8 @@
             @endforeach
         </div>
         <div class="row g-1 pb-3">
-            <h4 class="mb-3">Order</h4>
+            <h4 class="mb-3 fs-4 d-none d-md-block">Order</h4>
+            <h4 class="mb-3 fs-5 d-block d-md-none">Order</h4>
             @foreach($product_order as $item)
             @php
                 $covers = explode(',', $item->image);
@@ -216,12 +218,12 @@
                     $size_qty_count = count($size_qty);
                 }
             @endphp
-            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3">
+            <a href="{{ route('showcase.detail', ['slug' => $item->slug]) }}" class="col-md-3 col-6">
                 <div class=" border-0 rounded-0">
-                    <img src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}" style="width: 100%;height: 320px;object-fit: cover">
-                    <div class="container py-2" style="min-height: 80px;">
-                        <p class="p-0 fw-semibold text-uppercase mb-1" style="font-size: 14px;color: #333;">{{ $item->name }}</p>
-                        <small class="text-muted">{{ $size_qty_count }} Size Options</small>
+                    <img class="showcase-image" src="{{ asset('assets/image/upload/product/'.$cover) }}" class="d-block w-100" alt="Cover {{ $item->name }}">
+                    <div class="container py-2 showcase-info">
+                        <p class="p-0 fw-semibold text-uppercase mb-1 showcase-title">{{ $item->name }}</p>
+                        <small class="text-muted showcase-note">{{ $size_qty_count }} Size Options</small>
                     </div>
                 </div>
             </a>
@@ -246,7 +248,8 @@
 <div class="bg-light">
     <div class="container pt-5">
         <div class="row g-2 mb-5">
-            <h4 class="mb-3">Materials, colors, and workmanship</h4>
+            <h4 class="mb-3 fs-4 d-none d-md-block">Materials, Colors and workmanship</h4>
+            <h4 class="mb-3 fs-5 d-block d-md-none">Materials, Colors and workmanship</h4>
             
             <!-- SECTION 01 -->
             <section class="section pt-2">
@@ -268,7 +271,8 @@
                     <div class="col-md-6">
                         <div class="material-info p-3 bg-white h-100">
                             <small class="text-muted">Material</small>
-                            <h5 class="mb-1">{{ $item->name }}</h5>
+                            <h4 class="mb-1 fs-4 d-none d-md-block">{{ $item->name }}</h4>
+                            <h4 class="mb-1 fs-6 d-block d-md-none">{{ $item->name }}</h4>
     
                             <small class="text-muted">Available Colors</small>
                             @if ($item->colors)
@@ -362,7 +366,8 @@
                             <div class="col-md-8">
                                 <div class="p-3">
                                     <small class="text-muted">Printing Type</small>
-                                    <h5 class="mb-1">{{ $item->name }}</h5>
+                                    <h4 class="mb-1 fs-4 d-none d-md-block">{{ $item->name }}</h4>
+                                    <h4 class="mb-1 fs-5 d-block d-md-none">{{ $item->name }}</h4>
                                     <article>{{ $item->description }}</article>
                                     <div class="row g-1 bg-white mt-3 mb-1">
                                         @foreach ($item->examples as $example)
@@ -387,7 +392,8 @@
                             <div class="col-md-8">
                                 <div class="p-3">
                                     <small class="text-muted">Printing Type</small>
-                                    <h5 class="mb-1">{{ $item->name }}</h5>
+                                    <h4 class="mb-1 fs-4 d-none d-md-block">{{ $item->name }}</h4>
+                                    <h4 class="mb-1 fs-5 d-block d-md-none">{{ $item->name }}</h4>
                                     <article>{{ $item->description }}</article>
                                     <div class="row g-1 bg-white mt-3 mb-1">
                                         @foreach ($item->examples as $example)

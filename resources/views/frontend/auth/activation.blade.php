@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
-            <h3 class="section-title text-uppercase">Activation Account Form</h3>
+            <h3 class="section-title text-uppercase fs-1">Activation Account Form</h3>
             <span class="text-muted">Activate account to get full access</span>
           </div>
           <form method="POST" id="form-data" class="d-flex flex-wrap gap-2">

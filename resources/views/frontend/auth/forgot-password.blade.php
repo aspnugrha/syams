@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-md-7 py-5 my-5">
           <div class="subscribe-header text-center pb-3">
-            <h3 class="section-title text-uppercase">Forgot Password Form</h3>
+            <h3 class="section-title text-uppercase fs-1">Forgot Password Form</h3>
             <span class="text-muted">Don't worry, it only takes a few moments for your account to be back.</span>
           </div>
           <form method="POST" id="form-data" class="d-flex flex-wrap gap-2">
